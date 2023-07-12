@@ -23,4 +23,13 @@ function extractMetadata() {
 $( document ).ready(function (){
 
     extractMetadata();
+    const lineElement = document.getElementById('hand-drawn-line');
+lineElement.addEventListener('mousemove', function(event) {
+  const x = event.clientX - lineElement.offsetLeft;
+  const y = event.clientY - lineElement.offsetTop;
+  lineElement.style.setProperty('--mouse-x', x + 'px');
+  lineElement.style.setProperty('--mouse-y', y + 'px');
+});
+
+
 })

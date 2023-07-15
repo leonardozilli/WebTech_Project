@@ -1,14 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Fanwood+Text:ital@0;1&family=Jomolhari&display=swap');
 
-@font-face {
-    font-family: 'kjv1611regular';
-    src: url('../fonts/kjv1611regular/kjv1611-webfont.woff2') format('woff2'),
-         url('../fonts/kjv1611regular/kjv1611-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
 body {
   background-color: #D8CAAD;
   font-family: 'Fanwood Text', serif;
@@ -20,8 +11,23 @@ article > h1 {
     font-family: 'Jamolhari', serif;
 }
 
-article > p {
-    font-family: 'kjv1611regular';
-    font-weight: normal;
-    font-style: normal;
+
+img {
+    max-width: 30vw;
 }
+
+figure {
+    text-align: center;
+}
+
+		.animate {
+			animation-name: bgcolor ;
+			animation-duration: 0.75s ; 
+			animation-iteration-count: 3;
+			animation-fill-mode: backwards;
+		}
+
+		@keyframes bgcolor {
+			from { background-color: #ffffff;  }
+			to { background-color: #cccc00; }
+		}

@@ -12,7 +12,7 @@ body {
 
 div.grid {
   display: grid;
-  grid-template-columns: 10vw auto 10vw;
+  grid-template-columns: auto 60vw auto;
   grid-template-rows: 10vh auto 10vh;
   grid-gap: 1em;
 }

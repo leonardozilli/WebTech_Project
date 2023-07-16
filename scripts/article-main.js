@@ -44,7 +44,7 @@ class Article {
 
 function goto(id) {
     let t = $(id)[0].offsetTop;
-    console.log(id);
+    console.log($(id));
     $('html,body').animate({ scrollTop: t }, 200);
     $(id).addClass('animate');
     setTimeout(function () {
@@ -67,21 +67,37 @@ function displayMetadata(article) {
         personContainer.append(listItem)
     })
     article.places.forEach(function(el) {
-        let id = el.id
+        const id = el.id
         const listItem = $('<li></li>');
-        listItem.append($(`<a class="metadata-entry" href="#" onclick="goto(${id})"></a>`).text(el.innerHTML))
+        listItem.append($(`<a class="metadata-entry" href="#" onclick="goto('#${id}')"></a>`).text(el.innerHTML))
         placeContainer.append(listItem)
     })
     article.dates.forEach(function(el) {
-        let id = el.id
+        const id = el.id
         const listItem = $('<li></li>');
         listItem.append($(`<a class="metadata-entry" href="#" onclick="goto('#${id}')"></a>`).text(el.innerHTML))
         dateContainer.append(listItem)
     })
 }
 
+function collapseList() {
+    $('.metadata-list-button').on("click", function (e) {
+        if ($(this).next().hasClass('collapsed-list')) {
+            $(this).next().slideDown();
+            $(this).next().removeClass('collapsed-list');
+        }
+        else {
+            // collapse the panel
+            $(this).next().slideUp();
+            $(this).next().addClass('collapsed-list');
+        }
+    });
+};
+
+
 $(document).ready(function () {
     const article = new Article($('.article').first());
     document.title = article.title + ', by ' + article.author;
     displayMetadata(article);
+    collapseList();
 });

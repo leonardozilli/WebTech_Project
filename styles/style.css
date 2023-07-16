@@ -27,6 +27,31 @@ header {
 .metadata-panel-left {
   grid-row: 2;
   grid-column: 1 / 2;
+  position: fixed;
+  top: 10vh;
+  overflow-y: scroll;
+  top: 10vh;
+  bottom: 0;
+  scrollbar-width: thin;
+}
+
+.collapsed-list {
+  display: none;
+}
+
+.metadata-panel-left::-webkit-scrollbar {
+  display: none;
+}
+
+.metadata-container {
+}
+
+aside {
+}
+
+.metadata-list-button {
+  background-color: blue;
+  padding: 2rem 2rem;
 }
 
 .sidebar-right {

@@ -11,6 +11,12 @@ article > h1 {
     font-family: 'Jamolhari', serif;
 }
 
+article p {
+    hyphens: auto;
+    text-align: justify;
+    margin: 0;
+}
+
 
 img {
     max-width: 30vw;

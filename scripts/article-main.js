@@ -81,18 +81,28 @@ function displayMetadata(article) {
 }
 
 function collapseList() {
-    $('.metadata-list-button').on("click", function (e) {
-        if ($(this).next().hasClass('collapsed-list')) {
-            $(this).next().slideDown();
-            $(this).next().removeClass('collapsed-list');
-        }
-        else {
-            // collapse the panel
-            $(this).next().slideUp();
-            $(this).next().addClass('collapsed-list');
-        }
-    });
-};
+  $(".metadata-list-header").on("click", function (e) {
+    if ($(this).next().hasClass("collapsed-list")) {
+      $(this).next().slideDown();
+      $(this).next().removeClass("collapsed-list");
+    } else {
+      // collapse the panel
+      $(this).next().slideUp();
+      $(this).next().addClass("collapsed-list");
+    }
+  });
+}
+
+function countLines() {
+  let articleLines = 0;
+  $("article p").each(function () {
+    const lineHeight = parseFloat($(this).css("line-height"));
+    const height = $(this).height();
+    const lines = Math.round(height / lineHeight) + 1;
+    articleLines += lines;
+    $(this).next("p").attr("data-lines", articleLines);
+  });
+}
 
 
 $(document).ready(function () {
@@ -100,4 +110,5 @@ $(document).ready(function () {
     document.title = article.title + ', by ' + article.author;
     displayMetadata(article);
     collapseList();
+    countLines();
 });

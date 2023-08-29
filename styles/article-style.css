@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Fanwood+Text:ital@0;1&family=Jomolhari&display=swap');
 
 @font-face {
+    font-family: 'Century Modern';
+    src:url('../fonts/Century\ Modern/Century modern.ttf');
+}
+
+@font-face {
     font-family: 'Essays-1743';
     src:url('../fonts/webfonts_Essays-1743/Essays-1743.ttf.woff') format('woff'),
         url('../fonts/webfonts_Essays-1743/Essays-1743.ttf.svg') format('svg'),
@@ -55,7 +60,8 @@ body {
   background: linear-gradient(135deg, #F0EAD6, #E0D5C5);
   font-family: 'Chapbook', 'Humane Bordeaux', serif;
   color: #3a302a;
-  opacity: 0.8;
+  opacity: 0.9;
+  letter-spacing: 0.1em;
 }
 
 html::-webkit-scrollbar {

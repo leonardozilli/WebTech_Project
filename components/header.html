@@ -1,0 +1,132 @@
+ <!-- versione della topbar con le mani -->
+
+ <style>
+
+ input[type=text] {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+}
+
+</style>
+
+<!-- <div class="selectorBar shadow mb-5 bg-white rounded"> -->
+
+  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between px-4 selectorBar mb-5 bg-white rounded headerCustom">
+    <!-- <div class="row g-5"> -->
+
+      <div class="d-flex flex-row col-4 align-items-center"> <!-- la classe era: col -->
+        <div id="logo">
+          <a href="index.html" class="">
+          <img src="img/btns/logo_u.png" style="width:60px; margin:-3px 0px 0px 0px;"/>
+          </a>
+        </div>
+
+        <div>
+          <nav id="mainMenu" class="navbar-light">
+
+            <ul class="nav col-md-auto mb-2 mb-md-0 mt-2">
+              <li class="nav-item dropdown">
+                <a class="nav-link px-2 link-dark dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Our Issues</a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" id="issuesList">
+                  <!--
+                  IL MENU DEGLI ISSUES VIENE POPOLATO DAL JAVASCRIPT IN FONDO A QUESTO FILE LEGGENDO issuesDb.json
+                  <li><a class="dropdown-item" href="issuecover1.html">Issue 1</a></li>
+                  <li><a class="dropdown-item" href="issuecover2.html">Issue 2</a></li>
+                  -->
+                </ul>
+              </li>
+              <li class="nav-item"><a href="disclaimer.html" class="nav-link px-2 link-dark">Disclaimer</a></li>
+              <li class="nav-item"><a href="documentation.html" class="nav-link px-2 link-dark">Documentation</a></li>
+            </ul>
+
+          </nav>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- STYLE MENU -->
+      <div>
+        <div>
+          <nav id="styleSelector" class="navbar navbar-light justify-content-center">
+            <a class="nav-item nav-link active" year="1500" href="#"onclick="switchToSS (document.getElementById('cssstyle1'),document.getElementById('cssstyle2'),document.getElementById('cssstyle3'),document.getElementById('cssstyle4'))">
+              <img class="itemIcon" src="img/btns/one.png" width="60" height="60" alt="onefinger">
+            </a>
+            <a class="nav-item nav-link active" year="1950" href="#" onclick="switchToSS (document.getElementById('cssstyle2'),document.getElementById('cssstyle1'),document.getElementById('cssstyle3'),document.getElementById('cssstyle4'))">
+              <img class="itemIcon" src="img/btns/two.png" width="60" height="60" alt="twofingers">
+            </a>
+            <a class="nav-item nav-link active" year="1990" href="#" onclick="switchToSS (document.getElementById('cssstyle3'),document.getElementById('cssstyle1'),document.getElementById('cssstyle2'),document.getElementById('cssstyle4'))">
+              <img class="itemIcon" src="img/btns/three.png" width="60" height="60" alt="threefingers">
+            </a>
+            <a class="nav-item nav-link active" year="2030" href="#" onclick="switchToSS (document.getElementById('cssstyle4'),document.getElementById('cssstyle1'),document.getElementById('cssstyle2'),document.getElementById('cssstyle3'))">
+              <img class="itemIcon" src="img/btns/four.png" width="60" height="60" alt="fourfingers">
+            </a>
+            <a class="nav-item nav-link" year="CLEAN" active" href="#" onclick="cleanUpSS()" alt="Clean Up">
+              <img class="itemIcon" src="img/btns/refresh.png" width="60" height="60" alt="refresh button">
+            </a>
+          </nav>
+        </div>
+        <div class="text-center">
+          <h1 id="reviewName">hUmagazine</h1>
+        </div>
+      </div>
+
+      <div class="col-1"> </div>
+
+      <div class="col-3">
+
+      <form class="d-flex" action="search.html" method="GET">
+        <input class="form-control me-2" type="search" name="q" placeholder="Search..." aria-label="Search">
+        <button id="searchBtn" class="btn btn-outline-light" type="submit" width="20" height="20"><img src="img/lens.png" width="20" height="20" alt="search lens"></button>
+      </form>
+      </div>
+
+<!-- </div> -->
+
+</header>
+
+<!-- </div> -->
+
+<script type="text/javascript">
+  //var issuesDet = JSON.parse(fs.readFileSync("issuesDb.json"));
+
+  // Adds one link to the menu for each issue contained in the issuesDb.json file
+  $.getJSON('./issuesDb.json', function(objson){
+            //console.log(objson.topic);
+            for (const jsonissue of objson.issues) {
+              $("#issuesList").append('<li><a class="dropdown-item" href="issuecover.html?number=' + jsonissue.number + '">Issue ' + jsonissue.number + ': ' + jsonissue.topic + '</a></li>');
+              //console.log(jsonissue.number);
+              //console.log(jsonissue.topic);
+            }
+          }).fail(function(){
+            console.log("An error has occurred.");
+    });
+
+
+  // When the user scrolls down from the top of the document, resize the navbar's padding and the logo's font size
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+      document.getElementById("reviewName").style.fontSize = "30px";
+      document.getElementById("reviewName").style.zIndex = "100";
+      document.getElementById("styleSelector").style.padding = "0px";
+      document.getElementById("styleSelector").style.height = "60px";
+    } else {
+      document.getElementById("reviewName").style.fontSize = "";
+      document.getElementById("styleSelector").style.padding = "";
+      document.getElementById("styleSelector").style.height = "";
+    }
+  }
+
+
+</script>

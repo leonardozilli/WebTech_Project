@@ -32,7 +32,7 @@ class Article {
         })
         $("span.person").each(function () {
             let fullName = $(this).text().split(' ')
-            let personId = fullName[fullName.length - 1].toLowerCase()
+            let personId = fullName[fullName.length - 1].toLowerCase().replace(/ |-|,|'|’/g, '_')
             $(this).attr('id', personId);
         })
         $("span.place").each(function () {
@@ -44,7 +44,8 @@ class Article {
 
 function goto(id) {
     let t = $(id)[0].offsetTop;
-    console.log($(id));
+    console.log($(id)[1]);
+    console.log(id)
     $('html,body').animate({ scrollTop: t }, 200);
     $(id).addClass('animate');
     setTimeout(function () {

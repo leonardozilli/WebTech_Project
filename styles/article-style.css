@@ -87,9 +87,10 @@ header {
   grid-column: 1 / 2;
   position: fixed;
   top: calc(10vh + 1em);
-  overflow-y: scroll;
-  background-color: yellow;
-  width: 5em;
+  overflow-y: auto;
+  height: 80%;
+  padding: 1rem;
+  border: 2px solid black;
 }
 
 .collapsed-list {
@@ -234,8 +235,6 @@ figure + p::first-letter, article p:first-of-type::first-letter {
   padding-right: 0;
 }
 
-
-
 img {
     max-width: 30vw;
 }
@@ -249,3 +248,15 @@ figure figcaption {
     font-size: 0.8em;
     font-style: italic;
 }
+
+		.animate {
+			animation-name: bgcolor ;
+			animation-duration: 0.75s ; 
+			animation-iteration-count: 3;
+			animation-fill-mode: backwards;
+		}
+
+		@keyframes bgcolor {
+			from { background-color: #ffffff;  }
+			to { background-color: #cccc00; }
+		}

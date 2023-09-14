@@ -1,0 +1,25 @@
+{
+  "issues": [
+    {
+      "number": 1,
+      "articles": [
+        {
+          "number": 1,
+          "filename": "spent-fuel-the-risky-resurgence-of-nuclear-power.html"
+        },
+        {
+          "number": 2,
+          "filename": "is-nuclear-power-worth-the-risk.html"
+        },
+        {
+          "number": 3,
+          "filename": "the-real-obstacle-to-nuclear-power.html"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "articles": []
+    }
+  ]
+}

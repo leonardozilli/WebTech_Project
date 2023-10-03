@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Project title</title>
   <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-  <link rel="stylesheet" href="./styles/style.css" />
+  <link id="style" rel="stylesheet" href="./styles/1500.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,19 +20,47 @@
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="./scripts/main.js"></script>
   <script src="./scripts/map.js"></script>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 
 <body>
   <header id="header"></header>
 
   <main>
-    <div class="map" id="map">
+    <div id="style-selector">
+        <h1>Select a User Style</h1>
+        <div class="style-buttons">
+          <button class="style-buttn" id="style1">Style 1</button>
+          <button class="style-buttn" id="style2">Style 2</button>
+          <button class="style-buttn" id="style3">Style 3</button>
+        </div>
     </div>
-    <section class="issues">
-      <h1>Latest Issues</h1>
+    <section class="double-folio" id="landing">
+      <div class="map-container">
+        <div class="map" id="map"></div>
+      </div>
+      <div class="button-container">
+        <button class="button" id="scrolldown-heart" onClick="document.getElementById('titlepage').scrollIntoView({behavior: 'smooth'});"></button>
+      </div>
+    </section>
+    <section class="titlepage folio" id="titlepage">
+      <img class="decoration" src="./img/decoration.png" alt="">
+      <h1>TITLE</h1>
+      <h3>AND</h3>
+      <h2>SUBTITLE</h2>
+      <hr class="horizontal-line">
+      <div class="latest-issue-container">
+        <h3>LATEST ISSUE:</h3>
+        <img src="./img/issue-logo.png" alt="" class="latest-issue-image">
+
+      </div>
+    </section>
+    <section class="folio" id="">
+      <h1>Older Issues:</h1>
       <ul class="issues-list" id="issueList"></ul>
     </section>
-    <section class="articles">
+    <section class="articles folio">
       <h1>Latest Articles</h1>
       <ul class="articles-list" id="articleList"></ul>
   </main>
@@ -57,5 +85,10 @@
     });
   </script>
   </body>
+  <style>
+      .hidden {
+        display: none;
+      }
+  </style>
   
   </html>

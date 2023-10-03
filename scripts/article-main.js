@@ -56,10 +56,13 @@ function goto(id) {
 
 
 function displayMetadata(article) {
-    const personContainer = $('.persList')
-    const placeContainer = $('.placeList')
-    const dateContainer = $('.dateList')
-
+    $('.article-title').text(article.title);
+    $('.article-author').text(article.author);
+    $('.article-subtitle').text(article.subtitle);
+    $('.article-date').text(article.date);
+    const personContainer = $('.persList');
+    const placeContainer = $('.placeList');
+    const dateContainer = $('.dateList');
 
     article.people.forEach(function(el) {
         const id = el.id
@@ -87,7 +90,6 @@ function collapseList() {
       $(this).next().slideDown();
       $(this).next().removeClass("collapsed-list");
     } else {
-      // collapse the panel
       $(this).next().slideUp();
       $(this).next().addClass("collapsed-list");
     }
@@ -105,11 +107,23 @@ function countLines() {
   });
 }
 
+function dropCaps() {
+    const firstParagraph = document.querySelector(".article-text p:first-child");
+    const firstLetter = firstParagraph.textContent.charAt(1);
+    const remainingText = firstParagraph.textContent.slice(2);
+    firstParagraph.innerHTML = `<span class="drop-cap">${firstLetter}</span>${remainingText}`;
+    document.querySelector(".drop-cap").style.backgroundImage = `url(/img/icaps/${firstLetter.toLowerCase()}.gif)`;
+    console.log(firstLetter);
+};
+
 
 $(document).ready(function () {
     const article = new Article($('.article').first());
     document.title = article.title + ', by ' + article.author;
     displayMetadata(article);
     collapseList();
+
+    //these are for 1500.css only
     countLines();
+    dropCaps();
 });

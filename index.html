@@ -2,93 +2,89 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Project title</title>
-  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-  <link id="style" rel="stylesheet" href="./styles/1500.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="./scripts/main.js"></script>
-  <script src="./scripts/map.js"></script>
-  <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CarbOff</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link id="style" rel="stylesheet" href="./styles/1500.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="./scripts/main.js"></script>
+    <script src="./scripts/map.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 
 <body>
-  <header id="header"></header>
+    <header id="header"></header>
 
-  <main>
-    <div id="style-selector">
-        <h1>Select a User Style</h1>
-        <div class="style-buttons">
-          <button class="style-buttn" id="style1">Style 1</button>
-          <button class="style-buttn" id="style2">Style 2</button>
-          <button class="style-buttn" id="style3">Style 3</button>
+    <main>
+        <div class="style-selector-expanded" id="style-selector">
+            <h1>Select a User Style</h1>
+            <div class="style-buttons">
+                <button class="style-buttn" id="style1">Style 1</button>
+                <button class="style-buttn" id="style2">Style 2</button>
+                <button class="style-buttn" id="style3">Style 3</button>
+            </div>
         </div>
-    </div>
-    <section class="double-folio" id="landing">
-      <div class="map-container">
-        <div class="map" id="map"></div>
-      </div>
-      <div class="button-container">
-        <button class="button" id="scrolldown-heart" onClick="document.getElementById('titlepage').scrollIntoView({behavior: 'smooth'});"></button>
-      </div>
-    </section>
-    <section class="titlepage folio" id="titlepage">
-      <img class="decoration" src="./img/decoration.png" alt="">
-      <h1>TITLE</h1>
-      <h3>AND</h3>
-      <h2>SUBTITLE</h2>
-      <hr class="horizontal-line">
-      <div class="latest-issue-container">
-        <h3>LATEST ISSUE:</h3>
-        <img src="./img/issue-logo.png" alt="" class="latest-issue-image">
+        <section class="double-folio" id="landing">
+            <div class="map-container">
+                <div class="map" id="map"></div>
+            </div>
+            <div class="button-container">
+                <button class="button" id="scrolldown-heart"
+                    onClick="document.getElementById('titlepage').scrollIntoView({behavior: 'smooth'});"></button>
+            </div>
+        </section>
+        <section class="titlepage folio" id="titlepage">
+            <img class="decoration" src="./img/1500/decoration.png" alt="">
+            <h1>TITLE</h1>
+            <h3>AND</h3>
+            <h2>SUBTITLE</h2>
+            <hr class="horizontal-line">
+            <div class="latest-issue-container">
+                <h3>LATEST ISSUE:</h3>
+                <img src="./img/issue-logo.png" alt="" class="latest-issue-image">
 
-      </div>
-    </section>
-    <section class="folio" id="">
-      <h1>Older Issues:</h1>
-      <ul class="issues-list" id="issueList"></ul>
-    </section>
-    <section class="articles folio">
-      <h1>Latest Articles</h1>
-      <ul class="articles-list" id="articleList"></ul>
-  </main>
+            </div>
+        </section>
+        <section class="folio" id="">
+            <h1>Older Issues:</h1>
+            <ul class="issues-list" id="issueList"></ul>
+        </section>
+        <section class="articles folio">
+            <h1>Latest Articles</h1>
+            <ul class="articles-list" id="articleList"></ul>
+    </main>
 
-  <footer id="footer"></footer>
-  <script>
-    $.getJSON('/issues/issuesDB.json', function (objson) {
-      const articleList = $("#articleList");
-      const issueList = $("#issueList");
+    <footer id="footer"></footer>
+    <script>
+        $.getJSON('/issues/issuesDB.json', function (objson) {
+            const articleList = $("#articleList");
+            const issueList = $("#issueList");
 
-      objson.issues.forEach((issue) => {
-        issueList.append("<li><a href='issues/" + issue.number + "/'>" + issue.number + "</a></li>");
-        issue.articles.forEach((article) => {
-          const articleTitle = article.filename.replace(".html", "");
-          articleList.append("<li><a href='issues/" + issue.number + "/" + article.number + "/" + article.filename + "'>" + articleTitle + "</a></li>");
-          console.log(articleTitle)
+            objson.issues.forEach((issue) => {
+                issueList.append("<li><a href='issues/" + issue.number + "/'>" + issue.number + "</a></li>");
+                issue.articles.forEach((article) => {
+                    const articleTitle = article.filename.replace(".html", "");
+                    articleList.append("<li><a href='issues/" + issue.number + "/" + article.number + "/" + article.filename + "'>" + articleTitle + "</a></li>");
+                    console.log(articleTitle)
+                });
+            });
+
+        }).fail(function () {
+            console.log("Get from issuesDB: an error has occurred.");
         });
-      });
+    </script>
+</body>
 
-    }).fail(function () {
-      console.log("Get from issuesDB: an error has occurred.");
-    });
-  </script>
-  </body>
-  <style>
-      .hidden {
-        display: none;
-      }
-  </style>
-  
-  </html>
+</html>

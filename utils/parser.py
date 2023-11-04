@@ -34,8 +34,8 @@ def wrap_entities_with_tags(p_text, entities):
     return p_text
 
 def main():
-    input_html_path = "./.test/realobstacle.html"
-    output_html_path = "./parsed2.html"
+    input_html_path = "./what-to-do-with-climate-emotions.html"
+    output_html_path = "./what-to-do-with-climate-emotions_parsed.html"
 
     with open(input_html_path, 'r', encoding='utf-8') as text:
         html_content = text.read()

@@ -72,7 +72,7 @@
 
 body {
   background-color: #fae4be;
-  background-image: url("../img/textured-paper.png");
+  background-image: url("../img/1500/textured-paper.png");
   box-sizing: border-box;
   margin: 0px !important;
   color: #3a302a;
@@ -83,7 +83,7 @@ body {
   height: 1rem;
   border: none;
   width: 100%;
-  background-image: url(../img/line.png);
+  background-image: url(../img/1500/line.png);
   background-repeat: no-repeat;
   background-position: center top;
   background-size: auto 100%;
@@ -105,19 +105,6 @@ body {
 
 /* STYLE SELECTOR */
 
-#style-selector {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    z-index: 3;
-}
 
 
 /* LANDING */
@@ -131,7 +118,7 @@ body {
 .map-container {
   height: 100%;
   margin: var(--double-folio-padding) var(--double-folio-padding) 4rem var(--double-folio-padding);
-  border-image: url("../img/The-Geneva-Bible-1570-3015_p_2_map_border.png");
+  border-image: url("../img/1500/The-Geneva-Bible-1570-3015_p_2_map_border.png");
   border-image-slice: 176 430 306 433;
   border-image-width: 100px 200px 200px 230px;
   border-image-outset: 94px 189px 180px 222px;
@@ -157,7 +144,7 @@ body {
   border: none;
   height: 3rem;
   width: 3rem;
-  background-image: url('../img/The-Geneva-Bible-15713015_p_2_new_testament_symbol.png');
+  background-image: url('../img/1500/The-Geneva-Bible-15713015_p_2_new_testament_symbol.png');
   background-size: contain;
   background-repeat: no-repeat;
   cursor: pointer;

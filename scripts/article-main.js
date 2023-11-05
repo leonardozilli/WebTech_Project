@@ -110,28 +110,6 @@ function collapseList() {
   });
 }
 
-function countLines() {
-  let articleLines = 0;
-  $("article p").each(function () {
-    const lineHeight = parseFloat($(this).css("line-height"));
-    const height = $(this).height();
-    const lines = Math.round(height / lineHeight) + 1;
-    articleLines += lines;
-    $(this).next("p").attr("data-lines", articleLines);
-  });
-}
-
-function dropCaps() {
-  const firstParagraph = document.querySelector(
-    ".article-text p:first-of-type"
-  );
-  const firstLetter = firstParagraph.textContent.trim().charAt(0);
-  const remainingText = firstParagraph.textContent.trim().slice(1);
-  firstParagraph.innerHTML = `<span class="drop-cap">${firstLetter}</span>${remainingText}`;
-  document.querySelector(
-    ".drop-cap"
-  ).style.backgroundImage = `url(/img/1500/icaps/${firstLetter.toLowerCase()}.gif)`;
-}
 
 function buildPage() {
   $.get("/components/header.html", function (data) {
@@ -146,6 +124,33 @@ function buildPage() {
   } else {
     changeStyle(getStyleCookie());
   }
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const issue = urlSearchParams.get("issue");
+  const [articleNumber, article] = urlSearchParams
+    .get("article")
+    .split(/-(.+)/);
+  $.ajax({
+    url: "issues/" + issue + "/" + articleNumber + "/" + article + ".html",
+    dataType: "html",
+    success: function (data) {
+      $(".article-container").html(data);
+      const article = new Article($("article").first());
+      document.title = article.title + ", by " + article.author;
+      displayMetadata(article);
+
+      //if style == 1550.css:
+      countLines();
+      dropCaps();
+    },
+    error: function (xhr, status, error) {
+      if (xhr.status === 404) {
+        $(".article-container").load("404.html");
+      } else {
+        console.log("Error: " + error);
+        alert("An unexpected error occurred. Check the console for details.");
+      }
+    },
+  });
 }
 
 //style change//
@@ -186,16 +191,35 @@ function getStyleCookie() {
   return null;
 }
 
+//1500.css-related functions//
+function countLines() {
+  let articleLines = 0;
+  $("article p").each(function () {
+    const lineHeight = parseFloat($(this).css("line-height"));
+    const height = $(this).height();
+    const lines = Math.round(height / lineHeight) + 1;
+    articleLines += lines;
+    $(this).next("p").attr("data-lines", articleLines);
+  });
+}
+
+function dropCaps() {
+  const firstParagraph = document.querySelector(
+    ".article-text p:first-of-type"
+  );
+  const firstLetter = firstParagraph.textContent.trim().charAt(0);
+  const remainingText = firstParagraph.textContent.trim().slice(1);
+  firstParagraph.innerHTML = `<span class="drop-cap">${firstLetter}</span>${remainingText}`;
+  document.querySelector(
+    ".drop-cap"
+  ).style.backgroundImage = `url(/img/1500/icaps/${firstLetter.toLowerCase()}.gif)`;
+}
+
 //---------------------------//
 
 $(document).ready(function () {
   buildPage();
-  const article = new Article($("article").first());
-  document.title = article.title + ", by " + article.author;
-  displayMetadata(article);
   collapseList();
 
   //these are for 1500.css only
-  countLines();
-  dropCaps();
 });

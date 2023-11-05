@@ -76,7 +76,7 @@
                 issueList.append("<li><a href='issues/" + issue.number + "/'>" + issue.number + "</a></li>");
                 issue.articles.forEach((article) => {
                     const articleTitle = article.filename.replace(".html", "");
-                    articleList.append("<li><a href='issues/" + issue.number + "/" + article.number + "/" + article.filename + "'>" + articleTitle + "</a></li>");
+                    articleList.append("<li><a href='read.html?issue=" + issue.number + "&article=" + article.number + "-" + articleTitle + "'>" + articleTitle + "</a></li>");
                     console.log(articleTitle)
                 });
             });

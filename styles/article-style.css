@@ -167,7 +167,7 @@ html::-webkit-scrollbar {
 
 /* ARTICLE */
 
-.article {
+.article-container {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;

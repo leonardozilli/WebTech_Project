@@ -5,15 +5,24 @@
       "articles": [
         {
           "number": 1,
-          "filename": "spent-fuel-the-risky-resurgence-of-nuclear-power.html"
+          "filename": "spent-fuel-the-risky-resurgence-of-nuclear-power.html",
+          "title": "Spent Fuel",
+          "author": "Andrew Cockburn",
+          "date": "01/2022"
         },
         {
           "number": 2,
-          "filename": "is-nuclear-power-worth-the-risk.html"
+          "filename": "is-nuclear-power-worth-the-risk.html",
+          "title": "Is Nuclear Power Worth the Risk?",
+          "author": "Carolyn Kormann",
+          "date": "12/22/2019"
         },
         {
           "number": 3,
-          "filename": "the-real-obstacle-to-nuclear-power.html"
+          "filename": "the-real-obstacle-to-nuclear-power.html",
+          "title": "The Real Obstacle to Nuclear Power",
+          "author": "Jonathan Rauch",
+          "date": "7/02/2023"
         }
       ]
     },

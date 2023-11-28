@@ -7,46 +7,59 @@
     <title></title>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src='https://code.jquery.com/ui/1.13.1/jquery-ui.min.js'></script>
+
     <!-- <link rel="stylesheet" href="../styles/style.css" /> -->
-    <link id="style" rel="stylesheet" href="/styles/article-style.css"/>
+    <link id="style" rel="stylesheet" href="/styles/article-style.css" />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 
 <body>
-    <main>
-        <aside class="left-sidebar">
-            <div class="metadata-container">
-                <div class="metadata-list-people">
-                    <div class="metadata-list-header">
-                        People mentioned in the article:
-                    </div>
-                    <ul class="collapsed-list persList"></ul>
-                </div>
-                <hr class="horizontal-line">
-                <div class="metadata-list-places">
-                    <div class="metadata-list-header">
-                        Places mentioned in the article:
-                    </div>
-                    <ul class="collapsed-list placeList"></ul>
-                </div>
-                <hr class="horizontal-line">
-                <div class="metadata-list-dates">
-                    <div class="metadata-list-header">
-                        Dates mentioned in the article:
-                    </div>
-                    <ul class="collapsed-list dateList"></ul>
-                </div>
-                <hr class="horizontal-line">
+    <header>
+        <div class="header-buttons">
+            <div class="header-button" id="change-style-button">
+                <button></button>
+                <div class="header-button-text">Change style</div>
             </div>
-        </aside>
+            <div class="header-button">
+                <button><a href="/"></a></button>
+                <div class="header-button-text">Homepage</div>
+            </div>
+        </div>
+        <div class="header-heart"><img src="./img/1500/The-Geneva-Bible-15713015_p_2_new_testament_symbol.png" alt=""></div>
+    </header>
+    <main>
         <div class="article-container"></div>
-        <aside class="right-sidebar">
-            Right Sidebar
-        </aside>
+        <div class="metadata-container">
+            <div class="metadata-upper">
+                <div class="article-map-container">
+                    <div class="article-map" id="article-map"></div>
+                </div>
+            </div>
+            <hr class="horizontal-line">
+            <div class="metadata-bottom">
+                <div class="metadata-buttons-container">
+                    <button class="metadata-tab-button active" id="people-tab-button">People</button>
+                    <button class="metadata-tab-button" id="places-tab-button">Places</button>
+                    <button class="metadata-tab-button" id="dates-tab-button">Dates</button>
+                </div>
+                <div class="lists-container">
+                    <div class="metadata-list-container metadata-list-people active" id="people-tab">
+                        <ul class="metadata-list collapsed-list persList"></ul>
+                    </div>
+                    <div class="metadata-list-container metadata-list-places" id="places-tab">
+                        <ul class="metadata-list collapsed-list placeList"></ul>
+                    </div>
+                    <div class="metadata-list-container metadata-list-dates" id="dates-tab">
+                        <ul class="metadata-list collapsed-list dateList"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <footer></footer>
 </body>
-<script>
-</script>
 <script src="/scripts/article-main.js"></script>
 
 </html>

@@ -130,7 +130,7 @@ body {
   width: 100%;
   height: 100%;
   background: white;
-  z-index: 1;
+  z-index: 99;
 }
 
 .style-selector-content {
@@ -294,11 +294,21 @@ main {
   padding: 0;
 }
 
-.metadata-list li a {
+.metadata-entry {
   font-family: 'Chapbook', serif;
   font-size: 0.8rem;
   text-decoration: none;
   color: #3a302a;
+}
+
+.metadata-entry:hover {
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.metadata-entry.active {
+  font-weight: 800;
+  text-decoration: underline;
 }
 
 .metadata-list li a:hover {
@@ -333,6 +343,61 @@ main {
   border-image-width: 100px 200px 200px 230px;
   border-image-outset: 94px 189px 180px 222px;
   border-image-repeat: round round;
+}
+
+
+/* wiki */
+.wiki-container {
+  height: 46.5vh;
+  width: 42.5vw;
+  display: none;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1;
+  background-color: transparent;
+  border: 1px solid rgb(43, 35, 35);
+  border-radius: 10px;
+  padding: 1rem;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.wiki-thumbnail {
+  max-height: 40vw;
+}
+
+.wiki-extract {
+  max-height: 40vw;
+  overflow-y: scroll;
+}
+
+.wiki-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 2rem;
+  width: 2rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  background-color: #3a302a;
+}
+
+.wiki-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.wiki-loading p {
+  font-family: 'Chapbook', serif;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 

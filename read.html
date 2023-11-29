@@ -11,6 +11,7 @@
 
     <!-- <link rel="stylesheet" href="../styles/style.css" /> -->
     <link id="style" rel="stylesheet" href="/styles/article-style.css" />
+    <link id="style" rel="preload" href="/styles/article-style2.css" />
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
 </head>
@@ -33,6 +34,12 @@
         <div class="article-container"></div>
         <div class="metadata-container">
             <div class="metadata-upper">
+                <div class="wiki-container">
+                    <div class="wiki-close"></div>
+                    <div class="wiki-loading"><p>Loading...</p></div>
+                    <img class="wiki-thumbnail"></img>
+                    <div class="wiki-extract"></div>
+                </div>
                 <div class="article-map-container">
                     <div class="article-map" id="article-map"></div>
                 </div>

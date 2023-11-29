@@ -64,32 +64,51 @@ function displayMetadata(article) {
   const appendMetadataToList = (container, data, type) => {
     data.forEach((el) => {
       const id = el.id;
-      const listItem = $("<li></li>");
-      listItem.append(
-        $(
-          `<a class="metadata-entry" href="#" onclick="goto('#${id}')"></a>`
-        ).text(el.innerHTML)
-      );
+      const listItem = $(
+        `<li class="metadata-entry" onclick="goto('#${id}')"></li>`
+      ).text(el.innerHTML);
       container.append(listItem);
     });
   };
 
   appendMetadataToList($(".persList"), article.people);
   appendMetadataToList($(".placeList"), article.places);
-  appendMetadataToList($(".dateList"), article.dates.sort((a, b) => a.id - b.id));
+  appendMetadataToList(
+    $(".dateList"),
+    article.dates.sort((a, b) => a.id - b.id)
+  );
+
+  $(".wiki-close").on("click", function (e) {
+    $(".wiki-container").slideToggle();
+    $(".article-map-container").fadeToggle();
+    $(".metadata-entry").removeClass("active");
+  });
+
+  $(".metadata-entry").on("click", function (e) {
+    wikiCall($(this).text());
+    $(".wiki-container").slideDown({
+      start: function () {
+        jQuery(this).css("display", "flex");
+      },
+    });
+    $(".metadata-entry").removeClass("active");
+    $(this).toggleClass("active");
+    $(".article-map-container").fadeOut();
+  });
 }
 
+
 $(document).on("click", ".metadata-tab-button", function (e) {
-    if (!$(this).hasClass("active")) {
-        $(".metadata-tab-button").removeClass("active");
-        $(".metadata-list-container").removeClass("active");
-        const tabId = $(this).attr("id").replace("-tab-button", "-tab");
-        $(this).addClass("active");
-        $("#" + tabId)
-            .addClass("active")
-            .hide()
-            .fadeIn(500);
-    }
+  if (!$(this).hasClass("active")) {
+    $(".metadata-tab-button").removeClass("active");
+    $(".metadata-list-container").removeClass("active");
+    const tabId = $(this).attr("id").replace("-tab-button", "-tab");
+    $(this).addClass("active");
+    $("#" + tabId)
+      .addClass("active")
+      .hide()
+      .fadeIn(500);
+  }
 });
 
 $(document).on("click", ".style-selector-container", function (e) {
@@ -145,6 +164,13 @@ function buildPage() {
 
 //wikipedia//
 function wikiCall(subject) {
+  $(".wiki-thumbnail, .wiki-extract").fadeOut(300, function () {
+    $(this).empty();
+    $(".wiki-thumbnail").attr("src", "");
+  });
+
+  $(".wiki-loading").fadeIn(300);
+
   $.ajax({
     url: "http://en.wikipedia.org/w/api.php",
     data: {
@@ -160,7 +186,17 @@ function wikiCall(subject) {
         url: "https://en.wikipedia.org/api/rest_v1/page/summary/" + title,
         dataType: "json",
         success: function (data) {
-          console.log(data.extract);
+          var thumbnail = new Image();
+          try {
+            thumbnail.src = data.thumbnail.source;
+          } catch (err) {
+            $(".wiki-loading").fadeOut();
+          }
+          thumbnail.onload = function () {
+            $(".wiki-loading").fadeOut();
+            $(".wiki-thumbnail").fadeIn(300).attr("src", thumbnail.src);
+            $(".wiki-extract").fadeIn(300).html(data.extract);
+          };
         },
       });
     },
@@ -198,19 +234,22 @@ function mapbox() {
 
 //style change//
 $(document).on("click", "#change-style-button", function (e) {
-  console.log('ff')
   $(".style-selector-container").fadeIn(500);
+  console.log($("#style").attr("href"));
 });
 
 function changeStyle(style) {
   const selector = $(".style-selector-container");
 
-  //if style is the same, dont do anything
-  $("#style").attr("href", "/styles/" + style);
-  writeStyleInCookie(style);
-  setTimeout(() => {
-    selector.fadeOut(1000);
-  }, 1000);
+  if ($("#style").attr("href").includes(style)) {
+    selector.fadeOut(500);
+  } else {
+    $("#style").attr("href", "/styles/" + style);
+    writeStyleInCookie(style);
+    setTimeout(() => {
+      selector.fadeOut(1000);
+    }, 1000);
+  }
 }
 
 function writeStyleInCookie(style) {

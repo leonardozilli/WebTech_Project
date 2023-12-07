@@ -53,7 +53,7 @@
             <hr class="horizontal-line">
             <div class="latest-issue-container">
                 <h3>LATEST ISSUE:</h3>
-                <img src="./img/issue-logo.png" alt="" class="latest-issue-image">
+                <img src="./img/1500/issue-logo.png" alt="" class="latest-issue-image">
 
             </div>
         </section>
@@ -68,7 +68,7 @@
 
     <footer id="footer"></footer>
     <script>
-        $.getJSON('/issues/issuesDB.json', function (objson) {
+        $.getJSON('./issues/issuesDB.json', function (objson) {
             const articleList = $("#articleList");
             const issueList = $("#issueList");
 

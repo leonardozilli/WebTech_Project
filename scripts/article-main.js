@@ -79,14 +79,18 @@ function displayMetadata(article) {
   );
 
   $(".wiki-close").on("click", function (e) {
-    $(".wiki-container").slideToggle();
+    $(".wiki-container").fadeToggle();
     $(".article-map-container").fadeToggle();
     $(".metadata-entry").removeClass("active");
+    $(".wiki-thumbnail, .wiki-extract").fadeOut(300, function () {
+      $(this).empty();
+      $(".wiki-thumbnail").attr("src", "");
+    });
   });
 
   $(".metadata-entry").on("click", function (e) {
     wikiCall($(this).text());
-    $(".wiki-container").slideDown({
+    $(".wiki-container").fadeIn({
       start: function () {
         jQuery(this).css("display", "flex");
       },
@@ -95,8 +99,13 @@ function displayMetadata(article) {
     $(this).toggleClass("active");
     $(".article-map-container").fadeOut();
   });
-}
 
+  $("header").hover(
+    () => $(".wiki-container").stop().animate({ right: "-10%" }, 500),
+    () => $(".wiki-container").stop().animate({ right: "2rem" }, 500)
+  );
+
+}
 
 $(document).on("click", ".metadata-tab-button", function (e) {
   if (!$(this).hasClass("active")) {
@@ -235,7 +244,6 @@ function mapbox() {
 //style change//
 $(document).on("click", "#change-style-button", function (e) {
   $(".style-selector-container").fadeIn(500);
-  console.log($("#style").attr("href"));
 });
 
 function changeStyle(style) {
@@ -276,6 +284,21 @@ function getStyleCookie() {
   return null;
 }
 
+
+//floating action button//
+const headerButtons = $(".header-buttons");
+
+$("header").click(function () {
+  $(this).toggleClass("active");
+});
+
+$(document).click(function (e) {
+  if (!headerButtons.is(e.target) && headerButtons.has(e.target).length === 0) {
+    headerButtons.removeClass("active");
+  }
+});
+
+
 //1500.css-related functions//
 const Css1500 = {
   countLines: () => {
@@ -307,3 +330,5 @@ const Css1500 = {
 $(document).ready(function () {
   buildPage();
 });
+
+//https://stackoverflow.com/questions/6805482/css3-transition-animation-on-load

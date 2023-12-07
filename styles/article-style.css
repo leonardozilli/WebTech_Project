@@ -155,6 +155,10 @@ header {
   align-items: center;
 }
 
+.fab-buttons {
+  display: none;
+}
+
 .header-buttons {
   display: flex;
   flex-direction: column;
@@ -163,11 +167,6 @@ header {
 }
 
 .header-button {
-  display: flex;
-  flex-direction: row;
-}
-
-.header-button button {
   height: 20px;
   width: 20px;
   background-color: black;
@@ -175,9 +174,10 @@ header {
   white-space: nowrap;
 }
 
-.header-button {
+.header-button-container {
   flex: 1;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -193,10 +193,7 @@ header {
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.header-heart {
-}
-
-.header-heart img {
+.header-icon img {
   height: 4rem;
 }
 
@@ -258,7 +255,7 @@ main {
 .metadata-upper {
   width: 100%;
   height: 46.5vh;
-  padding: 2.5rem;
+  padding: 1.5rem;
 }
 
 .metadata-bottom {
@@ -330,19 +327,28 @@ main {
     display: none !important;
 }
 
-.article-map {
+.article-map-container,
+.wiki-container {
   height: 100%;
   width: 100%;
 }
 
-.article-map-container {
+.metadata-upper {
+  border-image: url("../img/1500/upper-border.png");
+  border-image-slice: 27 31 27 22;
+  border-image-width: 10px 10px 10px 10px;
+  border-image-outset: 15px;
+  border-image-repeat: stretch stretch;
+}
+
+.article-map {
   height: 100%;
   width: 100%;
-  border-image: url("../img/1500/The-Geneva-Bible-1570-3015_p_2_map_border.png");
-  border-image-slice: 176 430 306 433;
-  border-image-width: 100px 200px 200px 230px;
-  border-image-outset: 94px 189px 180px 222px;
-  border-image-repeat: round round;
+  border-image: url("../img/1500/map-border.png");
+  border-image-slice: 90 90 90 90;
+  border-image-width: 50px;
+  border-image-outset: 27px;
+  border-image-repeat: round;
 }
 
 
@@ -356,8 +362,6 @@ main {
   right: 2rem;
   z-index: 1;
   background-color: transparent;
-  border: 1px solid rgb(43, 35, 35);
-  border-radius: 10px;
   padding: 1rem;
   flex-direction: row;
   gap: 1rem;
@@ -423,13 +427,14 @@ main {
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 60%;
+  margin: 1rem;
 }
 
-.cover-page>figure>img {
-  height: 0;
-  min-height: 100%;
+.cover-page > figure > img {
+  max-width: 100%;
+  height: auto;
 }
+
 
 .cover-page>.titles {
   display: flex;
@@ -516,17 +521,19 @@ figure+p::first-letter, h2+p::first-letter{
 }
 
 
-figure>img {
-  max-width: 30vw;
+figure > img {
   border-image-slice: 27 31 27 31;
   border-image-width: 20px 20px 20px 20px;
   border-image-outset: 12px 18px 15px 16px;
   border-image-repeat: round round;
-  border-image-source: url('../img/1500/image-borders.png')
+  border-image-source: url('../img/1500/image-borders.png');
+  max-width: 100%;
+  height: auto;
 }
 
 figure {
   text-align: center;
+  margin: 3rem 0 2rem;
 }
 
 figure figcaption {
@@ -566,7 +573,7 @@ figure figcaption {
 /* MEDIA QUERIES */
 
 @media only screen and (max-width: 1000px) {
-  .metadata-container, header {
+  .metadata-container{
     display: none;
   }
 
@@ -574,4 +581,69 @@ figure figcaption {
     flex-basis: 100%;
     padding: 3rem;
   }
+
+  .header-buttons {
+    all: unset;
+  }
+
+  header {
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
+    cursor: pointer;
+    justify-content: center;
+    padding: 0;
+    z-index: 99;
+  }
+
+
+  .header-buttons {
+    position: absolute;
+    cursor: pointer;
+    justify-content: center;
+    padding: 0;
+    z-index: 89;
+  }
+
+  .header-icon > img{
+    filter: drop-shadow(0px 2px 2px #222);
+  }
+
+  .header-button-text {
+    display: none !important;
+  }
+  
+  .header-button-container {
+    opacity: 0;
+    overflow: visible;
+  }
+
+  header.active .header-button-container {
+    opacity: 1;
+    transition: all .4s ease-in-out;
+  }
+
+  .header-button {
+    height: 2rem;
+    width: 2rem;
+    background-color: #3a302a;
+    border-radius: 50%;
+    transition: all .4s ease-in-out;
+    pointer-events: none;
+  }
+
+  header.active .header-button {
+    pointer-events: none;
+    transition: all .4s ease-in-out;
+    pointer-events: auto;
+  }
+
+  header.active .style-button {
+    transform: translate(-50px, 10px);
+    transition-delay: 0s;
+	}
+	header.active .home-button {
+    transform: translate(0px, -80px);
+    transition-delay: .05s;
+	}
 }

@@ -136,10 +136,12 @@ function buildPage() {
   );
   $(".style-selector-container").load("components/style-selector.html");
   //this needs to be looked at
-  if (!getStyleCookie()) {
+  if (getStyleCookie() === null) {
+    console.log("no cookie");
     $(".style-selector-container").show();
   } else {
     changeStyle(getStyleCookie());
+    console.log("cookie");
   }
   mapbox();
   const urlSearchParams = new URLSearchParams(window.location.search);
@@ -251,6 +253,7 @@ function changeStyle(style) {
 
   if ($("#style").attr("href").includes(style)) {
     selector.fadeOut(500);
+    writeStyleInCookie(style);
   } else {
     $("#style").attr("href", "/styles/" + style);
     writeStyleInCookie(style);
@@ -266,6 +269,7 @@ function writeStyleInCookie(style) {
   );
   document.cookie =
     "style=" + style + "; expires=" + expirationDate + "; path=/";
+  console.log('written ' + document.cookie);
 }
 
 function getStyleCookie() {
@@ -329,6 +333,7 @@ const Css1500 = {
 
 $(document).ready(function () {
   buildPage();
+  console.log(document.cookie);
 });
 
 //https://stackoverflow.com/questions/6805482/css3-transition-animation-on-load

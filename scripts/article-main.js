@@ -128,13 +128,13 @@ $(document).on("click", ".style-selector-container", function (e) {
 });
 
 function buildPage() {
-  /*$.get("/components/header.html", function (data) {
+  /*$.get("components/header.html", function (data) {
     /*$("main").before(data);
   });*/
   $("main").prepend(
     '<div class="style-selector-container" style="display: none;"></div>'
   );
-  $(".style-selector-container").load("/components/style-selector.html");
+  $(".style-selector-container").load("components/style-selector.html");
   //this needs to be looked at
   if (!getStyleCookie()) {
     $(".style-selector-container").show();
@@ -321,7 +321,7 @@ const Css1500 = {
     firstParagraph.innerHTML = `<span class="drop-cap">${firstLetter}</span>${remainingText}`;
     document.querySelector(
       ".drop-cap"
-    ).style.backgroundImage = `url(/img/1500/icaps/${firstLetter.toLowerCase()}.gif)`;
+    ).style.backgroundImage = `url(img/1500/icaps/${firstLetter.toLowerCase()}.gif)`;
   },
 };
 

@@ -115,6 +115,7 @@ body {
   border: none;
   background-color: transparent;
   cursor: pointer;
+  color: #3a302a
 }
 
 .metadata-buttons-container button.active {
@@ -155,7 +156,7 @@ header {
   align-items: center;
 }
 
-.fab-buttons {
+.fab-wrapper {
   display: none;
 }
 
@@ -428,11 +429,14 @@ main {
   align-items: center;
   flex-direction: column;
   margin: 1rem;
+  height: 60%;
+  flex-grow: 1;
+  margin-bottom: 15vh;
 }
 
 .cover-page > figure > img {
-  max-width: 100%;
-  height: auto;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 
@@ -450,7 +454,7 @@ main {
 
 .article-title {
   font-family: 'Cock', serif;
-  font-size: 5em;
+  font-size: 6vh;
   font-weight: 100;
   letter-spacing: 0.2em;
   margin: 0;
@@ -573,8 +577,12 @@ figure figcaption {
 /* MEDIA QUERIES */
 
 @media only screen and (max-width: 1000px) {
-  .metadata-container{
+  .metadata-container, header{
     display: none;
+  }
+
+  .metadata-container.active {
+    display: block;
   }
 
   .article-container {
@@ -582,68 +590,62 @@ figure figcaption {
     padding: 3rem;
   }
 
-  .header-buttons {
-    all: unset;
+  .fab-wrapper {
+    display: block;
   }
 
-  header {
+  .fab-icon {
     position: absolute;
-    bottom: 1rem;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 0;
+    cursor: pointer;
+    z-index: 99;
+    filter: drop-shadow(0px 2px 2px #222);
+    background-image: url('../img/1500/fab-icon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    height: 4rem;
+    width: 2rem;
+  }
+
+  .fab-button {
+    position: absolute;
+    bottom: 2rem;
     right: 2rem;
     cursor: pointer;
-    justify-content: center;
+    z-index: 98;
     padding: 0;
-    z-index: 99;
-  }
-
-
-  .header-buttons {
-    position: absolute;
-    cursor: pointer;
-    justify-content: center;
-    padding: 0;
-    z-index: 89;
-  }
-
-  .header-icon > img{
-    filter: drop-shadow(0px 2px 2px #222);
-  }
-
-  .header-button-text {
-    display: none !important;
-  }
-  
-  .header-button-container {
+    margin: 0;
+    background-color: #3a302a;
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
     opacity: 0;
-    overflow: visible;
+    transition: all .4s ease-in-out;
+    color: white;
   }
 
-  header.active .header-button-container {
+  .fab-wrapper.active .fab-buttons{
+    display: block;
+  }
+
+  .fab-wrapper.active .fab-button{
     opacity: 1;
     transition: all .4s ease-in-out;
   }
 
-  .header-button {
-    height: 2rem;
-    width: 2rem;
-    background-color: #3a302a;
-    border-radius: 50%;
-    transition: all .4s ease-in-out;
-    pointer-events: none;
+  .fab-wrapper.active #fab-style-button {
+    transform: translate(0px, -100px);
   }
 
-  header.active .header-button {
-    pointer-events: none;
-    transition: all .4s ease-in-out;
-    pointer-events: auto;
+  .fab-wrapper.active #fab-home-button {
+    transform: translate(-50px, -70px);
   }
 
-  header.active .style-button {
-    transform: translate(-50px, 10px);
-    transition-delay: 0s;
-	}
-	header.active .home-button {
-    transform: translate(0px, -80px);
-    transition-delay: .05s;
-	}
+  .fab-wrapper.active #fab-metadata-button {
+    transform: translate(-70px, -20px);
+  }
 }

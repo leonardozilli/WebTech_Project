@@ -135,7 +135,6 @@ function buildPage() {
     '<div class="style-selector-container" style="display: none;"></div>'
   );
   $(".style-selector-container").load("components/style-selector.html");
-  //this needs to be looked at
   if (getStyleCookie() === null) {
     console.log("no cookie");
     $(".style-selector-container").show();
@@ -244,7 +243,7 @@ function mapbox() {
 }
 
 //style change//
-$(document).on("click", "#change-style-button", function (e) {
+$(document).on("click", "#change-style-button, #fab-style-button", function (e) {
   $(".style-selector-container").fadeIn(500);
 });
 
@@ -290,16 +289,17 @@ function getStyleCookie() {
 
 
 //floating action button//
-const headerButtons = $(".header-buttons");
-
-$("header").click(function () {
-  $(this).toggleClass("active");
+$(".fab-icon").click(function (e) {
+  e.stopPropagation();
+  $(".fab-wrapper").toggleClass("active");
 });
 
 $(document).click(function (e) {
-  if (!headerButtons.is(e.target) && headerButtons.has(e.target).length === 0) {
-    headerButtons.removeClass("active");
-  }
+    $(".fab-wrapper").removeClass("active");
+});
+
+$("#fab-metadata-button").click(function (e) {
+  $(".metadata-container").toggleClass("active");
 });
 
 

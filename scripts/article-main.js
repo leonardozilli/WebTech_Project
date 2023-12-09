@@ -300,6 +300,12 @@ $(document).click(function (e) {
 
 $("#fab-metadata-button").click(function (e) {
   $(".metadata-container").toggleClass("active");
+  $(".article-container").toggleClass("covered");
+});
+
+$(".article-container").click(function (e) {
+  $(".metadata-container").removeClass("active");
+  $(".article-container").removeClass("covered");
 });
 
 
@@ -333,7 +339,10 @@ const Css1500 = {
 
 $(document).ready(function () {
   buildPage();
-  console.log(document.cookie);
+  setTimeout(function () {
+    document.body.className = "";
+  }, 500);
+
 });
 
 //https://stackoverflow.com/questions/6805482/css3-transition-animation-on-load

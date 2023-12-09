@@ -88,6 +88,13 @@ body {
   box-shadow: inset 0px 0px 60px 0px #9e752ec0;
 }
 
+body.preload * {
+  animation-duration: 0s !important;
+  -webkit-animation-duration: 0s !important;
+  transition: background-color 0s, opacity 0s, color 0s, width 0s, height 0s, padding 0s, margin 0s !important;
+}
+
+
 .horizontal-line {
   min-height: 1rem;
   border: none;
@@ -256,7 +263,7 @@ main {
 .metadata-upper {
   width: 100%;
   height: 46.5vh;
-  padding: 1.5rem;
+  padding: 0.6rem;
 }
 
 .metadata-bottom {
@@ -338,7 +345,7 @@ main {
   border-image: url("../img/1500/upper-border.png");
   border-image-slice: 27 31 27 22;
   border-image-width: 10px 10px 10px 10px;
-  border-image-outset: 15px;
+  border-image-outset: 15px 15px 10px 15px;
   border-image-repeat: stretch stretch;
 }
 
@@ -347,8 +354,8 @@ main {
   width: 100%;
   border-image: url("../img/1500/map-border.png");
   border-image-slice: 90 90 90 90;
-  border-image-width: 50px;
-  border-image-outset: 27px;
+  border-image-width: 35px 41px 40px 40px;
+  border-image-outset: 20px 18px 15px 20px;
   border-image-repeat: round;
 }
 
@@ -577,17 +584,82 @@ figure figcaption {
 /* MEDIA QUERIES */
 
 @media only screen and (max-width: 1000px) {
-  .metadata-container, header{
+  header{
     display: none;
-  }
-
-  .metadata-container.active {
-    display: block;
   }
 
   .article-container {
     flex-basis: 100%;
     padding: 3rem;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .metadata-container {
+    position: absolute;
+    display: inline;
+    width: 100%;
+    height: 80vh;
+    bottom: -100vh;
+    background-color: #fae4be;
+    background-image: url("../img/1500/textured-paper.png");
+    overflow-y: scroll;
+    overflow-x: hidden;
+    animation: slide-down 0.5s ease-in-out forwards;
+    box-shadow: inset 0px 0px 60px 0px #9e752ec0, 1px -3px 20px 0px #403f3fc0
+  }
+
+  .metadata-container.active {
+    bottom: 0;
+    overflow-y: scroll;
+    animation: slide-up 0.5s ease-in-out forwards;
+  }
+
+  @keyframes slide-up {
+  0% {
+    bottom: -100vh;
+    display: none;
+  }
+  100% {
+    bottom: 0;
+  }
+}
+
+  @keyframes slide-down {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: -100vh;
+    display: none;
+  }
+}
+
+  .metadata-upper {
+    height: 40%;
+    border-image-outset: 25px;
+    padding: 0;
+  }
+
+  .horizontal-line {
+    margin-top: 2rem;
+  }
+
+  .article-map {
+    border-image-outset: 18px;
+    border-image-width: 30px;
+  }
+
+  .wiki-container {
+    height: 40%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    padding: 0;
+  }
+
+  .article-container.covered {
+    opacity: 0.3;
+    transition: opacity 0.5s ease-in-out;
   }
 
   .fab-wrapper {

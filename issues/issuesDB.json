@@ -1,8 +1,8 @@
 {
   "issues": [
      {
-      "number": 1,
-      "title": "The Emotion Issue"
+      "number": 2,
+      "title": "The Emotion Issue",
       "articles": [
         {
           "number": 1,
@@ -24,11 +24,11 @@
           "title": "What to Do with Climate Emotions",
           "author": "Jia Tolentino",
           "date": "07/2023"
-        },
+        }
       ]
     },
     {
-      "number": 2,
+      "number": 1,
       "title" : "The Nuclear Issue", 
       "articles": [
         {

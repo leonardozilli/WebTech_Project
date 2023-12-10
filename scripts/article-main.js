@@ -79,8 +79,8 @@ function displayMetadata(article) {
   );
 
   $(".wiki-close").on("click", function (e) {
-    $(".wiki-container").fadeToggle();
-    $(".article-map-container").fadeToggle();
+    $(".wiki-container").fadeOut(100);
+    $(".article-map-container").fadeIn();
     $(".metadata-entry").removeClass("active");
     $(".wiki-thumbnail, .wiki-extract").fadeOut(300, function () {
       $(this).empty();
@@ -90,6 +90,7 @@ function displayMetadata(article) {
 
   $(".metadata-entry").on("click", function (e) {
     wikiCall($(this).text());
+    $(".article-map-container").hide();
     $(".wiki-container").fadeIn({
       start: function () {
         jQuery(this).css("display", "flex");
@@ -97,13 +98,7 @@ function displayMetadata(article) {
     });
     $(".metadata-entry").removeClass("active");
     $(this).toggleClass("active");
-    $(".article-map-container").fadeOut();
   });
-
-  $("header").hover(
-    () => $(".wiki-container").stop().animate({ right: "-10%" }, 500),
-    () => $(".wiki-container").stop().animate({ right: "2rem" }, 500)
-  );
 
 }
 
@@ -136,11 +131,9 @@ function buildPage() {
   );
   $(".style-selector-container").load("components/style-selector.html");
   if (getStyleCookie() === null) {
-    console.log("no cookie");
     $(".style-selector-container").show();
   } else {
     changeStyle(getStyleCookie());
-    console.log("cookie");
   }
   mapbox();
   const urlSearchParams = new URLSearchParams(window.location.search);
@@ -148,6 +141,7 @@ function buildPage() {
   const [articleNumber, article] = urlSearchParams
     .get("article")
     .split(/-(.+)/);
+    console.log(`issues/${issue}/${articleNumber}/${article}.html`)
   $.ajax({
     url: `issues/${issue}/${articleNumber}/${article}.html`,
     dataType: "html",
@@ -160,6 +154,7 @@ function buildPage() {
       //if style == 1550.css:
       Css1500.countLines();
       Css1500.dropCaps();
+      $(".article-date").text(Css1500.dateToRoman(articleObj.date));
     },
     error: function (xhr, status, error) {
       if (xhr.status === 404) {
@@ -268,7 +263,6 @@ function writeStyleInCookie(style) {
   );
   document.cookie =
     "style=" + style + "; expires=" + expirationDate + "; path=/";
-  console.log('written ' + document.cookie);
 }
 
 function getStyleCookie() {
@@ -332,6 +326,35 @@ const Css1500 = {
     document.querySelector(
       ".drop-cap"
     ).style.backgroundImage = `url(img/1500/icaps/${firstLetter.toLowerCase()}.gif)`;
+  },
+
+  dateToRoman: (num) => {
+    const roman = {
+      M: 1000,
+      CM: 900,
+      D: 500,
+      CD: 400,
+      C: 100,
+      XC: 90,
+      L: 50,
+      XL: 40,
+      X: 10,
+      IX: 9,
+      V: 5,
+      IV: 4,
+      I: 1,
+    };
+    return num
+      .split("/")
+      .map((d) => parseInt(d))
+      .map((d, i) =>
+        Object.keys(roman).reduce((acc, key) => {
+          const q = Math.floor(d / roman[key]);
+          d -= q * roman[key];
+          return acc + key.repeat(q);
+        }, "")
+      )
+      .join(" ");
   },
 };
 

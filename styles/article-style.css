@@ -129,7 +129,7 @@ body.preload * {
   font-weight: bolder;
 }
 
-/* style-selector*/
+/* STYLE-SELECTOR*/
 
 .style-selector-container {
   position: fixed;
@@ -155,7 +155,7 @@ body.preload * {
 
 
 
-/* header */
+/* HEADER */
 header {
   padding: 2rem 0;
   display: flex;
@@ -216,7 +216,8 @@ header:hover .header-button-text {
 
 
 
-/* main layout */
+/* MAIN LAYOUT */
+
 html::-webkit-scrollbar {
   /* display: none; - can be joined with next one */
 }
@@ -244,7 +245,6 @@ main {
 .article-container {
   overflow-y: scroll;
   height: 100vh;
-  padding: 2rem;
 }
 
 .metadata-container {
@@ -257,13 +257,14 @@ main {
 }
 
 
-/* metadata portion */
+/* METADATA */
+
 /* layout */
 
 .metadata-upper {
   width: 100%;
   height: 46.5vh;
-  padding: 0.6rem;
+  padding: 1rem;
 }
 
 .metadata-bottom {
@@ -272,6 +273,7 @@ main {
 
 
 /* tag lists */
+
 .metadata-list-container.active {
   display: block;
   animation: fadeIn 0.5s ease-in-out;
@@ -345,7 +347,7 @@ main {
   border-image: url("../img/1500/upper-border.png");
   border-image-slice: 27 31 27 22;
   border-image-width: 10px 10px 10px 10px;
-  border-image-outset: 15px 15px 10px 15px;
+  border-image-outset: 10px 15px 10px 10px;
   border-image-repeat: stretch stretch;
 }
 
@@ -355,22 +357,18 @@ main {
   border-image: url("../img/1500/map-border.png");
   border-image-slice: 90 90 90 90;
   border-image-width: 35px 41px 40px 40px;
-  border-image-outset: 20px 18px 15px 20px;
+  border-image-outset: 20px 23px 20px 20px;
   border-image-repeat: round;
 }
 
 
-/* wiki */
+/* WIKI */
+
 .wiki-container {
-  height: 46.5vh;
-  width: 42.5vw;
   display: none;
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
+  position: relative;
   z-index: 1;
   background-color: transparent;
-  padding: 1rem;
   flex-direction: row;
   gap: 1rem;
 }
@@ -422,35 +420,67 @@ main {
   flex-wrap: nowrap;
   align-items: center;
   flex: 0 0 50%;
+  padding: 2rem;
 }
 
 .cover-page {
-  height: var(--folio-height);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  height: calc(var(--folio-height) - 2rem);
+  justify-content: center;
+  display: grid;
+  grid-template-rows: 30% 60% 10%;
 }
 
-.cover-page>figure {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: 1rem;
-  height: 60%;
-  flex-grow: 1;
-  margin-bottom: 15vh;
+.titles {
+  grid-row: 1;
 }
 
-.cover-page > figure > img {
+.cover-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 0;
+  height: 100%;
+  grid-row: 2;
+}
+
+.article-date {
+  grid-row: 3;
+}
+
+.cover-image > img {
   max-height: 100%;
+  max-width: 70%;
   object-fit: contain;
+  margin: 0 2rem;
+}
+
+.cover-image > .image-description{
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+}
+
+.cover-image > .image-attribution{
+  writing-mode: vertical-lr;
+  font-size: 0.6rem;
+}
+
+.article-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Humane Bordeaux', serif;
+  font-size: 1.2rem;
+  font-weight: 100;
+  font-style: italic;
+  text-transform: uppercase;
+  margin: 10px;
 }
 
 
 .cover-page>.titles {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   text-align: center;
 }
@@ -461,24 +491,31 @@ main {
 
 .article-title {
   font-family: 'Cock', serif;
-  font-size: 6vh;
+  font-size: 7vmin;
   font-weight: 100;
   letter-spacing: 0.2em;
   margin: 0;
   text-transform: uppercase;
 }
 
-.article-author {
+.by {
   font-family: 'Humane Bordeaux', serif;
+  font-size: 1.2em;
+  font-weight: 100;
+  letter-spacing: 0.2em;
+  margin: 0;
+}
+
+.article-author {
+  font-family: 'MediaevalItalique', serif;
   font-size: 2em;
   font-weight: 100;
   font-style: italic;
 }
 
 .article-subtitle {
-  text-transform: uppercase;
-  font-family: 'MediaevalItalique', serif;
-  font-size: 1.2em;
+  font-family: 'Humane Bordeaux', serif;
+  font-size: 1.7em;
   font-weight: 100;
   letter-spacing: 0.2rem;
 }
@@ -533,12 +570,12 @@ figure+p::first-letter, h2+p::first-letter{
 
 
 figure > img {
-  border-image-slice: 27 31 27 31;
+  border-image-slice: 25 32 25 32 fill;
   border-image-width: 20px 20px 20px 20px;
   border-image-outset: 12px 18px 15px 16px;
   border-image-repeat: round round;
   border-image-source: url('../img/1500/image-borders.png');
-  max-width: 100%;
+  max-width: 70%;
   height: auto;
 }
 
@@ -590,8 +627,12 @@ figure figcaption {
 
   .article-container {
     flex-basis: 100%;
-    padding: 3rem;
+    padding: 0 3rem;
     transition: opacity 0.5s ease-in-out;
+  }
+
+  .cover-image > img {
+    max-width: 80%;
   }
 
   .metadata-container {
@@ -604,6 +645,7 @@ figure figcaption {
     background-image: url("../img/1500/textured-paper.png");
     overflow-y: scroll;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
     animation: slide-down 0.5s ease-in-out forwards;
     box-shadow: inset 0px 0px 60px 0px #9e752ec0, 1px -3px 20px 0px #403f3fc0
   }

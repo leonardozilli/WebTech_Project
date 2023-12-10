@@ -2,6 +2,7 @@
   "issues": [
      {
       "number": 1,
+      "title": "The Emotion Issue"
       "articles": [
         {
           "number": 1,
@@ -28,6 +29,7 @@
     },
     {
       "number": 2,
+      "title" : "The Nuclear Issue", 
       "articles": [
         {
           "number": 1,

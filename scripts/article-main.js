@@ -99,7 +99,6 @@ function displayMetadata(article) {
     $(".metadata-entry").removeClass("active");
     $(this).toggleClass("active");
   });
-
 }
 
 $(document).on("click", ".metadata-tab-button", function (e) {
@@ -126,22 +125,23 @@ function buildPage() {
   /*$.get("components/header.html", function (data) {
     /*$("main").before(data);
   });*/
-  $("main").prepend(
-    '<div class="style-selector-container" style="display: none;"></div>'
-  );
+
+  $("main").prepend('<div class="loading-spinner"></div>');
+  $("main").prepend('<div class="style-selector-container" style="display: none;"></div>');
   $(".style-selector-container").load("components/style-selector.html");
+
   if (getStyleCookie() === null) {
     $(".style-selector-container").show();
   } else {
     changeStyle(getStyleCookie());
   }
-  mapbox();
+  mapbox()
+
   const urlSearchParams = new URLSearchParams(window.location.search);
   const issue = urlSearchParams.get("issue");
   const [articleNumber, article] = urlSearchParams
     .get("article")
     .split(/-(.+)/);
-    console.log(`issues/${issue}/${articleNumber}/${article}.html`)
   $.ajax({
     url: `issues/${issue}/${articleNumber}/${article}.html`,
     dataType: "html",
@@ -155,12 +155,18 @@ function buildPage() {
       Css1500.countLines();
       Css1500.dropCaps();
       $(".article-date").text(Css1500.dateToRoman(articleObj.date));
+
+      $(".loading-spinner").hide();
+      $(".article-text, .metadata-container").animate({opacity: 0.9}, 700)
+      $(".header-container").animate({"right": '0'}, 500)
     },
     error: function (xhr, status, error) {
       if (xhr.status === 404) {
-        $(".article-container").load("404.html");
+        var $errorContainer = $("<div>").addClass("error-container");
+        $('.article-container, .metadata-container').remove();
+        $("main").append($errorContainer.load("404.html"));
+        $(".loading-spinner").hide();
       } else {
-        console.log(`Error: ${error}`);
         alert("An unexpected error occurred. Check the console for details.");
       }
     },
@@ -212,16 +218,6 @@ function wikiCall(subject) {
 }
 
 //map//
-function articleMap() {
-  var map = L.map("article-map").setView([30, 0], 2);
-  var marker = L.marker([44.493, 11.36]).addTo(map);
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution:
-      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  }).addTo(map);
-}
-
 function mapbox() {
   mapboxgl.accessToken =
     "pk.eyJ1IjoibHppbGwiLCJhIjoiY2xuNjlkODZpMGVjczJtcW1wN2VkcHExaSJ9.zhOJVlpnVZXhtBntooFkgw";
@@ -235,12 +231,18 @@ function mapbox() {
   });
 
   new mapboxgl.Marker().setLngLat([11.36, 44.493]).addTo(map);
+  map.dragRotate.disable();
+  map.touchZoomRotate.disableRotation();
 }
 
 //style change//
-$(document).on("click", "#change-style-button, #fab-style-button", function (e) {
-  $(".style-selector-container").fadeIn(500);
-});
+$(document).on(
+  "click",
+  "#change-style-button, #fab-style-button",
+  function (e) {
+    $(".style-selector-container").fadeIn(500);
+  }
+);
 
 function changeStyle(style) {
   const selector = $(".style-selector-container");
@@ -281,7 +283,6 @@ function getStyleCookie() {
   return null;
 }
 
-
 //floating action button//
 $(".fab-icon").click(function (e) {
   e.stopPropagation();
@@ -289,7 +290,7 @@ $(".fab-icon").click(function (e) {
 });
 
 $(document).click(function (e) {
-    $(".fab-wrapper").removeClass("active");
+  $(".fab-wrapper").removeClass("active");
 });
 
 $("#fab-metadata-button").click(function (e) {
@@ -301,7 +302,6 @@ $(".article-container").click(function (e) {
   $(".metadata-container").removeClass("active");
   $(".article-container").removeClass("covered");
 });
-
 
 //1500.css-related functions//
 const Css1500 = {
@@ -365,7 +365,6 @@ $(document).ready(function () {
   setTimeout(function () {
     document.body.className = "";
   }, 500);
-
 });
 
 //https://stackoverflow.com/questions/6805482/css3-transition-animation-on-load

@@ -94,6 +94,44 @@ body.preload * {
   transition: background-color 0s, opacity 0s, color 0s, width 0s, height 0s, padding 0s, margin 0s !important;
 }
 
+.error-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  animation: 0.7s linear 0s 1 fadeIn;
+}
+
+.article-text, .metadata-container {
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.loading-spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -25px;
+  margin-left: -25px;
+  z-index: 9999;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 .horizontal-line {
   min-height: 1rem;
@@ -156,12 +194,15 @@ body.preload * {
 
 
 /* HEADER */
-header {
-  padding: 2rem 0;
+.header-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  right: 10vh;
+  height: 100%;
 }
+
 
 .fab-wrapper {
   display: none;
@@ -233,7 +274,9 @@ header {
   text-align: center;
   flex: 0 0 7vw;
   transition: flex 0.5s ease-out;
-  justify-content: space-between;
+  justify-content: center;
+  padding: 2rem 0;
+  width: 0;
 }
 
 main {
@@ -489,9 +532,14 @@ main {
   margin: 0;
 }
 
+.article-title-container {
+  container-name: article-title;
+  width: 100%;
+}
+
 .article-title {
   font-family: 'Cock', serif;
-  font-size: 7vmin;
+  font-size: 9vh;
   font-weight: 100;
   letter-spacing: 0.2em;
   margin: 0;
@@ -504,6 +552,7 @@ main {
   font-weight: 100;
   letter-spacing: 0.2em;
   margin: 0;
+  text-transform: uppercase;
 }
 
 .article-author {
@@ -625,9 +674,11 @@ figure figcaption {
     display: none;
   }
 
+
+
   .article-container {
     flex-basis: 100%;
-    padding: 0 3rem;
+    padding: 2rem 3rem;
     transition: opacity 0.5s ease-in-out;
   }
 

@@ -135,7 +135,6 @@ function buildPage() {
   } else {
     changeStyle(getStyleCookie());
   }
-  mapbox()
 
   const urlSearchParams = new URLSearchParams(window.location.search);
   const issue = urlSearchParams.get("issue");
@@ -150,11 +149,17 @@ function buildPage() {
       const articleObj = new Article($("article").first());
       document.title = `${articleObj.title}, by ${articleObj.author}`;
       displayMetadata(articleObj);
+      $(".article-title").quickfit({ max: 90, min: 50, truncate: false });
 
-      //if style == 1550.css:
-      Css1500.countLines();
-      Css1500.dropCaps();
-      $(".article-date").text(Css1500.dateToRoman(articleObj.date));
+      if (getStyleCookie() === "1500-article.css") {
+        mapbox();
+        Css1500.countLines();
+        Css1500.dropCaps();
+        $(".article-date").text(Css1500.dateToRoman(articleObj.date));
+      } else if (getStyleCookie() === "future-article.css") {
+        Css1500.revert1500(articleObj.date);
+        //initializeGlobe();
+      };
 
       $(".loading-spinner").hide();
       $(".article-text, .metadata-container").animate({opacity: 0.9}, 700)
@@ -230,6 +235,11 @@ function mapbox() {
     attributionControl: false,
   });
 
+  map.on("idle", function () {
+    map.resize();
+  });
+
+
   new mapboxgl.Marker().setLngLat([11.36, 44.493]).addTo(map);
   map.dragRotate.disable();
   map.touchZoomRotate.disableRotation();
@@ -252,10 +262,14 @@ function changeStyle(style) {
     writeStyleInCookie(style);
   } else {
     $("#style").attr("href", "/styles/" + style);
+    Css1500.revert1500();
+    if (style === "1500-article.css") {
+      Css1500.apply1500();
+    };
     writeStyleInCookie(style);
     setTimeout(() => {
-      selector.fadeOut(1000);
-    }, 1000);
+      selector.fadeOut(500);
+    }, 500);
   }
 }
 
@@ -355,6 +369,41 @@ const Css1500 = {
         }, "")
       )
       .join(" ");
+  },
+
+  revert1500: (date) => {
+    const firstParagraph = document.querySelector(".article-text p:first-of-type");
+
+    if (firstParagraph) {
+      const dropCapSpan = firstParagraph.querySelector(".drop-cap");
+
+      if (dropCapSpan && dropCapSpan.nextSibling) {
+        const originalText = dropCapSpan.textContent + dropCapSpan.nextSibling.textContent;
+        firstParagraph.textContent = originalText;
+      }
+    }
+
+    const articleDate = $(".article-date");
+    if (articleDate.length) {
+      articleDate.text(date);
+    }
+
+    const articleParagraphs = $("article p");
+    if (articleParagraphs.length) {
+      articleParagraphs.removeAttr("data-lines");
+    }
+
+    $(".article-date").text(
+      $('article').first().data("date")
+    );
+  },
+
+  apply1500: () => {
+    Css1500.countLines();
+    Css1500.dropCaps();
+    $(".article-date").text(
+      Css1500.dateToRoman($(".article-date").text().replace(/ /g, "/"))
+    );
   },
 };
 

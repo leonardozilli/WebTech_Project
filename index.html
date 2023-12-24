@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>CarbOff</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-    <link id="style" rel="stylesheet" href="./styles/1500.css" />
+    <link id="style" rel="stylesheet" href="/styles/1500-home.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -17,6 +17,7 @@
     <script src="./scripts/map.js"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+    <link id="style" rel="stylesheet" href="styles/style-selector.css" />
 </head>
 
 <body>
@@ -71,8 +72,8 @@
                 issueList.append("<li><a href='issues/" + issue.number + "/'>" + issue.number + "</a></li>");
                 issue.articles.forEach((article) => {
                     const articleTitle = article.filename.replace(".html", "");
+                    articleList.append(`<li><p onclick=loadPage('read.html?issue=${issue.number}&article=${article.number}-${articleTitle}')>${articleTitle}</p></li>`);
                     articleList.append("<li><a href='read.html?issue=" + issue.number + "&article=" + article.number + "-" + articleTitle + "'>" + articleTitle + "</a></li>");
-                    console.log(articleTitle)
                 });
             });
 
@@ -80,6 +81,7 @@
             console.log("Get from issuesDB: an error has occurred.");
         });
     </script>
+    <script src="test.js"></script>
 </body>
 
 </html>

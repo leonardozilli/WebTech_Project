@@ -5,53 +5,35 @@ class Article {
     this.subtitle = element.data("subtitle");
     this.author = element.data("author");
     this.date = element.data("date");
-    //this.addIds();
-    this.people = this.extractMetadata($("span.person"));
-    this.places = this.extractMetadata($("span.place"));
-    this.dates = this.extractMetadata($("span.date"));
-  }
-
-  extractMetadata(el) {
-    const unique = [];
-    el = $.grep(el, function (i) {
-      const x = i.id;
-      if (unique.includes(x)) {
-        return false;
-      } else {
-        unique.push(x);
-        return true;
-      }
-    });
-    return el;
-  }
-
-  addIds() {
-    $("span.date").each(function () {
-      $(this).attr("id", $(this).text());
-    });
-    $("span.person").each(function () {
-      let fullName = $(this).text().split(" ");
-      let personId = fullName[fullName.length - 1]
-        .toLowerCase()
-        .replace(/ |-|,|'|’/g, "_");
-      $(this).attr("id", personId);
-    });
-    $("span.place").each(function () {
-      let placeId = $(this)
-        .text()
-        .replace(/ |,|'|’/g, "_")
-        .toLowerCase();
-      $(this).attr("id", placeId);
-    });
+    this.people = $("span.person[id]");
+    this.places = $("span.place");
+    this.dates = $("span.date");
   }
 }
 
-function goto(id) {
-  let t = $(id)[0].offsetTop;
-  $(".article-container").animate({ scrollTop: t - 30 }, 1000, "easeOutCubic");
-  $(id).addClass("animate");
+function goto(className) {
+  let scrollPos = $(".article-container").scrollTop();
+  let elements = $(`.${className}`);
+
+  let nextElements = elements.filter(function () {
+    return $(this).offset().top > 30;
+  })
+
+  console.log(elements)
+  console.log(nextElements)
+
+  nextElement = nextElements.first()
+
+  if (nextElement.is(elements.last())) {
+    nextElement = elements.first();
+    console.log('fff')
+  }
+
+  $(".article-container").animate({ scrollTop: (scrollPos + nextElement.offset().top) - 30 }, 1000, "easeOutCubic");
+
+  nextElement.addClass("animate");
   setTimeout(function () {
-    $(id).removeClass("animate");
+    nextElement.removeClass("animate");
   }, 5000);
 }
 
@@ -62,10 +44,10 @@ function displayMetadata(article) {
   $(".article-date").text(article.date);
 
   const appendMetadataToList = (container, data, type) => {
-    data.forEach((el) => {
+    data.each((index, el) => {
       const id = el.id;
       const listItem = $(
-        `<li class="metadata-entry" onclick="goto('#${id}')"></li>`
+        `<li class="metadata-entry" onclick="goto('${id}')"></li>`
       ).text(el.innerHTML);
       container.append(listItem);
     });
@@ -89,15 +71,18 @@ function displayMetadata(article) {
   });
 
   $(".metadata-entry").on("click", function (e) {
-    wikiCall($(this).text());
-    $(".article-map-container").hide();
-    $(".wiki-container").fadeIn({
-      start: function () {
-        jQuery(this).css("display", "flex");
-      },
-    });
-    $(".metadata-entry").removeClass("active");
-    $(this).toggleClass("active");
+    if (!$(this).hasClass("active")) {
+      wikiCall($(this).text());
+      $(".article-map-container").hide();
+      $(".wiki-container").fadeIn({
+        start: function () {
+          jQuery(this).css("display", "flex");
+        },
+      });
+      $(".metadata-entry").removeClass("active");
+      $(this).toggleClass("active");
+
+    }
   });
 }
 
@@ -335,7 +320,8 @@ const Css1500 = {
       ".article-text p:first-of-type"
     );
     const firstLetter = firstParagraph.textContent.trim().charAt(0);
-    const remainingText = firstParagraph.textContent.trim().slice(1);
+    const remainingText = firstParagraph.innerHTML.trim().slice(1);
+
     firstParagraph.innerHTML = `<span class="drop-cap">${firstLetter}</span>${remainingText}`;
     document.querySelector(
       ".drop-cap"

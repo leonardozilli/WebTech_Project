@@ -404,12 +404,13 @@ main {
   position: absolute;
   top: 0;
   right: 0;
-  height: 2rem;
-  width: 2rem;
+  height: 1.5rem;
+  width: 1.5rem;
   background-color: transparent;
   border: none;
   cursor: pointer;
-  background-color: #3a302a;
+  background-image: url('../img/1500/close_button.png');
+  background-size: cover;
 }
 
 .wiki-loading {

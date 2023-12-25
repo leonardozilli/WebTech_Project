@@ -6,6 +6,7 @@ class Article {
     this.author = element.data("author");
     this.date = element.data("date");
     this.people = $("span.person[id]");
+    this.organizations = $("span.organization");
     this.places = $("span.place");
     this.dates = $("span.date");
   }
@@ -29,10 +30,8 @@ function goto(className) {
 
   //console.log(nextElement.offset().top, scrollPos, nextElement.offset().top < scrollPos)
 
+  $(".animate").removeClass("animate");
   nextElement.addClass("animate");
-  setTimeout(function () {
-    nextElement.removeClass("animate");
-  }, 5000);
 }
 
 function displayMetadata(article) {
@@ -51,7 +50,7 @@ function displayMetadata(article) {
   };
 
   appendMetadataToList($(".persList"), article.people);
-  appendMetadataToList($(".placeList"), article.places);
+  appendMetadataToList($(".orgList"), article.organizations);
   appendMetadataToList(
     $(".dateList"),
     article.dates.sort((a, b) => a.id - b.id)
@@ -184,7 +183,6 @@ function wikiCall(subject) {
         url: "https://en.wikipedia.org/api/rest_v1/page/summary/" + title,
         dataType: "json",
         success: function (data) {
-          console.log(data)
           var thumbnail = new Image();
           if (data.thumbnail && data.thumbnail.source) {
             thumbnail.src = data.thumbnail.source;
@@ -224,8 +222,17 @@ function mapbox() {
     map.resize();
   });
 
+  places = $('span.place#cheyenne')
 
-  new mapboxgl.Marker().setLngLat([11.36, 44.493]).addTo(map);
+  places.each( function() {
+    let coordinates = $(this).data('coord').split(',');
+    var category = $(this).hasClass('city') ? 'city' : 'state';
+
+    new mapboxgl.Marker()
+      .setLngLat([parseFloat(coordinates[0]), parseFloat(coordinates[1])])
+      .addTo(map);
+  })
+
   map.dragRotate.disable();
   map.touchZoomRotate.disableRotation();
 }

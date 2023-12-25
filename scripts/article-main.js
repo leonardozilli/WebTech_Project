@@ -19,17 +19,15 @@ function goto(className) {
     return $(this).offset().top > 30;
   })
 
-  console.log(elements)
-  console.log(nextElements)
-
-  nextElement = nextElements.first()
-
-  if (nextElement.is(elements.last())) {
+  if (nextElements.length > 0) {
+    nextElement = nextElements.first();
+  } else if (nextElements.length = 0 || nextElement.offset().top < scrollPos) {
     nextElement = elements.first();
-    console.log('fff')
   }
 
   $(".article-container").animate({ scrollTop: (scrollPos + nextElement.offset().top) - 30 }, 1000, "easeOutCubic");
+
+  //console.log(nextElement.offset().top, scrollPos, nextElement.offset().top < scrollPos)
 
   nextElement.addClass("animate");
   setTimeout(function () {
@@ -45,10 +43,9 @@ function displayMetadata(article) {
 
   const appendMetadataToList = (container, data, type) => {
     data.each((index, el) => {
-      const id = el.id;
       const listItem = $(
-        `<li class="metadata-entry" onclick="goto('${id}')"></li>`
-      ).text(el.innerHTML);
+        `<li class="metadata-entry" onclick="goto('${el.id}')"></li>`
+      ).text(el.dataset.name);
       container.append(listItem);
     });
   };
@@ -187,17 +184,20 @@ function wikiCall(subject) {
         url: "https://en.wikipedia.org/api/rest_v1/page/summary/" + title,
         dataType: "json",
         success: function (data) {
+          console.log(data)
           var thumbnail = new Image();
-          try {
+          if (data.thumbnail && data.thumbnail.source) {
             thumbnail.src = data.thumbnail.source;
-          } catch (err) {
+            thumbnail.onload = function () {
+              $(".wiki-loading").fadeOut();
+              $(".wiki-thumbnail").fadeIn(300).attr("src", thumbnail.src);
+              $(".wiki-extract").fadeIn(300).html(data.extract);
+            };
+          } else {
             $(".wiki-loading").fadeOut();
-          }
-          thumbnail.onload = function () {
-            $(".wiki-loading").fadeOut();
-            $(".wiki-thumbnail").fadeIn(300).attr("src", thumbnail.src);
+            $(".wiki-thumbnail").text("Image not found").fadeIn(300);
             $(".wiki-extract").fadeIn(300).html(data.extract);
-          };
+          }
         },
       });
     },

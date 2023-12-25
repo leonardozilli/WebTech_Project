@@ -237,8 +237,10 @@ header:hover .header-button-text {
 html::-webkit-scrollbar {
   /* display: none; - can be joined with next one */
 }
+.wiki-extract::-webkit-scrollbar,
 .article-container::-webkit-scrollbar,
 .metadata-panel-left::-webkit-scrollbar {
+  scrollbar-width: none;
   display: none;
 }
 

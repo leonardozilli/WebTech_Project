@@ -350,6 +350,10 @@ main {
 
 /* map */
 
+.mapboxgl-marker {
+  cursor: pointer;
+}
+
 .mapboxgl-ctrl-logo {
     display: none !important;
 }

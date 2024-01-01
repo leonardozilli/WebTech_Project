@@ -21,6 +21,7 @@ function goto(className) {
     return $(this).offset().top > 31;
   })
 
+
   if (nextElements.length > 0 && !nextElements.first().hasClass("searched")) {
     nextElement = nextElements.first();
   } else {
@@ -242,30 +243,6 @@ function mapbox() {
     map.resize();
   });
 
-
-  map.on('load', function () {
-      map.setFeatureState(
-    { source: 'mapbox://mapbox.country-boundaries-v1', sourceLayer: 'country_boundaries', id: 'ITA' },
-    { highlighted: true }
-  );
-    map.addLayer({
-    id: 'country-highlights',
-    source: 'mapbox://mapbox.country-boundaries-v1',
-    'source-layer': 'country_boundaries',
-    type: 'fill',
-    paint: {
-      'fill-color': [
-        'case',
-        ['boolean', ['feature-state', 'highlighted'], false],
-        'red', // Highlighted color
-        'transparent' // Default color
-      ],
-      'fill-opacity': 1,
-    },
-  });
-
-  });
-
   places = $('span.place.city[id], span.place.plant[id]')
 
     const markerColorMap = {
@@ -311,6 +288,8 @@ function mapbox() {
 
   map.dragRotate.disable();
   map.touchZoomRotate.disableRotation();
+  console.log(map.getBounds())
+  map.fitBounds(map.getBounds());
 }
 
 //style change//

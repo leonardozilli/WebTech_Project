@@ -36,26 +36,58 @@ function goto(className) {
   nextElement.addClass("searched");
 }
 
+function appendMetadataToList(container, data) {
+  const sortedData = data.toArray().sort((a, b) => {
+    return a.id[0].localeCompare(b.id[0]);
+  });
+
+  sortedData.forEach((el) => {
+    const listItem = $(
+      `<li class="metadata-entry" onclick="goto('${el.id}')"></li>`
+    ).text(el.dataset.name);
+    container.append(listItem);
+  });
+};
+
+
+
 function displayMetadata(article) {
   $(".article-title").text(article.title);
   $(".article-author").text(article.author);
   $(".article-subtitle").text(article.subtitle);
   $(".article-date").text(article.date);
 
-  const appendMetadataToList = (container, data, type) => {
-    data.each((index, el) => {
-      const listItem = $(
-        `<li class="metadata-entry" onclick="goto('${el.id}')"></li>`
-      ).text(el.dataset.name);
-      container.append(listItem);
+  const populateTimeline = (dates) => {
+    const datesArray = dates.map(function () {
+      date = this.classList[this.classList.length - 1]
+      return date
+    })
+
+    uniqueDates = [...new Set(datesArray)];
+
+    timelineContainer = $('#timeline')
+
+    Array.from(uniqueDates).sort().forEach(function (date) {
+      const yearItem = $(
+        `<div class="timeline_item">
+          <div class="timeline_item_content">
+            <span class="timeline_dot" id="timeline_dot_${date}" onclick="goto('${date}')"></span>
+            <span class="timeline_label" id="timeline_label_${date}" onclick="goto('${date}')">${date}</span>
+          </div>
+        </div>
+        `
+      );
+      timelineContainer.append(yearItem);
     });
-  };
+    
+  }
+
 
   appendMetadataToList($(".persList"), article.people);
-  appendMetadataToList($(".orgList"), article.organizations);
-  appendMetadataToList(
-    $(".dateList"),
-    article.dates.sort((a, b) => a.id - b.id)
+  //appendMetadataToList($(".orgList"), article.organizations);
+  populateTimeline(
+    article.dates
+    //article.dates.sort((a, b) => a.id - b.id)
   );
 
   $(".wiki-close").on("click", function (e) {
@@ -79,7 +111,6 @@ function displayMetadata(article) {
       });
       $(".metadata-entry").removeClass("active");
       $(this).toggleClass("active");
-
     }
   });
 }
@@ -103,6 +134,17 @@ $(document).on("click", ".style-selector-container", function (e) {
     $(".style-selector-container").fadeOut(500);
   }
 });
+
+$(document).on("click", "span.tag", function (e) {
+  wikiCall(this.classList[2])
+  $(".article-map-container").hide();
+  $(".wiki-container").fadeIn({
+    start: function () {
+      jQuery(this).css("display", "flex");
+    },
+  });
+});
+
 
 function buildPage() {
   /*$.get("components/header.html", function (data) {
@@ -135,7 +177,8 @@ function buildPage() {
       $(".article-title").quickfit({ max: 90, min: 50, truncate: false });
 
       if (getStyleCookie() === "1500-article.css") {
-        mapbox();
+        mapbox(`issues/${issue}/${articleNumber}/${article}.geojson`);
+        Css1500.organizeList();
         Css1500.countLines();
         Css1500.dropCaps();
         $(".article-date").text(Css1500.dateToRoman(articleObj.date));
@@ -159,6 +202,7 @@ function buildPage() {
     },
   });
 }
+
 
 //wikipedia//
 function wikiCall(subject) {
@@ -207,16 +251,12 @@ function wikiCall(subject) {
 }
 
 //map//
-
 class ClickableMarker extends mapboxgl.Marker {
-  // new method onClick, sets _handleClick to a function you pass in
   onClick(handleClick) {
     this._handleClick = handleClick;
     return this;
   }
 
-  // the existing _onMapClick was there to trigger a popup
-  // but we are hijacking it to run a function we define
   _onMapClick(e) {
     const targetElement = e.originalEvent.target;
     const element = this._element;
@@ -227,7 +267,8 @@ class ClickableMarker extends mapboxgl.Marker {
   }
 };
 
-function mapbox() {
+
+function mapbox(geojsonUrl) {
   mapboxgl.accessToken =
     "pk.eyJ1IjoibHppbGwiLCJhIjoiY2xuNjlkODZpMGVjczJtcW1wN2VkcHExaSJ9.zhOJVlpnVZXhtBntooFkgw";
 
@@ -239,56 +280,83 @@ function mapbox() {
     attributionControl: false,
   });
 
+  map.dragRotate.disable();
+  map.touchZoomRotate.disableRotation();
+
   map.on("idle", function () {
     map.resize();
   });
 
-  places = $('span.place.city[id], span.place.plant[id]')
 
-    const markerColorMap = {
-    'city': 'lightblue',
-    'plant': 'yellow',
-    'disaster': 'red',
-  };
 
-  places.each(function () {
-    let coordinates = $(this).data('coord').split(',');
+  map.on('load', () => {
+    $.ajax({
+      url: geojsonUrl,
+      dataType: 'json',
+      success: (data) => {
+        for (const feature of data.features) {
+          if (feature.geometry.type === 'Point') {
+            const el = document.createElement('div');
+            el.className = 'marker ' + feature.properties.classes[2];
+            el.id = feature.properties.id;
+            new ClickableMarker(el).setLngLat([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).addTo(map);
+            $('#'+el.id+'.marker').on('click', e => {
+              e.stopPropagation()
+              goto(el.id)
+            });
+          } else if (feature.geometry.type === 'Polygon' || feature.geometry.type == 'MultiPolygon') {
+            const layerId = feature.properties.id;
 
-    const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-      `${$(this).text()}\n${coordinates}`
-    );
+            map.addSource(layerId, {
+              'type': 'geojson',
+              'data': feature
+            });
 
-    let markerColor;
-    let markerSize;
+            map.addLayer({
+              'id': layerId,
+              'type': 'fill',
+              'source': layerId,
+              'paint': {
+                'fill-color': 'rgba(200, 100, 240, 0.4)',
+                'fill-outline-color': 'rgba(200, 100, 240, 1)'
+              }
+            });
 
-    switch (true) {
-      case $(this).hasClass('disaster'):
-        markerColor = 'red';
-        break;
-      case $(this).hasClass('plant'):
-        markerColor = 'yellow';
-        break;
+            map.addLayer({
+              'id': layerId + '-outline',
+              'type': 'line',
+              'source': layerId,
+              'layout': {},
+              'paint': {
+                'line-color': '#000',
+                'line-width': 3
+              }
+            });
 
-      default:
-        markerColor = 'lightblue';
-    }
+  //https://github.com/mapbox/mapbox-gl-js/issues/5783
+            map.on('click', layerId, (e) => {
+              e.originalEvent.cancelBubble = true;
+              console.log(map.queryRenderedFeatures(e.point))
+            });
 
-    try {
-      new ClickableMarker({ color: markerColor})
-        .setLngLat([parseFloat(coordinates[1]), parseFloat(coordinates[0])])
-        .setPopup(popup)
-        .onClick(() => {
-          goto(this.id)
-        })
-        .addTo(map);
-    } catch {
-      console.log("couldn't fetch coordinates for ", $(this))
-    }
-  })
+            map.on('mouseenter', layerId, () => {
+              map.getCanvas().style.cursor = 'pointer';
+            });
 
-  map.dragRotate.disable();
-  map.touchZoomRotate.disableRotation();
-  console.log(map.getBounds())
+            map.on('mouseleave', layerId, () => {
+              map.getCanvas().style.cursor = '';
+            });
+          }
+        }
+
+      },
+      error: (error) => {
+        console.error('Error loading GeoJSON file:', error);
+      }
+    });
+  });
+
+
   map.fitBounds(map.getBounds());
 }
 
@@ -366,6 +434,43 @@ $(".article-container").click(function (e) {
 
 //1500.css-related functions//
 const Css1500 = {
+  organizeList: () => {
+    $('.separator').append(
+      `
+      <div id="holy_line1">A TABLE OF THE PRINCIPAL</div>
+      <div id="holy_line2">THINGS THAT ARE CONTEINED IN THE ARTICLE, AF·</div>
+      <div id="holy_line3">ter the ordre of the alphabet.</div>
+      `);
+    list = $('.metadata-list:not(#timeline)')
+    items = $('.metadata-entry')
+
+    const groupedItems = {};
+    items.each(function (idx, item) {
+      const initial = item.textContent[0].toUpperCase()
+
+      if (!groupedItems[initial]) {
+        groupedItems[initial] = [];
+      }
+      groupedItems[initial].push(item);
+
+    });
+
+
+    $.each(groupedItems, function (initial, items) {
+      const group = $("<ul></ul>");
+
+      $.each(items, function () {
+        group.append($(this));
+      });
+
+      const listItem = $(`<li class='list-block'><span class="list-block-heading">${initial}</span></li>`);
+      listItem.append(group);
+      list.append(listItem);
+    });
+
+
+  },
+
   countLines: () => {
     let articleLines = 0;
     $("article p").each(function () {
@@ -420,27 +525,27 @@ const Css1500 = {
   },
 
   revert1500: (date) => {
+
+    //drop-cap
     const firstParagraph = document.querySelector(".article-text p:first-of-type");
 
     if (firstParagraph) {
-      const dropCapSpan = firstParagraph.querySelector(".drop-cap");
-
-      if (dropCapSpan && dropCapSpan.nextSibling) {
-        const originalText = dropCapSpan.textContent + dropCapSpan.nextSibling.textContent;
-        firstParagraph.textContent = originalText;
-      }
+      const dropCapSpan = $(".drop-cap");
+      dropCapSpan.replaceWith(dropCapSpan.html());
     }
 
-    const articleDate = $(".article-date");
-    if (articleDate.length) {
-      articleDate.text(date);
-    }
 
+    //line numbering
     const articleParagraphs = $("article p");
     if (articleParagraphs.length) {
       articleParagraphs.removeAttr("data-lines");
     }
 
+    //date
+    const articleDate = $(".article-date");
+    if (articleDate.length) {
+      articleDate.text(date);
+    }
     $(".article-date").text(
       $('article').first().data("date")
     );
@@ -457,116 +562,7 @@ const Css1500 = {
 
 
 const Css2040 = {
-  initializeGlobe: () => {
-    let phi = 0
-    let canvas = $("#article-map").empty();
-
-    const globe = createGlobe(canvas, {
-      devicePixelRatio: 2,
-      width: 1000,
-      height: 1000,
-      phi: 0,
-      theta: 0,
-      dark: 0,
-      diffuse: 1.2,
-      scale: 1,
-      mapSamples: 16000,
-      mapBrightness: 6,
-      baseColor: [1, 1, 1],
-      markerColor: [1, 0.5, 1],
-      glowColor: [1, 1, 1],
-      offset: [0, 0],
-      markers: [
-        { location: [37.7595, -122.4367], size: 0.03 },
-        { location: [40.7128, -74.006], size: 0.1 },
-      ],
-      onRender: (state) => {
-        // Called on every animation frame.
-        // `state` will be an empty object, return updated params.
-        state.phi = phi
-        phi += 0.01
-      },
-    })
-  },
 };
-
-function initializeGlobe() {
-
-  var width = 960,
-    height = 960,
-    radius = 228,
-    mesh,
-    graticule,
-    scene = new THREE.Scene,
-    camera = new THREE.PerspectiveCamera(70, width / height, 1, 1000),
-    renderer = new THREE.WebGLRenderer({ alpha: true });
-
-  camera.position.z = 400;
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(width, height);
-  $('.article-map-container').append(renderer.domElement);
-
-  d3.json("https://unpkg.com/world-atlas@1/world/50m.json", function (error, topology) {
-    if (error) throw error;
-    scene.add(graticule = wireframe(graticule10(), new THREE.LineBasicMaterial({ color: 0xaaaaaa })));
-    scene.add(mesh = wireframe(topojson.mesh(topology, topology.objects.land), new THREE.LineBasicMaterial({ color: 0xff0000 })));
-    d3.timer(function (t) {
-      graticule.rotation.x = mesh.rotation.x = Math.sin(t / 11000) * Math.PI / 3 - Math.PI / 2;
-      graticule.rotation.z = mesh.rotation.z = t / 10000;
-      renderer.render(scene, camera);
-    });
-  });
-
-  // Converts a point [longitude, latitude] in degrees to a THREE.Vector3.
-  function vertex(point) {
-    var lambda = point[0] * Math.PI / 180,
-      phi = point[1] * Math.PI / 180,
-      cosPhi = Math.cos(phi);
-    return new THREE.Vector3(
-      radius * cosPhi * Math.cos(lambda),
-      radius * cosPhi * Math.sin(lambda),
-      radius * Math.sin(phi)
-    );
-  }
-
-  // Converts a GeoJSON MultiLineString in spherical coordinates to a THREE.LineSegments.
-  function wireframe(multilinestring, material) {
-    var geometry = new THREE.Geometry;
-    multilinestring.coordinates.forEach(function (line) {
-      d3.pairs(line.map(vertex), function (a, b) {
-        geometry.vertices.push(a, b);
-      });
-    });
-    return new THREE.LineSegments(geometry, material);
-  }
-
-  // See https://github.com/d3/d3-geo/issues/95
-  function graticule10() {
-    var epsilon = 1e-6,
-      x1 = 180, x0 = -x1, y1 = 80, y0 = -y1, dx = 10, dy = 10,
-      X1 = 180, X0 = -X1, Y1 = 90, Y0 = -Y1, DX = 90, DY = 360,
-      x = graticuleX(y0, y1, 2.5), y = graticuleY(x0, x1, 2.5),
-      X = graticuleX(Y0, Y1, 2.5), Y = graticuleY(X0, X1, 2.5);
-
-    function graticuleX(y0, y1, dy) {
-      var y = d3.range(y0, y1 - epsilon, dy).concat(y1);
-      return function (x) { return y.map(function (y) { return [x, y]; }); };
-    }
-
-    function graticuleY(x0, x1, dx) {
-      var x = d3.range(x0, x1 - epsilon, dx).concat(x1);
-      return function (y) { return x.map(function (x) { return [x, y]; }); };
-    }
-
-    return {
-      type: "MultiLineString",
-      coordinates: d3.range(Math.ceil(X0 / DX) * DX, X1, DX).map(X)
-        .concat(d3.range(Math.ceil(Y0 / DY) * DY, Y1, DY).map(Y))
-        .concat(d3.range(Math.ceil(x0 / dx) * dx, x1, dx).filter(function (x) { return Math.abs(x % DX) > epsilon; }).map(x))
-        .concat(d3.range(Math.ceil(y0 / dy) * dy, y1 + epsilon, dy).filter(function (y) { return Math.abs(y % DY) > epsilon; }).map(y))
-    };
-  }
-}
 
 
 //---------------------------//

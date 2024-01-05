@@ -13,13 +13,6 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
     <script src="scripts/jquery.quickfit.js"></script>
-    <script src="https://unpkg.com/three@0.84"></script>
-    <script src="https://unpkg.com/topojson-client@3"></script>
-    <script src="https://unpkg.com/d3-array@1"></script>
-    <script src="https://unpkg.com/d3-collection@1"></script>
-    <script src="https://unpkg.com/d3-dispatch@1"></script>
-    <script src="https://unpkg.com/d3-request@1"></script>
-    <script src="https://unpkg.com/d3-timer@1"></script>
     <link id="style" rel="stylesheet" href="styles/1500-article.css" />
     <link id="style" rel="stylesheet" href="styles/style-selector.css" />
 </head>
@@ -63,7 +56,7 @@
                     <div class="article-map" id="article-map"></div>
                 </div>
             </div>
-            <hr class="horizontal-line">
+            <div class="separator"></div>
             <div class="metadata-bottom">
                 <div class="metadata-buttons-container">
                     <button class="metadata-tab-button active" id="people-tab-button">People</button>
@@ -72,28 +65,19 @@
                 </div>
                 <div class="lists-container">
                     <div class="metadata-list-container metadata-list-people active" id="people-tab">
-                        <ul class="metadata-list collapsed-list persList"></ul>
-                    </div>
+                        <ul class="metadata-list collapsed-list persList" id="persList"></ul>
+                    </div id="persList">
                     <div class="metadata-list-container metadata-list-orgs" id="org-tab">
-                        <ul class="metadata-list collapsed-list orgList"></ul>
+                        <ul class="metadata-list collapsed-list orgList" id="orgList"></ul>
                     </div>
                     <div class="metadata-list-container metadata-list-dates" id="dates-tab">
-                        <ul class="metadata-list collapsed-list dateList"></ul>
+                        <div class="metadata-list collapsed-list timeline" id="timeline"></div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-    <footer></footer>
     <script src="scripts/article-main.js"></script>
-
-    <!---*<script type="module" src="components/encom-globe/globe.js"></script>
-    <script src="components/encom-globe/data.js"></script>
-    <script src="components/encom-globe/grid.js"></script>
-    <script src="components/encom-globe/include/Detector.js"></script>
-    <script src="components/encom-globe/build/encom-globe.js"></script>-->
-
-
 
 </body>
 

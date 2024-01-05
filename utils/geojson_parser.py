@@ -4,7 +4,8 @@ from bs4 import BeautifulSoup
 
 def get_geometry_by_id(geojson_data, element_id, type=None):
     aaa = {
-        'united_states': 'United States of America'
+        'united_states': 'United States of America',
+        'britain': 'United Kingdom'
     }
 
     id =  element_id.replace("_", " ") if element_id not in aaa else aaa[element_id]

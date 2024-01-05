@@ -295,57 +295,60 @@ function mapbox(geojsonUrl) {
       dataType: 'json',
       success: (data) => {
         for (const feature of data.features) {
-          if (feature.geometry.type === 'Point') {
-            const el = document.createElement('div');
-            el.className = 'marker ' + feature.properties.classes[2];
-            el.id = feature.properties.id;
-            new ClickableMarker(el).setLngLat([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).addTo(map);
-            $('#'+el.id+'.marker').on('click', e => {
-              e.stopPropagation()
-              goto(el.id)
-            });
-          } else if (feature.geometry.type === 'Polygon' || feature.geometry.type == 'MultiPolygon') {
-            const layerId = feature.properties.id;
+          if (feature.geometry) {
+            if (feature.geometry.type === 'Point') {
+              const el = document.createElement('div');
+              el.className = 'marker ' + feature.properties.classes[2];
+              el.id = feature.properties.id;
+              new ClickableMarker(el).setLngLat([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).addTo(map);
+              $('#' + el.id + '.marker').on('click', e => {
+                e.stopPropagation()
+                goto(el.id)
+              });
+            } else if (feature.geometry.type === 'Polygon' || feature.geometry.type == 'MultiPolygon') {
+              const layerId = feature.properties.id;
 
-            map.addSource(layerId, {
-              'type': 'geojson',
-              'data': feature
-            });
+              console.log(layerId)
+              map.addSource(layerId, {
+                'type': 'geojson',
+                'data': feature
+              });
 
-            map.addLayer({
-              'id': layerId,
-              'type': 'fill',
-              'source': layerId,
-              'paint': {
-                'fill-color': 'rgba(200, 100, 240, 0.4)',
-                'fill-outline-color': 'rgba(200, 100, 240, 1)'
-              }
-            });
+              map.addLayer({
+                'id': layerId,
+                'type': 'fill',
+                'source': layerId,
+                'paint': {
+                  'fill-color': 'rgba(200, 100, 240, 0.4)',
+                  'fill-outline-color': 'rgba(200, 100, 240, 1)'
+                }
+              });
 
-            map.addLayer({
-              'id': layerId + '-outline',
-              'type': 'line',
-              'source': layerId,
-              'layout': {},
-              'paint': {
-                'line-color': '#000',
-                'line-width': 3
-              }
-            });
+              map.addLayer({
+                'id': layerId + '-outline',
+                'type': 'line',
+                'source': layerId,
+                'layout': {},
+                'paint': {
+                  'line-color': '#000',
+                  'line-width': 3
+                }
+              });
 
-  //https://github.com/mapbox/mapbox-gl-js/issues/5783
-            map.on('click', layerId, (e) => {
-              e.originalEvent.cancelBubble = true;
-              console.log(map.queryRenderedFeatures(e.point))
-            });
+              //https://github.com/mapbox/mapbox-gl-js/issues/5783
+              map.on('click', layerId, (e) => {
+                e.originalEvent.cancelBubble = true;
+                console.log(map.queryRenderedFeatures(e.point))
+              });
 
-            map.on('mouseenter', layerId, () => {
-              map.getCanvas().style.cursor = 'pointer';
-            });
+              map.on('mouseenter', layerId, () => {
+                map.getCanvas().style.cursor = 'pointer';
+              });
 
-            map.on('mouseleave', layerId, () => {
-              map.getCanvas().style.cursor = '';
-            });
+              map.on('mouseleave', layerId, () => {
+                map.getCanvas().style.cursor = '';
+              });
+            }
           }
         }
 

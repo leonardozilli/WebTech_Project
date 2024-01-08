@@ -288,6 +288,33 @@ function mapbox(geojsonUrl) {
   });
 
 
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    return new Promise((resolve) => {
+      timer = setTimeout(() => {
+        resolve(func.apply(this, args));
+      }, timeout);
+    });
+  };
+}
+
+const debounceClickHandler = debounce((map, event) => {
+  return new Promise((resolve) => {
+    const features = map.queryRenderedFeatures(event.point);
+    const filteredFeatures = features.filter(feature => feature.id === undefined);
+    
+    let selectedFeature;
+    if (filteredFeatures.length === 1) {
+      selectedFeature = filteredFeatures[0];
+    } else if (filteredFeatures.length > 1) {
+      selectedFeature = filteredFeatures.find(feature => JSON.parse(feature.properties.classes)[2] === 'state');
+    }
+
+    resolve(selectedFeature ? selectedFeature.source : null);
+  });
+}, 10);
 
   map.on('load', () => {
     $.ajax({
@@ -300,15 +327,20 @@ function mapbox(geojsonUrl) {
               const el = document.createElement('div');
               el.className = 'marker ' + feature.properties.classes[2];
               el.id = feature.properties.id;
-              new ClickableMarker(el).setLngLat([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).addTo(map);
-              $('#' + el.id + '.marker').on('click', e => {
-                e.stopPropagation()
-                goto(el.id)
-              });
+              var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(feature.properties.name);
+              var marker = new ClickableMarker(el).setLngLat([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).setPopup(popup).addTo(map);
+              (function (marker, el) {
+                el.addEventListener('mouseenter', () => marker.togglePopup());
+                el.addEventListener('mouseleave', () => marker.togglePopup());
+                el.addEventListener('click', e => {
+                  e.stopPropagation(); 
+                  goto(el.id);
+                });
+              })(marker, el);
+
             } else if (feature.geometry.type === 'Polygon' || feature.geometry.type == 'MultiPolygon') {
               const layerId = feature.properties.id;
 
-              console.log(layerId)
               map.addSource(layerId, {
                 'type': 'geojson',
                 'data': feature
@@ -319,26 +351,13 @@ function mapbox(geojsonUrl) {
                 'type': 'fill',
                 'source': layerId,
                 'paint': {
-                  'fill-color': 'rgba(200, 100, 240, 0.4)',
-                  'fill-outline-color': 'rgba(200, 100, 240, 1)'
+                  'fill-color': 'rgba(132, 128, 107, 0.3)',
                 }
               });
 
-              map.addLayer({
-                'id': layerId + '-outline',
-                'type': 'line',
-                'source': layerId,
-                'layout': {},
-                'paint': {
-                  'line-color': '#000',
-                  'line-width': 3
-                }
-              });
-
-              //https://github.com/mapbox/mapbox-gl-js/issues/5783
-              map.on('click', layerId, (e) => {
-                e.originalEvent.cancelBubble = true;
-                console.log(map.queryRenderedFeatures(e.point))
+              map.on('click', layerId, async (event) => {
+                const clicked_layer = await debounceClickHandler(map, event);
+                goto(clicked_layer);
               });
 
               map.on('mouseenter', layerId, () => {

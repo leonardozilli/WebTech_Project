@@ -93,6 +93,7 @@ body {
 
 span.tag {
   white-space: nowrap;
+  text-shadow: 0px 0px 2px #0e0d0d4d;
 }
 
 span.tag:hover {
@@ -279,13 +280,16 @@ main {
 }
 
 .metadata-bottom {
-  width: 100%;
+  width: 70%;
 }
 
 .separator {
   margin: 2rem 2rem 0rem 2rem;
   opacity: 0.9;
+}
 
+.separator div{
+  text-align-last: justify;
 }
 
 #holy_line1 {
@@ -410,22 +414,30 @@ main {
 /* map */
 
 .marker {
-  background-image: url('../img/1500/fab-icon.png');
+  background-image: url('../img/1500/marker.png');
   background-size: cover;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
   cursor: pointer;
+  transition: width 0.3s, height 0.3s;
+}
+
+.marker:hover {
+  width: 1.8rem;
+  height: 1.8rem;
 }
 
 .marker.plant {
-  background-image: url('../img/1500/fab-icon.png');
-  background-color: yellow;
+  background-image: url('../img/1500/marker-plant.png');
   background-size: cover;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
   cursor: pointer;
+}
+
+.marker.plant:hover {
+  width: 2.3rem;
+  height: 2.3rem;
 }
 
 .mapboxgl-ctrl-logo {

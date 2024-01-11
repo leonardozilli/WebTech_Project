@@ -20,7 +20,7 @@
 }
 
 :root {
-  --accent-color: #3498db;
+  --accent-color: transparent;
 
 }
 
@@ -36,6 +36,7 @@ body {
   flex: 1;
   overflow-x: hidden;
   line-height: 1.5;
+  background-color: #f6f5ec;
 }
 
 body.preload * {
@@ -161,7 +162,7 @@ header {
   text-align: center;
   justify-content: center;
   padding: 2rem 0;
-  background-color: #3498db;
+  background-color: var(--accent-color);
   width: 100px;
   height: 100%;
   border-right: 1px solid #000;
@@ -170,7 +171,6 @@ header {
 
 main {
   margin-left: 100px;
-  background-color: #f6f5ec;
 }
 
 

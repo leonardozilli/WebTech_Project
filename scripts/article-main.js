@@ -217,6 +217,7 @@ function styleBoundChanges(date, geojson) {
   } else if (getStyleCookie() === "90s-article.css") {
     $(".article-title").quickfit({ max: 150, min: 90, truncate: false });
     Css1500.revert1500(date);
+    Css1990.extractColor();
   }
 }
 
@@ -350,7 +351,6 @@ const debounceClickHandler = debounce((map, event) => {
               el.className = 'marker ' + feature.properties.classes[2];
               el.id = feature.properties.id;
               var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(feature.properties.name);
-              console.log(popup)
               var marker = new ClickableMarker(el).setLngLat([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).setPopup(popup).addTo(map);
               (function (marker, el) {
                 el.addEventListener('mouseenter', () => marker.togglePopup());
@@ -483,26 +483,25 @@ $(".article-container").click(function (e) {
 //1500.css-related functions//
 const Css1500 = {
   organizeList: () => {
-    $('.separator').append(
+    $(".separator").append(
       `
       <div id="holy_line1">A TABLE OF THE PRINCIPAL</div>
       <div id="holy_line2">THINGS THAT ARE CONTEINED IN THE ARTICLE, AF·</div>
       <div id="holy_line3">ter the ordre of the alphabet.</div>
-      `);
-    list = $('.metadata-list:not(#dateList)')
-    items = $('.metadata-entry')
+      `
+    );
+    list = $(".metadata-list:not(#dateList)");
+    items = $(".metadata-entry");
 
     const groupedItems = {};
     items.each(function (idx, item) {
-      const initial = item.textContent[0].toUpperCase()
+      const initial = item.textContent[0].toUpperCase();
 
       if (!groupedItems[initial]) {
         groupedItems[initial] = [];
       }
       groupedItems[initial].push(item);
-
     });
-
 
     $.each(groupedItems, function (initial, items) {
       const group = $("<ul></ul>");
@@ -511,12 +510,12 @@ const Css1500 = {
         group.append($(this));
       });
 
-      const listItem = $(`<li class='list-block'><span class="list-block-heading">${initial}</span></li>`);
+      const listItem = $(
+        `<li class='list-block'><span class="list-block-heading">${initial}</span></li>`
+      );
       listItem.append(group);
       list.append(listItem);
     });
-
-
   },
 
   countLines: () => {
@@ -573,15 +572,15 @@ const Css1500 = {
   },
 
   revert1500: (date) => {
-
     //drop-cap
-    const firstParagraph = document.querySelector(".article-text p:first-of-type");
+    const firstParagraph = document.querySelector(
+      ".article-text p:first-of-type"
+    );
 
     if (firstParagraph) {
       const dropCapSpan = $(".drop-cap");
       dropCapSpan.replaceWith(dropCapSpan.html());
     }
-
 
     //line numbering
     const articleParagraphs = $("article p");
@@ -594,9 +593,7 @@ const Css1500 = {
     if (articleDate.length) {
       articleDate.text(date);
     }
-    $(".article-date").text(
-      $('article').first().data("date")
-    );
+    $(".article-date").text($("article").first().data("date"));
   },
 
   apply1500: () => {
@@ -605,6 +602,26 @@ const Css1500 = {
     $(".article-date").text(
       Css1500.dateToRoman($(".article-date").text().replace(/ /g, "/"))
     );
+  },
+};
+
+const Css1990 = {
+  extractColor: () => {
+    let color;
+    const img = document.querySelector(".cover-image img");
+    if (img) {
+      img.addEventListener("load", function () {
+        var vibrant = new Vibrant(img, 32, 4);
+        var swatches = vibrant.swatches();
+        for (var swatch in swatches)
+          if (swatches.hasOwnProperty(swatch) && swatches[swatch])
+            console.log(swatch, swatches[swatch].getHex());
+
+        color = swatches["LightVibrant"].getRgb();
+        var r = document.querySelector(":root");
+        r.style.setProperty("--accent-color", `rgb(${color})`);
+      });
+    }
   },
 };
 

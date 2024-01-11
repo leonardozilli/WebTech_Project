@@ -58,32 +58,45 @@ function displayMetadata(article) {
   $(".article-date").text(article.date);
 
   const populateTimeline = (dates) => {
-    const datesArray = dates.map(function () {
-      date = this.classList[this.classList.length - 1]
-      return date
-    })
+    const datesArray = [];
 
-    uniqueDates = [...new Set(datesArray)];
+    for (const element of dates) {
+      const year = element.classList[element.classList.length - 1];
+      const month =
+        element.classList[element.classList.length - 2] !== "date"
+          ? element.classList[element.classList.length - 2]
+          : null;
+      datesArray.push([year, month]);
+    }
 
-    timelineContainer = $('#timeline')
+    uniqueDates = [...new Set(datesArray.map(JSON.stringify))]
+      .map(JSON.parse)
+      .sort();
 
-    Array.from(uniqueDates).sort().forEach(function (date) {
-      const yearItem = $(
-        `<div class="timeline_item">
-          <div class="timeline_item_content">
-            <span class="timeline_dot" id="timeline_dot_${date}" onclick="goto('${date}')"></span>
-            <span class="timeline_label" id="timeline_label_${date}" onclick="goto('${date}')">${date}</span>
-          </div>
-        </div>
-        `
-      );
-      timelineContainer.append(yearItem);
-    });
-    
-  }
+    dateListContainer = $("#dateList");
+
+    Array.from(uniqueDates)
+      .forEach(function (date) {
+        const yearItem = $(`<ul class="date-year" id="date-year_${date[0]}"></ul>`);
+        if ($('#date-year_' + date[0]).length == 0){
+          dateListContainer.append(yearItem);
+          const yearEntry = $(
+            `<li class="year-entry" id="year_entry_${date[0]}" onclick="goto('${date[0]}')">${date[0]}</li>`
+          );
+        yearItem.append(yearEntry);
+        }
+
+        if (date[1] !== null) {
+          const monthEntry = $(
+            `<li class="month-entry" id="month_entry_${date[1]}_${date[0]}" onclick="goto('${date[1]}.${date[0]}')">${date[1]}</li>`
+          );
+          $('#date-year_'+date[0]).append(monthEntry);
+        }
+      });
+  };
 
 
-  appendMetadataToList($(".persList"), article.people);
+  appendMetadataToList($("#persList"), article.people);
   //appendMetadataToList($(".orgList"), article.organizations);
   populateTimeline(
     article.dates
@@ -94,7 +107,7 @@ function displayMetadata(article) {
     $(".wiki-container").fadeOut(100);
     $(".article-map-container").fadeIn();
     $(".metadata-entry").removeClass("active");
-    $(".wiki-thumbnail, .wiki-extract").fadeOut(300, function () {
+    $(".wiki-thumbnail-container, .wiki-text").fadeOut(300, function () {
       $(this).empty();
       $(".wiki-thumbnail").attr("src", "");
     });
@@ -155,17 +168,18 @@ function buildPage() {
   $("main").prepend('<div class="style-selector-container" style="display: none;"></div>');
   $(".style-selector-container").load("components/style-selector.html");
 
-  if (getStyleCookie() === null) {
-    $(".style-selector-container").show();
-  } else {
-    changeStyle(getStyleCookie());
-  }
-
   const urlSearchParams = new URLSearchParams(window.location.search);
   const issue = urlSearchParams.get("issue");
   const [articleNumber, article] = urlSearchParams
     .get("article")
     .split(/-(.+)/);
+
+  if (getStyleCookie() === null) {
+    $(".style-selector-container").show();
+  } else {
+    changeStyle(getStyleCookie(), issue, articleNumber, article);
+  }
+
   $.ajax({
     url: `issues/${issue}/${articleNumber}/${article}.html`,
     dataType: "html",
@@ -174,18 +188,7 @@ function buildPage() {
       const articleObj = new Article($("article").first());
       document.title = `${articleObj.title}, by ${articleObj.author}`;
       displayMetadata(articleObj);
-      $(".article-title").quickfit({ max: 90, min: 50, truncate: false });
-
-      if (getStyleCookie() === "1500-article.css") {
-        mapbox(`issues/${issue}/${articleNumber}/${article}.geojson`);
-        Css1500.organizeList();
-        Css1500.countLines();
-        Css1500.dropCaps();
-        $(".article-date").text(Css1500.dateToRoman(articleObj.date));
-      } else if (getStyleCookie() === "future-article.css") {
-        Css1500.revert1500(articleObj.date);
-      };
-
+      styleBoundChanges(articleObj.date, `issues/${issue}/${articleNumber}/${article}.geojson`);
       $(".loading").fadeOut(100);
       $(".article-text, .metadata-container").animate({opacity: 0.9}, 700)
       $(".header-container").animate({"right": '0'}, 500)
@@ -203,6 +206,20 @@ function buildPage() {
   });
 }
 
+function styleBoundChanges(date, geojson) {
+  mapbox(geojson, getStyleCookie());
+  if (getStyleCookie() === "1500-article.css") {
+    $(".article-title").quickfit({ max: 90, min: 50, truncate: false });
+    Css1500.organizeList();
+    Css1500.countLines();
+    Css1500.dropCaps();
+    $(".article-date").text(Css1500.dateToRoman(date));
+  } else if (getStyleCookie() === "90s-article.css") {
+    $(".article-title").quickfit({ max: 150, min: 90, truncate: false });
+    Css1500.revert1500(date);
+  }
+}
+
 
 //wikipedia//
 function wikiCall(subject) {
@@ -211,6 +228,7 @@ function wikiCall(subject) {
     $(".wiki-thumbnail").attr("src", "");
   });
 
+  $(".wiki-readmore").fadeOut(300);
   $(".wiki-loading").fadeIn(300);
 
   $.ajax({
@@ -235,11 +253,13 @@ function wikiCall(subject) {
               $(".wiki-loading").fadeOut();
               $(".wiki-thumbnail").fadeIn(300).attr("src", thumbnail.src);
               $(".wiki-extract").fadeIn(300).html(data.extract);
+              $(".wiki-readmore").fadeIn(300)
             };
           } else {
             $(".wiki-loading").fadeOut();
             $(".wiki-thumbnail").text("Image not found").fadeIn(300);
             $(".wiki-extract").fadeIn(300).html(data.extract);
+            $(".wiki-readmore").fadeIn(300)
           }
         },
       });
@@ -268,14 +288,16 @@ class ClickableMarker extends mapboxgl.Marker {
 };
 
 
-function mapbox(geojsonUrl) {
+function mapbox(geojsonUrl, style) {
+  $(".article-map").empty();
   mapboxgl.accessToken =
     "pk.eyJ1IjoibHppbGwiLCJhIjoiY2xuNjlkODZpMGVjczJtcW1wN2VkcHExaSJ9.zhOJVlpnVZXhtBntooFkgw";
 
   var map = new mapboxgl.Map({
     container: "article-map",
-    style: "mapbox://styles/lzill/cln69j4oi039y01qu4eugc6lw",
-    center: [0, 30],
+    style: (style === "1500-article.css") ? "mapbox://styles/lzill/cln69j4oi039y01qu4eugc6lw" : "mapbox://styles/mapbox/light-v11",
+    projection: (style === "1500-article.css") ? "mercator" : "globe",
+    center: (style === "1500-article.css") ? [0, 30] : [0, 0],
     zoom: 1,
     attributionControl: false,
   });
@@ -328,6 +350,7 @@ const debounceClickHandler = debounce((map, event) => {
               el.className = 'marker ' + feature.properties.classes[2];
               el.id = feature.properties.id;
               var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(feature.properties.name);
+              console.log(popup)
               var marker = new ClickableMarker(el).setLngLat([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).setPopup(popup).addTo(map);
               (function (marker, el) {
                 el.addEventListener('mouseenter', () => marker.togglePopup());
@@ -391,7 +414,13 @@ $(document).on(
   }
 );
 
-function changeStyle(style) {
+function changeStyle(style, issue, articleNumber, article) {
+  if (!issue) {
+    article = $(".article-text");
+    issue = article.data("issue");
+    articleNumber = article.data("order");
+    article = article.data("filename");
+  }
   const selector = $(".style-selector-container");
 
   if ($("#style").attr("href").includes(style)) {
@@ -399,11 +428,8 @@ function changeStyle(style) {
     writeStyleInCookie(style);
   } else {
     $("#style").attr("href", "/styles/" + style);
-    Css1500.revert1500();
-    if (style === "1500-article.css") {
-      Css1500.apply1500();
-    };
     writeStyleInCookie(style);
+    styleBoundChanges($(".article-date").text(), `issues/${issue}/${articleNumber}/${article}.geojson`);
     setTimeout(() => {
       selector.fadeOut(500);
     }, 500);
@@ -463,7 +489,7 @@ const Css1500 = {
       <div id="holy_line2">THINGS THAT ARE CONTEINED IN THE ARTICLE, AF·</div>
       <div id="holy_line3">ter the ordre of the alphabet.</div>
       `);
-    list = $('.metadata-list:not(#timeline)')
+    list = $('.metadata-list:not(#dateList)')
     items = $('.metadata-entry')
 
     const groupedItems = {};
@@ -580,10 +606,6 @@ const Css1500 = {
       Css1500.dateToRoman($(".article-date").text().replace(/ /g, "/"))
     );
   },
-};
-
-
-const Css2040 = {
 };
 
 

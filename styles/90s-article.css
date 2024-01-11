@@ -1,3 +1,24 @@
+@font-face {
+  font-family: 'Times New Arial';
+  src: url('../fonts/times_new_arial/timesnewarial.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'EB Garamond';
+  src: url('../fonts/EB_Garamond/EBGaramond-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Univers 57 Condensed';
+  src: url('../fonts/Univers-57-Condensed/Univers-57-Condensed.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --accent-color: #3498db;
 
@@ -61,13 +82,6 @@ body.preload * {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
-.horizontal-line {
-  height: 1px;
-  width: 30rem;
-  margin: 1rem 0;
-}
-
 
 
 /* HEADER */
@@ -156,6 +170,7 @@ header {
 
 main {
   margin-left: 100px;
+  background-color: #f6f5ec;
 }
 
 
@@ -274,12 +289,11 @@ main {
 
 .article-map-container {
   position: absolute;
-  top: 0;
-  right: 0;
   display: block;
-}
-
-.metadata-upper {
+  width: 100%;
+  height: 100%;
+  top: 100vh;
+  left: 100px;
 }
 
 .article-map {
@@ -292,6 +306,43 @@ main {
   height: 100%;
   opacity: 1;
   transition: opacity 1s ease 0s;
+}
+
+.marker {
+  background-image: url('../img/1500/marker.png');
+  background-size: cover;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  transition: width 0.3s, height 0.3s;
+}
+
+.marker:hover {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.marker.plant {
+  background-image: url('../img/1500/marker-plant.png');
+  background-size: cover;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.marker.plant:hover {
+  width: 2.3rem;
+  height: 2.3rem;
+}
+
+.mapboxgl-ctrl-logo {
+    display: none !important;
+}
+
+.article-map-container,
+.wiki-container {
+  height: 100%;
+  width: 100%;
 }
 
 /* WIKI */
@@ -357,13 +408,10 @@ main {
 }
 
 .titles {
-  background-color: #3498db6b;
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 51.25%;
-  padding: 50px 3.90625%;
-  backdrop-filter: blur(50px) brightness(1.08);
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
 }
 
 .cover-image {
@@ -374,15 +422,13 @@ main {
   margin: 0;
 }
 
-.article-date {
-  grid-row: 3;
-}
-
 .cover-image > img {
   object-fit: cover;
-  z-index: -1;
+  z-index: -10;
   max-width: 100%;
   height: 100%;
+  margin-left: 5rem;
+  transform: rotate(0.8deg);
 }
 
 .cover-image > .image-description{
@@ -399,41 +445,33 @@ main {
 }
 
 .article-date {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Humane Bordeaux', serif;
-  font-size: 1.2rem;
-  font-weight: 100;
-  font-style: italic;
-  text-transform: uppercase;
-  margin: 10px;
+  font-family: 'Univers 57 Condensed', 'serif';
+  position: absolute;
+  bottom: 2rem;
+  right: 0;
+  letter-spacing: 3rem;
 }
 
 
 .cover-page>.titles {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  width: 80%;
+  align-items: flex-end;
 }
 
-.titles > * {
-  margin: 0;
-}
-
-.article-title-container {
-  container-name: article-title;
-  width: 100%;
+.titles > *, .article-date {
+  margin: 0 10rem 0 0;
 }
 
 .article-title {
-  font-family: 'Cock', serif;
-  font-size: 9vh;
-  font-weight: 100;
+  font-family: 'Univers 57 Condensed', 'serif';
+  font-size: 10rem;
   letter-spacing: 0.2em;
-  margin: 0;
+  margin: 0 8rem 0 0;
   text-transform: uppercase;
+  transform: rotate(0.5deg);
+  text-align: justify;
 }
 
 .by {
@@ -441,15 +479,15 @@ main {
   font-size: 1.2em;
   font-weight: 100;
   letter-spacing: 0.2em;
-  margin: 0;
   text-transform: uppercase;
 }
 
 .article-author {
-  font-family: 'MediaevalItalique', serif;
-  font-size: 2em;
+  font-family: 'Times New Arial', serif;
+  font-size: 3em;
   font-weight: 100;
   font-style: italic;
+  transform: rotate(0.7deg);
 }
 
 .article-subtitle {
@@ -457,6 +495,7 @@ main {
   font-size: 1.7em;
   font-weight: 100;
   letter-spacing: 0.2rem;
+  transform: rotate(-0.5deg);
 }
 
 
@@ -468,9 +507,12 @@ main {
   hyphens: auto;
   text-align: justify;
   margin: 0;
-  text-indent: 1rem;
-  font-variant-numeric: lining-nums;
   line-height: 1rem;
+  font-family: 'EB Garamond', serif;
+}
+
+.article-text > p:first-of-type {
+  margin-top: 100vh;
 }
 
 figure > img {

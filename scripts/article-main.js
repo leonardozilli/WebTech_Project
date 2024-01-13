@@ -452,7 +452,7 @@ function changeStyle(style, issue, articleNumber, article) {
     selector.fadeOut(500);
     writeStyleInCookie(style);
   } else {
-    $("#style").attr("href", "/styles/" + style);
+    $("#style").attr("href", "./styles/" + style);
     writeStyleInCookie(style);
     styleBoundChanges($(".article-date").text(), `issues/${issue}/${articleNumber}/${article}.geojson`);
     setTimeout(() => {

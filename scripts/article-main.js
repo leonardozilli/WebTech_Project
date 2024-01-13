@@ -252,15 +252,16 @@ function wikiCall(subject) {
             thumbnail.src = data.thumbnail.source;
             thumbnail.onload = function () {
               $(".wiki-loading").fadeOut();
+              $(".wiki-thumbnail-container").css("display", "flex");
               $(".wiki-thumbnail").fadeIn(300).attr("src", thumbnail.src);
               $(".wiki-extract").fadeIn(300).html(data.extract);
-              $(".wiki-readmore").fadeIn(300)
+              $(".wiki-readmore").fadeIn(300).attr("href", data.content_urls.desktop.page).attr("target", "_blank");
             };
           } else {
             $(".wiki-loading").fadeOut();
-            $(".wiki-thumbnail").text("Image not found").fadeIn(300);
+            $(".wiki-thumbnail-container").css("display", "none");
             $(".wiki-extract").fadeIn(300).html(data.extract);
-            $(".wiki-readmore").fadeIn(300)
+            $(".wiki-readmore").fadeIn(300).attr("href", data.content_urls.desktop.page).attr("target", "_blank");
           }
         },
       });
@@ -294,14 +295,27 @@ function mapbox(geojsonUrl, style) {
   mapboxgl.accessToken =
     "pk.eyJ1IjoibHppbGwiLCJhIjoiY2xuNjlkODZpMGVjczJtcW1wN2VkcHExaSJ9.zhOJVlpnVZXhtBntooFkgw";
 
-  var map = new mapboxgl.Map({
+  const map1500 = {
     container: "article-map",
-    style: (style === "1500-article.css") ? "mapbox://styles/lzill/cln69j4oi039y01qu4eugc6lw" : "mapbox://styles/mapbox/light-v11",
-    projection: (style === "1500-article.css") ? "mercator" : "globe",
-    center: (style === "1500-article.css") ? [0, 30] : [0, 0],
+    style: "mapbox://styles/lzill/cln69j4oi039y01qu4eugc6lw",
+    projection: "mercator",
+    center: [0, 30],
     zoom: 1,
     attributionControl: false,
-  });
+  };
+
+  const map1990 = {
+    container: "article-map",
+    style: "mapbox://styles/lzill/clrak0xgs006r01qq8w9m0bow",
+    projection: "globe",
+    zoom: 0,
+    center: [0, 30],
+    minZoom: 2,
+    maxZoom: 2,
+    attributionControl: false,
+  };
+
+  var map = new mapboxgl.Map((style === "1500-article.css") ? map1500 : map1990);
 
   map.dragRotate.disable();
   map.touchZoomRotate.disableRotation();
@@ -310,97 +324,108 @@ function mapbox(geojsonUrl, style) {
     map.resize();
   });
 
+  function debounce(func, timeout = 300) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      return new Promise((resolve) => {
+        timer = setTimeout(() => {
+          resolve(func.apply(this, args));
+        }, timeout);
+      });
+    };
+  }
 
-function debounce(func, timeout = 300) {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
+  const debounceClickHandler = debounce((map, event) => {
     return new Promise((resolve) => {
-      timer = setTimeout(() => {
-        resolve(func.apply(this, args));
-      }, timeout);
+      const features = map.queryRenderedFeatures(event.point);
+      const filteredFeatures = features.filter(
+        (feature) => feature.id === undefined
+      );
+
+      let selectedFeature;
+      if (filteredFeatures.length === 1) {
+        selectedFeature = filteredFeatures[0];
+      } else if (filteredFeatures.length > 1) {
+        selectedFeature = filteredFeatures.find(
+          (feature) => JSON.parse(feature.properties.classes)[2] === "state"
+        );
+      }
+
+      resolve(selectedFeature ? selectedFeature.source : null);
     });
-  };
-}
+  }, 10);
 
-const debounceClickHandler = debounce((map, event) => {
-  return new Promise((resolve) => {
-    const features = map.queryRenderedFeatures(event.point);
-    const filteredFeatures = features.filter(feature => feature.id === undefined);
-    
-    let selectedFeature;
-    if (filteredFeatures.length === 1) {
-      selectedFeature = filteredFeatures[0];
-    } else if (filteredFeatures.length > 1) {
-      selectedFeature = filteredFeatures.find(feature => JSON.parse(feature.properties.classes)[2] === 'state');
-    }
-
-    resolve(selectedFeature ? selectedFeature.source : null);
-  });
-}, 10);
-
-  map.on('load', () => {
+  map.on("load", () => {
     $.ajax({
       url: geojsonUrl,
-      dataType: 'json',
+      dataType: "json",
       success: (data) => {
         for (const feature of data.features) {
           if (feature.geometry) {
-            if (feature.geometry.type === 'Point') {
-              const el = document.createElement('div');
-              el.className = 'marker ' + feature.properties.classes[2];
+            if (feature.geometry.type === "Point") {
+              const el = document.createElement("div");
+              el.className = "marker " + feature.properties.classes[2];
               el.id = feature.properties.id;
-              var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(feature.properties.name);
-              var marker = new ClickableMarker(el).setLngLat([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).setPopup(popup).addTo(map);
+              var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+                feature.properties.name
+              );
+              var marker = new ClickableMarker(el)
+                .setLngLat([
+                  feature.geometry.coordinates[1],
+                  feature.geometry.coordinates[0],
+                ])
+                .setPopup(popup)
+                .addTo(map);
               (function (marker, el) {
-                el.addEventListener('mouseenter', () => marker.togglePopup());
-                el.addEventListener('mouseleave', () => marker.togglePopup());
-                el.addEventListener('click', e => {
-                  e.stopPropagation(); 
+                el.addEventListener("mouseenter", () => marker.togglePopup());
+                el.addEventListener("mouseleave", () => marker.togglePopup());
+                el.addEventListener("click", (e) => {
+                  e.stopPropagation();
                   goto(el.id);
                 });
               })(marker, el);
-
-            } else if (feature.geometry.type === 'Polygon' || feature.geometry.type == 'MultiPolygon') {
+            } else if (
+              feature.geometry.type === "Polygon" ||
+              feature.geometry.type == "MultiPolygon"
+            ) {
               const layerId = feature.properties.id;
 
               map.addSource(layerId, {
-                'type': 'geojson',
-                'data': feature
+                type: "geojson",
+                data: feature,
               });
 
               map.addLayer({
-                'id': layerId,
-                'type': 'fill',
-                'source': layerId,
-                'paint': {
-                  'fill-color': 'rgba(132, 128, 107, 0.3)',
-                }
+                id: layerId,
+                type: "fill",
+                source: layerId,
+                paint: {
+                  "fill-color": "rgba(132, 128, 107, 0.3)",
+                },
               });
 
-              map.on('click', layerId, async (event) => {
+              map.on("click", layerId, async (event) => {
                 const clicked_layer = await debounceClickHandler(map, event);
                 goto(clicked_layer);
               });
 
-              map.on('mouseenter', layerId, () => {
-                map.getCanvas().style.cursor = 'pointer';
+              map.on("mouseenter", layerId, () => {
+                map.getCanvas().style.cursor = "pointer";
               });
 
-              map.on('mouseleave', layerId, () => {
-                map.getCanvas().style.cursor = '';
+              map.on("mouseleave", layerId, () => {
+                map.getCanvas().style.cursor = "";
               });
             }
           }
         }
-
       },
       error: (error) => {
-        console.error('Error loading GeoJSON file:', error);
-      }
+        console.error("Error loading GeoJSON file:", error);
+      },
     });
   });
-
 
   map.fitBounds(map.getBounds());
 }
@@ -534,7 +559,7 @@ const Css1500 = {
       ".article-text p:first-of-type"
     );
     const firstLetter = firstParagraph.textContent.trim().charAt(0);
-    const remainingText = firstParagraph.innerHTML.trim().slice(1);
+    const remainingText = firstParagraph.textContent.trim().slice(1);
 
     firstParagraph.innerHTML = `<span class="drop-cap">${firstLetter}</span>${remainingText}`;
     document.querySelector(
@@ -611,13 +636,11 @@ const Css1990 = {
     const img = document.querySelector(".cover-image img");
     if (img) {
       img.addEventListener("load", function () {
-        var vibrant = new Vibrant(img, 32, 4);
+        var vibrant = new Vibrant(img, 32, 5);
         var swatches = vibrant.swatches();
-        for (var swatch in swatches)
-          if (swatches.hasOwnProperty(swatch) && swatches[swatch])
-            console.log(swatch, swatches[swatch].getHex());
-
-        color = swatches["LightVibrant"].getRgb();
+        try {
+          var color = swatches["LightVibrant"].getRgb();
+        } catch (err) {}
         var r = document.querySelector(":root");
         r.style.setProperty("--accent-color", `rgb(${color})`);
       });

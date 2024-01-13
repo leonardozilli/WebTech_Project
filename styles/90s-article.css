@@ -35,7 +35,7 @@
 
 :root {
   --accent-color: transparent;
-  --header-width: 100px;
+  --header-width: 12rem; /* 12rem */
 }
 
 * {
@@ -69,10 +69,6 @@ body.preload * {
   animation: 0.7s linear 0s 1 fadeIn;
 }
 
-.metadata-container {
-  opacity: 1 !important;
-}
-
 @keyframes fadeIn {
   0% { opacity: 0; }
   100% { opacity: 1; }
@@ -100,6 +96,12 @@ body.preload * {
 
 
 /* HEADER */
+
+header {
+  transform: rotate(3deg);
+  padding: 30px 0;
+}
+
 .header-container {
   display: flex;
   position: relative;
@@ -107,6 +109,8 @@ body.preload * {
   justify-content: space-between;
   right: 10vh;
   height: 100%;
+  align-self: flex-end;
+  margin-right: 3rem;
 }
 
 .fab-wrapper {
@@ -131,35 +135,43 @@ body.preload * {
 .header-button-container {
   flex: 1;
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
   transition: flex 0.3s;
   cursor: pointer;
+  gap: 2rem;
 }
 
 .header-button-text {
-  display: none;
+  display: block;
   top: 0;
   left: 100%;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .header-icon img {
-  height: 4rem;
+  display: none;
 }
 
 header:hover {
-  flex: 0 0 20%;
-  transition: flex 0.5s ease-out
+  width: 20rem;
+  transition: width 0.5s ease-out
 }
 
-header:hover .header-button-text {
-  display: block;
+.metadata-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
 }
 
+.lists-container {
+  height: 50vh;
+}
 
 
 /* MAIN LAYOUT */
@@ -175,13 +187,17 @@ header {
   align-items: center;
   text-align: center;
   justify-content: center;
-  padding: 2rem 0;
+  padding: 3rem 0 3rem 0;
   background-color: var(--accent-color);
   width: var(--header-width);
-  height: 100%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
   border-right: 1px solid #000;
-  border-bottom: 1px solid #000;
+  z-index: 99;
+  transition: width 0.5s ease-out
 }
+
 
 main {
   margin-left: var(--header-width);
@@ -193,7 +209,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  opacity: 1 !important;
   width: 46.5vw; 
   margin: 2rem 1.5rem
 }
@@ -212,10 +228,6 @@ main {
   padding: 1rem;
 }
 
-.metadata-bottom {
-  width: 100%;
-}
-
 
 /* tag lists */
 
@@ -226,13 +238,20 @@ main {
 
 .metadata-list-container {
   display: none;
+  writing-mode: vertical-rl;
+  transform: rotate(181deg);
 }
 
 .metadata-list {
   margin: 0;
   padding: 0;
-  column-count: 4;
-  max-height: 35vh;
+  text-align: left;
+  text-transform: uppercase;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 50vh;
+  max-height: 60vh;
 }
 
 .metadata-list ul {
@@ -242,23 +261,24 @@ main {
 
 .metadata-list li {
   list-style-type: none;
-  margin: 0;
+  margin: 1rem 0 0 0;
   padding: 0;
 }
 
-.metadata-entry {
-  font-family: 'Chapbook', serif;
+.metadata-entry, .year-entry, .month-entry {
+  font-family: 'Univers 57 Condensed', 'serif';
   font-size: 0.8rem;
   text-decoration: none;
   color: #3a302a;
 }
 
-.metadata-entry:hover {
+.metadata-entry:hover, .year-entry:hover, .month-entry:hover{
   font-weight: 800;
   cursor: pointer;
+  animation: font-weight 0.5s ease-in-out;
 }
 
-.metadata-entry.active {
+.metadata-entry.active, .year-entry.active .month-entry.active {
   font-weight: 800;
   text-decoration: underline;
 }
@@ -269,20 +289,20 @@ main {
 
 .metadata-buttons-container {
   display: flex;
-  gap: 2rem;
+  flex-direction: column;
   margin-bottom: 1rem;
   justify-content: center;
-  align-items: center;
 }
 
 .metadata-buttons-container button{
-  font-family: 'Humane Bordeaux', serif;
+  font-family: 'Univers 57 Condensed', serif;
   font-size: 1.5rem;
   height: 2rem;
   border: none;
   background-color: transparent;
   cursor: pointer;
-  color: #3a302a
+  color: #3a302a;
+  text-align: right;
 }
 
 .metadata-buttons-container button.active {
@@ -291,12 +311,6 @@ main {
 
 /* date list */
 
-.dateList {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  overflow-x: scroll;
-}
 
 /* map */
 
@@ -305,7 +319,7 @@ main {
   position: absolute;
   width: 100%;
   height: 100%;
-  top: 130vh;
+  top: 115vh;
   left: 60vw;
 }
 
@@ -319,10 +333,7 @@ main {
   float: right;
   height: 50rem;
   aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  shape-outside: circle();
-  clip-path: circle();
-  shape-outside: ellipse(265px 381px at 628px 379px);
+  shape-outside: ellipse(302px 353px at 654px 425px);
 }
 
 .text-block p {
@@ -378,14 +389,16 @@ main {
 
 .wiki-container {
   display: none;
-  position: relative;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
   z-index: 1;
   background-color: transparent;
   flex-direction: row;
   gap: 1rem;
-  height: 100%;
-  width: 100%;
-  background-color: black;
+  height: 40vh;
+  width: 40vw;
+  background-color: var(--accent-color);
 }
 
 .wiki-thumbnail {
@@ -395,18 +408,20 @@ main {
 .wiki-extract {
   max-height: 40vw;
   overflow-y: scroll;
+  color: #000;
 }
 
 .wiki-close {
   position: absolute;
-  top: 0;
-  right: 0;
-  height: 2rem;
-  width: 2rem;
+  top: -0.5rem;
+  left: -0.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
   background-color: transparent;
   border: none;
   cursor: pointer;
-  background-color: #3a302a;
+  background-image: url('../img/1500/close_button.png');
+  background-size: cover;
 }
 
 .wiki-loading {
@@ -415,6 +430,19 @@ main {
   left: 0;
   height: 100%;
   width: 100%;
+  color: #000;
+}
+
+.wiki-readmore {
+  font-family: 'EB Garamond', 'serif';
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+}
+
+.wiki-readmore:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .wiki-loading p {
@@ -487,6 +515,7 @@ main {
   flex-direction: column;
   width: 80%;
   align-items: flex-end;
+  mix-blend-mode: exclusion;
 }
 
 .titles > *, .article-date {
@@ -501,6 +530,15 @@ main {
   text-transform: uppercase;
   transform: rotate(0.5deg);
   text-align: justify;
+}
+
+.article-title::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: #f6f5ec;
+  z-index: -1;
 }
 
 .by {
@@ -540,6 +578,68 @@ main {
   column-count: 1 !important;
 }
 
+.pull-quote {
+  font-family: 'Times New Arial', serif;
+  font-size: 3rem;
+  text-transform: capitalize; 
+}
+
+.pull-quote:nth-of-type(even) {
+  font-family: 'Times New Arial', serif;
+  font-size: 3rem;
+  text-transform: capitalize; 
+  text-align: right;
+}
+
+.pull-quote:nth-of-type(even)::after{
+  content: attr(data-text);
+  display: block;
+  position: absolute;
+  font-family: 'Times New Arial', serif;
+  font-size: 3rem;
+  text-transform: capitalize; 
+  transform: rotate(94deg) translate(-20%, -100%);
+  opacity: 0.3;
+  z-index: -99;
+}
+
+.pull-quote:nth-of-type(odd)::before{
+  content: attr(data-text);
+  display: block;
+  position: absolute;
+  font-family: 'Times New Arial', serif;
+  font-size: 3rem;
+  text-transform: capitalize; 
+  left: 0;
+  transform: rotate(90deg) translate(20%);
+  opacity: 0.3;
+  z-index: -99;
+}
+
+.pull-quote:nth-of-type(even)::before{
+  content: attr(data-text);
+  display: block;
+  position: absolute;
+  font-family: 'Times New Arial', serif;
+  font-size: 3rem;
+  text-transform: capitalize; 
+  transform: rotate(-2deg) translateY(-100%);
+  opacity: 0.3;
+  z-index: -99;
+}
+
+.pull-quote:nth-of-type(odd)::after{
+  content: attr(data-text);
+  display: block;
+  position: absolute;
+  font-family: 'Times New Arial', serif;
+  font-size: 3rem;
+  text-transform: capitalize; 
+  transform: rotate(3deg) translateY(-50%);
+  opacity: 0.3;
+  z-index: -99;
+}
+
 
 .article-text p {
   hyphens: auto;
@@ -549,8 +649,12 @@ main {
   font-family: 'News Cycle', serif;
 }
 
-.cover-page {
-  margin-bottom: 30vh;
+.text-block:nth-of-type(2) {
+  margin-top: 10vh;
+}
+
+.pull-quote:first-of-type {
+  margin-top: 10vh;
 }
 
 figure > img {
@@ -566,7 +670,16 @@ figure:not(.cover-image) {
 figure figcaption {
   font-family: 'Essays-1743-italic', 'serif';
   font-size: 0.8em;
-  font-style: italic;
+}
+
+figure:not(.cover-image) figcaption {
+  font-family: 'Univers 57 Condensed', 'serif';
+  font-size: 2rem;
+  font-weight: bolder;
+  text-align: left;
+}
+
+figure:not(.cover-image) figcaption {
 }
 
 .ending-paragraph {
@@ -579,10 +692,16 @@ figure figcaption {
 }
 
 .animate {
-  animation-name: bgcolor;
-  animation-duration: 0.75s;
-  animation-iteration-count: 3;
-  animation-fill-mode: backwards;
+  background-color: #000;
+  color: #f6f5ec;
+}
+
+span.tag {
+  text-shadow: 0px 0px 2px #0e0d0d4d;
+}
+
+span.tag:hover {
+  cursor: pointer;
 }
 
 @keyframes bgcolor {

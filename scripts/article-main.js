@@ -17,23 +17,34 @@ function goto(className) {
   let scrollPos = articleContainer.scrollTop();
   let elements = $(`.${className}`);
 
-  let nextElements = elements.filter(function () {
-    return $(this).offset().top > 31;
-  })
+  if (getStyleCookie() === "1500-article.css") {
+    let nextElements = elements.filter(function () {
+      return $(this).offset().top > 31;
+    })
 
+    if (nextElements.length > 0 && !nextElements.first().hasClass("searched")) {
+      nextElement = nextElements.first();
+    } else {
+      nextElement = elements.first()
+      $(".searched").removeClass("searched");
+    }
 
-  if (nextElements.length > 0 && !nextElements.first().hasClass("searched")) {
-    nextElement = nextElements.first();
+    articleContainer.animate({ scrollTop: (scrollPos + nextElement.offset().top) - 30 }, 1000, "easeOutCubic");
+
+    $(".animate").removeClass("animate");
+    nextElement.addClass("animate");
+    nextElement.addClass("searched");
   } else {
+    $(".animate").removeClass("animate");
     nextElement = elements.first()
-    $(".searched").removeClass("searched");
+    nextElement.addClass("animate");
+    $([document.documentElement, document.body]).animate(
+      {
+        scrollTop: nextElement.offset().top,
+      },
+      1200
+    );
   }
-
-  articleContainer.animate({ scrollTop: (scrollPos + nextElement.offset().top) - 30 }, 1000, "easeOutCubic");
-
-  $(".animate").removeClass("animate");
-  nextElement.addClass("animate");
-  nextElement.addClass("searched");
 }
 
 function appendMetadataToList(container, data) {
@@ -43,7 +54,7 @@ function appendMetadataToList(container, data) {
 
   sortedData.forEach((el) => {
     const listItem = $(
-      `<li class="metadata-entry" onclick="goto('${el.id}')"></li>`
+      `<li class="metadata-entry" data-wiki="${el.getAttribute('data-wiki')}" onclick="goto('${el.id}')"></li>`
     ).text(el.dataset.name);
     container.append(listItem);
   });
@@ -75,26 +86,26 @@ function displayMetadata(article) {
 
     dateListContainer = $("#dateList");
 
-    Array.from(uniqueDates)
-      .forEach(function (date) {
-        const yearItem = $(`<ul class="date-year" id="date-year_${date[0]}"></ul>`);
-        if ($('#date-year_' + date[0]).length == 0){
-          dateListContainer.append(yearItem);
-          const yearEntry = $(
-            `<li class="year-entry" id="year_entry_${date[0]}" onclick="goto('${date[0]}')">${date[0]}</li>`
-          );
+    Array.from(uniqueDates).forEach(function (date) {
+      const yearItem = $(
+        `<ul class="date-year" id="date-year_${date[0]}"></ul>`
+      );
+      if ($("#date-year_" + date[0]).length == 0) {
+        dateListContainer.append(yearItem);
+        const yearEntry = $(
+          `<li class="year-entry" id="year_entry_${date[0]}" onclick="goto('${date[0]}')">${date[0]}</li>`
+        );
         yearItem.append(yearEntry);
-        }
+      }
 
-        if (date[1] !== null) {
-          const monthEntry = $(
-            `<li class="month-entry" id="month_entry_${date[1]}_${date[0]}" onclick="goto('${date[1]}.${date[0]}')">${date[1]}</li>`
-          );
-          $('#date-year_'+date[0]).append(monthEntry);
-        }
-      });
+      if (date[1] !== null) {
+        const monthEntry = $(
+          `<li class="month-entry" id="month_entry_${date[1]}_${date[0]}" onclick="goto('${date[1]}.${date[0]}')">${date[1]}</li>`
+        );
+        $("#date-year_" + date[0]).append(monthEntry);
+      }
+    });
   };
-
 
   appendMetadataToList($("#persList"), article.people);
   //appendMetadataToList($(".orgList"), article.organizations);
@@ -104,19 +115,20 @@ function displayMetadata(article) {
   );
 
   $(".wiki-close").on("click", function (e) {
+    $(".animate").removeClass("animate");
     $(".wiki-container").fadeOut(100);
     $(".article-map-container").fadeIn();
     $(".metadata-entry").removeClass("active");
-    $(".wiki-thumbnail-container, .wiki-text").fadeOut(300, function () {
-      $(this).empty();
-      $(".wiki-thumbnail").attr("src", "");
-    });
+    $(".wiki-text").fadeOut(300);
+    $(".wiki-thumbnail").fadeOut(300);
   });
 
-  $(".metadata-entry").on("click", function (e) {
-    if (!$(this).hasClass("active")) {
-      wikiCall($(this).text());
-      $(".article-map-container").hide();
+  $(document).on("click", ".metadata-entry", function (e) {
+    if (!$(this).hasClass("active") && $(this).attr("data-wiki") !== "null") {
+      wikiCall($(this).attr("data-wiki"));
+      if (getStyleCookie() === "1500-article.css") {
+        $(".article-map-container").hide();
+      }
       $(".wiki-container").fadeIn({
         start: function () {
           jQuery(this).css("display", "flex");
@@ -148,9 +160,12 @@ $(document).on("click", ".style-selector-container", function (e) {
   }
 });
 
-$(document).on("click", "span.tag", function (e) {
-  wikiCall(this.classList[2])
-  $(".article-map-container").hide();
+$(document).on("click", "span.tag:not(.date)[data-wiki]", function (e) {
+  this.classList.toggle("animate");
+  wikiCall(this.attr("data-wiki"));
+  if (getStyleCookie() === "1500-article.css") {
+    $(".article-map-container").hide();
+  }
   $(".wiki-container").fadeIn({
     start: function () {
       jQuery(this).css("display", "flex");
@@ -210,64 +225,66 @@ function styleBoundChanges(date, geojson) {
   mapbox(geojson, getStyleCookie());
   if (getStyleCookie() === "1500-article.css") {
     $(".article-title").quickfit({ max: 90, min: 50, truncate: false });
+    Css1990.revert1990();
     Css1500.organizeList();
     Css1500.countLines();
     Css1500.dropCaps();
     $(".article-date").text(Css1500.dateToRoman(date));
   } else if (getStyleCookie() === "90s-article.css") {
     $(".article-title").quickfit({ max: 150, min: 90, truncate: false });
+    if ($(".pull-quote").length > 0) {
+      pullQuoteHeight = $(".pull-quote").first().height() + 'px';
+      articleMapHeight = $(".article-map-container").css("top");
+      newValue = parseInt(pullQuoteHeight) + parseInt(articleMapHeight);
+      $(".article-map-container").css({top: newValue+100});
+    } 
+    $(".metadata-bottom").appendTo('header');
     Css1500.revert1500(date);
     Css1990.extractColor();
+    Css1990.dataText();
   }
 }
 
 
 //wikipedia//
-function wikiCall(subject) {
-  $(".wiki-thumbnail, .wiki-extract").fadeOut(300, function () {
-    $(this).empty();
-    $(".wiki-thumbnail").attr("src", "");
-  });
-
+function wikiCall(wikiLink) {
+  $(".metadata-entry").removeClass("active");
+  $(".wiki-text").fadeOut(300);
+  $(".wiki-thumbnail").fadeOut(300);
   $(".wiki-readmore").fadeOut(300);
   $(".wiki-loading").fadeIn(300);
 
+  var title = wikiLink.split("/wiki/")[1];
   $.ajax({
-    url: "http://en.wikipedia.org/w/api.php",
-    data: {
-      action: "query",
-      list: "search",
-      srsearch: subject,
-      format: "json",
-    },
-    dataType: "jsonp",
+    url: "https://en.wikipedia.org/api/rest_v1/page/summary/" + title,
+    dataType: "json",
     success: function (data) {
-      title = data.query.search[0].title;
-      $.ajax({
-        url: "https://en.wikipedia.org/api/rest_v1/page/summary/" + title,
-        dataType: "json",
-        success: function (data) {
-          var thumbnail = new Image();
-          if (data.thumbnail && data.thumbnail.source) {
-            thumbnail.src = data.thumbnail.source;
-            thumbnail.onload = function () {
-              $(".wiki-loading").fadeOut();
-              $(".wiki-thumbnail-container").css("display", "flex");
-              $(".wiki-thumbnail").fadeIn(300).attr("src", thumbnail.src);
-              $(".wiki-extract").fadeIn(300).html(data.extract);
-              $(".wiki-readmore").fadeIn(300).attr("href", data.content_urls.desktop.page).attr("target", "_blank");
-            };
-          } else {
-            $(".wiki-loading").fadeOut();
-            $(".wiki-thumbnail-container").css("display", "none");
-            $(".wiki-extract").fadeIn(300).html(data.extract);
-            $(".wiki-readmore").fadeIn(300).attr("href", data.content_urls.desktop.page).attr("target", "_blank");
-          }
-        },
-      });
-    },
-    error: function (xhr, status, error) {
-      console.log("Error: " + error);
+      var thumbnail = new Image();
+      if (data.thumbnail && data.thumbnail.source) {
+        thumbnail.src = data.thumbnail.source;
+        thumbnail.onload = function () {
+          $(".wiki-loading").fadeOut();
+          $(".wiki-thumbnail-container").css("display", "flex");
+          $(".wiki-thumbnail-container>img")
+            .attr("src", thumbnail.src)
+            .fadeIn(300);
+          $(".wiki-extract").html(data.extract);
+          $(".wiki-text").fadeIn(300);
+          $(".wiki-readmore")
+            .fadeIn(300)
+            .attr("href", data.content_urls.desktop.page)
+            .attr("target", "_blank");
+        };
+      } else {
+        $(".wiki-loading").fadeOut();
+        $(".wiki-thumbnail-container").css("display", "none");
+        $(".wiki-extract").html(data.extract);
+        $(".wiki-text").fadeIn(300);
+        $(".wiki-readmore")
+          .fadeIn(300)
+          .attr("href", data.content_urls.desktop.page)
+          .attr("target", "_blank");
+      }
     },
   });
 }
@@ -300,7 +317,7 @@ function mapbox(geojsonUrl, style) {
     style: "mapbox://styles/lzill/cln69j4oi039y01qu4eugc6lw",
     projection: "mercator",
     center: [0, 30],
-    zoom: 1,
+    zoom: 1.1,
     attributionControl: false,
   };
 
@@ -436,6 +453,7 @@ $(document).on(
   "#change-style-button, #fab-style-button",
   function (e) {
     $(".style-selector-container").fadeIn(500);
+    $(".style-selector-content").delay(900).fadeIn(500);
   }
 );
 
@@ -449,7 +467,7 @@ function changeStyle(style, issue, articleNumber, article) {
   const selector = $(".style-selector-container");
 
   if ($("#style").attr("href").includes(style)) {
-    selector.fadeOut(500);
+    selector.fadeOut(600);
     writeStyleInCookie(style);
   } else {
     $("#style").attr("href", "./styles/" + style);
@@ -516,7 +534,7 @@ const Css1500 = {
       `
     );
     list = $(".metadata-list:not(#dateList)");
-    items = $(".metadata-entry");
+    items = $("#persList .metadata-entry");
 
     const groupedItems = {};
     items.each(function (idx, item) {
@@ -597,6 +615,12 @@ const Css1500 = {
   },
 
   revert1500: (date) => {
+    $('.separator').empty()
+
+    //remove all list-blocks
+    $("#persList").empty();
+    appendMetadataToList($("#persList"), $("span.person[id]"));
+
     //drop-cap
     const firstParagraph = document.querySelector(
       ".article-text p:first-of-type"
@@ -640,11 +664,27 @@ const Css1990 = {
         var swatches = vibrant.swatches();
         try {
           var color = swatches["LightVibrant"].getRgb();
-        } catch (err) {}
-        var r = document.querySelector(":root");
-        r.style.setProperty("--accent-color", `rgb(${color})`);
+          var r = document.querySelector(":root");
+          r.style.setProperty("--accent-color", `rgb(${color})`);
+        } catch (err) {
+          var r = document.querySelector(":root");
+          r.style.setProperty("--accent-color", `#f6f5ec`);
+        }
       });
     }
+  },
+
+  dataText: () => {
+    const articleTitle = $(".article-title");
+    articleTitle.attr("data-text", articleTitle.text());
+    const pullQuotes = $(".pull-quote");
+    pullQuotes.each(function () {
+      $(this).attr("data-text", $(this).text());
+    });
+  },
+
+  revert1990: () => {
+    $(".metadata-bottom").insertAfter(".separator");
   },
 };
 

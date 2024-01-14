@@ -53,6 +53,19 @@
           "date": "7/02/2023"
         }
       ]
+    },
+    {
+      "number": "docs",
+      "title": "Documentation",
+      "articles": [
+        {
+          "number": 1,
+          "filename": "documentation.html",
+          "title": "Documentation",
+          "author": "The Editors",
+          "date": "01/2024"
+        }
+      ]
     }   
   ]
 }

@@ -100,6 +100,7 @@ span.tag:hover[data-wiki] {
   cursor: pointer;
 }
 
+
 body.preload * {
   animation-duration: 0s !important;
   -webkit-animation-duration: 0s !important;
@@ -229,7 +230,6 @@ header:hover .header-button-text {
 html::-webkit-scrollbar {
   /* display: none; - can be joined with next one */
 }
-.wiki-extract::-webkit-scrollbar,
 .article-container::-webkit-scrollbar,
 .metadata-panel-left::-webkit-scrollbar {
   scrollbar-width: none;
@@ -367,6 +367,11 @@ main {
   text-decoration: underline;
 }
 
+.metadata-entry[data-wiki^="https"]::after {
+  content: '*';
+  display: inline-block;
+}
+
 .metadata-list li a:hover {
   font-weight: 800;
 }
@@ -394,6 +399,9 @@ main {
 
 .date-year {
   break-inside: avoid-column;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .year-entry {
@@ -406,13 +414,12 @@ main {
 
 .month-entry {
   font-family: 'Essays-1743-italic', serif;
-  text-indent: 1rem;
+  text-indent: 3rem;
   font-size: 0.8rem;
   text-decoration: none;
   color: #3a302a;
   transform:rotate(1deg);
   text-transform: capitalize;
-
 }
 
 
@@ -492,12 +499,16 @@ main {
   z-index: 1;
   background-color: transparent;
   flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .wiki-thumbnail-container {
   display: flex;
-  align-items: center;
   flex: 0 0 40%;
+  padding-left: 2rem;
+  justify-content: center;
 }
 
 .wiki-thumbnail {
@@ -506,8 +517,8 @@ main {
   border-image-outset: 8px 12px 10px 10px; 
   border-image-repeat: round round;
   border-image-source: url('../img/1500/image-borders.png');
-  object-fit: contain;
   max-height: 100%;
+  max-width: 100%;
 }
 
 .wiki-text{
@@ -516,13 +527,23 @@ main {
   flex-direction: column;
   justify-content: space-between;
   flex: 0 0 60%;
-  padding: 0 2.5rem 0 2rem;
+  padding-right: 2.5rem;
+  max-height: 100%;
 }
 
 .wiki-extract {
   overflow-y: scroll;
   text-indent: 1rem;
   text-align: justify;
+}
+
+.wiki-extract::-webkit-scrollbar {
+  width: 1rem;
+}
+
+.wiki-extract::-webkit-scrollbar-thumb {
+  background: url('/img/1500/scrollbar.png');
+  background-repeat: no-repeat;
 }
 
 .wiki-readmore {
@@ -643,6 +664,7 @@ main {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  width: 100%;
 }
 
 .titles > * {
@@ -651,7 +673,7 @@ main {
 
 .article-title {
   font-family: 'Cock', serif;
-  font-size: 9vh;
+  font-size: 10vh;
   font-weight: 100;
   letter-spacing: 0.2em;
   margin: 0;

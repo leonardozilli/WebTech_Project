@@ -33,6 +33,14 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Free Sans Bold';
+  src: url('../fonts/Free-Sans-Bold/FreeSansBold.ttf') format('truetype'),
+    url('../fonts/Free-Sans-Bold/FreeSansBold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --accent-color: transparent;
   --header-width: 12rem; /* 12rem */
@@ -167,10 +175,12 @@ header:hover {
   justify-content: center;
   align-items: center;
   align-self: flex-end;
+  margin-right: 1rem;
 }
 
 .lists-container {
   height: 50vh;
+  align-self: flex-end;
 }
 
 
@@ -224,7 +234,6 @@ main {
 
 .metadata-upper {
   width: 100%;
-  height: 46.5vh;
   padding: 1rem;
 }
 
@@ -280,7 +289,11 @@ main {
 
 .metadata-entry.active, .year-entry.active .month-entry.active {
   font-weight: 800;
-  text-decoration: underline;
+}
+
+.metadata-entry[data-wiki^="https"]::after {
+  content: '*';
+  display: inline-block;
 }
 
 .metadata-list li a:hover {
@@ -292,6 +305,7 @@ main {
   flex-direction: column;
   margin-bottom: 1rem;
   justify-content: center;
+  align-self: flex-end;
 }
 
 .metadata-buttons-container button{
@@ -349,7 +363,7 @@ main {
 }
 
 .marker {
-  background-image: url('../img/1500/marker.png');
+  background-image: url('../img/1990/cross.png');
   background-size: cover;
   width: 1.5rem;
   height: 1.5rem;
@@ -363,8 +377,9 @@ main {
 }
 
 .marker.plant {
-  background-image: url('../img/1500/marker-plant.png');
-  background-size: cover;
+  background-image: url('../img/1990/star.png');
+  background-size: contain;
+  background-repeat: no-repeat;
   width: 2rem;
   height: 2rem;
   cursor: pointer;
@@ -377,6 +392,21 @@ main {
 
 .mapboxgl-ctrl-logo {
     display: none !important;
+}
+
+.mapboxgl-popup-content {
+  font-family: 'Univers 57 Condensed', serif;
+  font-size: 1.2rem;
+  color: #000;
+  border: none;
+}
+
+.mapboxgl-popup-close-button {
+  display: none;
+}
+
+.marker.plant .mapboxgl-popup-content {
+  background-color: yellow;
 }
 
 .article-map-container,
@@ -524,7 +554,7 @@ main {
 
 .article-title {
   font-family: 'Univers 57 Condensed', 'serif';
-  font-size: 10rem;
+  font-size: 15vh !important;
   letter-spacing: 0.2em;
   margin: 0 8rem 0 0;
   text-transform: uppercase;
@@ -657,34 +687,75 @@ main {
   margin-top: 10vh;
 }
 
-figure > img {
-  max-width: 70%;
-  height: auto;
+figure:not(.cover-image) > img {
+  max-height: 70vh;
 }
 
 figure:not(.cover-image) {
-  text-align: center;
   margin: 3rem 0 2rem;
+  padding: 0;
+  margin: 1rem 0;
 }
 
-figure figcaption {
-  font-family: 'Essays-1743-italic', 'serif';
-  font-size: 0.8em;
+figure:not(.cover-image):nth-of-type(odd) {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-areas:
+    "A B"
+    "A C";
+  transform: translateX(-7vw);
+}
+
+figure:not(.cover-image):nth-of-type(odd) > .image-description {
+  grid-area: B;
+}
+
+figure:not(.cover-image):nth-of-type(odd) > img {
+  grid-area: A;
+  max-height: 70vh;
+}
+
+figure:not(.cover-image):nth-of-type(odd) > .image-attribution {
+  grid-area: C;
+  align-self: flex-end;
+}
+
+figure:not(.cover-image):nth-of-type(even) {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-areas:
+    "B A"
+    "C A";
+}
+
+figure:not(.cover-image):nth-of-type(even) > .image-description {
+  grid-area: B;
+  text-align: right;
+}
+
+figure:not(.cover-image):nth-of-type(even) > img {
+  grid-area: A;
+  max-height: 70vh;
+}
+
+figure:not(.cover-image):nth-of-type(even) > .image-attribution {
+  grid-area: C;
+  text-align: right;
+  align-self: flex-end;
 }
 
 figure:not(.cover-image) figcaption {
-  font-family: 'Univers 57 Condensed', 'serif';
+  font-family: 'Free Sans Bold', 'serif';
   font-size: 2rem;
-  font-weight: bolder;
   text-align: left;
-}
-
-figure:not(.cover-image) figcaption {
+  letter-spacing: -3px;
+  text-transform: capitalize;
+  word-spacing: -8px;
 }
 
 .ending-paragraph {
   text-align: center;
-  font-family: 'Humane Bordeaux', serif;
+  font-family: 'Univers 57 Condensed', serif;
   font-size: 1.4rem;
   line-height: 1.2rem;
   font-weight: 100;

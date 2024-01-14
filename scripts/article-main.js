@@ -138,6 +138,14 @@ function displayMetadata(article) {
       $(this).toggleClass("active");
     }
   });
+
+  $(document).on("click", ".metadata-entry[data-wiki='null']", function (e) {
+    $(".wiki-container").fadeOut(100);
+    $(".article-map-container").fadeIn();
+    $(".metadata-entry").removeClass("active");
+    $(".wiki-text").fadeOut(300);
+    $(".wiki-thumbnail").fadeOut(300);
+  });
 }
 
 $(document).on("click", ".metadata-tab-button", function (e) {
@@ -161,8 +169,10 @@ $(document).on("click", ".style-selector-container", function (e) {
 });
 
 $(document).on("click", "span.tag:not(.date)[data-wiki]", function (e) {
+  $(".animate").removeClass("animate");
   this.classList.toggle("animate");
-  wikiCall(this.attr("data-wiki"));
+  wikiCall(this.getAttribute("data-wiki"));
+  $(".metadata-entry[data-wiki='" + this.getAttribute("data-wiki") + "']").addClass("active");
   if (getStyleCookie() === "1500-article.css") {
     $(".article-map-container").hide();
   }
@@ -180,38 +190,51 @@ function buildPage() {
   });*/
 
   $("main").prepend('<div class="loading">Loading...</div>').fadeIn(200);
-  $("main").prepend('<div class="style-selector-container" style="display: none;"></div>');
+  $("main").prepend(
+    '<div class="style-selector-container" style="display: none;"></div>'
+  );
   $(".style-selector-container").load("components/style-selector.html");
 
   const urlSearchParams = new URLSearchParams(window.location.search);
   const issue = urlSearchParams.get("issue");
-  const [articleNumber, article] = urlSearchParams
+  var [articleNumber, article] = urlSearchParams
     .get("article")
     .split(/-(.+)/);
 
   if (getStyleCookie() === null) {
     $(".style-selector-container").show();
   } else {
+    if (issue === 'docs') {
+      article = articleNumber;
+    }
     changeStyle(getStyleCookie(), issue, articleNumber, article);
   }
 
   $.ajax({
-    url: `issues/${issue}/${articleNumber}/${article}.html`,
+    url:
+      issue === "docs"
+        ? `issues/${issue}/${articleNumber}.html`
+        : `issues/${issue}/${articleNumber}/${article}.html`,
     dataType: "html",
     success: function (data) {
       $(".article-container").html(data);
       const articleObj = new Article($("article").first());
       document.title = `${articleObj.title}, by ${articleObj.author}`;
       displayMetadata(articleObj);
-      styleBoundChanges(articleObj.date, `issues/${issue}/${articleNumber}/${article}.geojson`);
+      styleBoundChanges(
+        articleObj.date,
+        issue === "docs"
+          ? `issues/${issue}/${articleNumber}.geojson`
+          : `issues/${issue}/${articleNumber}/${article}.geojson`
+      );
       $(".loading").fadeOut(100);
-      $(".article-text, .metadata-container").animate({opacity: 0.9}, 700)
-      $(".header-container").animate({"right": '0'}, 500)
+      $(".article-text, .metadata-container").animate({ opacity: 0.9 }, 700);
+      $(".header-container").animate({ right: "0" }, 500);
     },
     error: function (xhr, status, error) {
       if (xhr.status === 404) {
         var $errorContainer = $("<div>").addClass("error-container");
-        $('.article-container, .metadata-container').remove();
+        $(".article-container, .metadata-container").remove();
         $("main").append($errorContainer.load("404.html"));
         $(".loading").fadeOut(100);
       } else {
@@ -221,23 +244,27 @@ function buildPage() {
   });
 }
 
+function fitTitle(titleElement) {
+  var titleHeight = titleElement.height();
+  var maxHeight = $(window).height() * 0.14;
+  var titleWidth = titleElement.width();
+  var maxWidth = $(".article-container").height();
+  var Vh = $(window).height() * 0.07;
+  if (titleHeight > maxHeight || titleWidth > maxWidth) {
+    titleElement.css("font-size", Vh + "px");
+  }
+}
+
 function styleBoundChanges(date, geojson) {
   mapbox(geojson, getStyleCookie());
   if (getStyleCookie() === "1500-article.css") {
-    $(".article-title").quickfit({ max: 90, min: 50, truncate: false });
+    fitTitle($(".article-title"));
     Css1990.revert1990();
     Css1500.organizeList();
     Css1500.countLines();
     Css1500.dropCaps();
     $(".article-date").text(Css1500.dateToRoman(date));
   } else if (getStyleCookie() === "90s-article.css") {
-    $(".article-title").quickfit({ max: 150, min: 90, truncate: false });
-    if ($(".pull-quote").length > 0) {
-      pullQuoteHeight = $(".pull-quote").first().height() + 'px';
-      articleMapHeight = $(".article-map-container").css("top");
-      newValue = parseInt(pullQuoteHeight) + parseInt(articleMapHeight);
-      $(".article-map-container").css({top: newValue+100});
-    } 
     $(".metadata-bottom").appendTo('header');
     Css1500.revert1500(date);
     Css1990.extractColor();
@@ -249,43 +276,44 @@ function styleBoundChanges(date, geojson) {
 //wikipedia//
 function wikiCall(wikiLink) {
   $(".metadata-entry").removeClass("active");
-  $(".wiki-text").fadeOut(300);
-  $(".wiki-thumbnail").fadeOut(300);
-  $(".wiki-readmore").fadeOut(300);
-  $(".wiki-loading").fadeIn(300);
+  $(".wiki-text, .wiki-thumbnail, .wiki-readmore").fadeOut(300, function () {
+    $(".wiki-loading").fadeIn(200);
 
-  var title = wikiLink.split("/wiki/")[1];
-  $.ajax({
-    url: "https://en.wikipedia.org/api/rest_v1/page/summary/" + title,
-    dataType: "json",
-    success: function (data) {
-      var thumbnail = new Image();
-      if (data.thumbnail && data.thumbnail.source) {
-        thumbnail.src = data.thumbnail.source;
-        thumbnail.onload = function () {
-          $(".wiki-loading").fadeOut();
-          $(".wiki-thumbnail-container").css("display", "flex");
-          $(".wiki-thumbnail-container>img")
-            .attr("src", thumbnail.src)
-            .fadeIn(300);
-          $(".wiki-extract").html(data.extract);
-          $(".wiki-text").fadeIn(300);
-          $(".wiki-readmore")
-            .fadeIn(300)
-            .attr("href", data.content_urls.desktop.page)
-            .attr("target", "_blank");
-        };
-      } else {
-        $(".wiki-loading").fadeOut();
-        $(".wiki-thumbnail-container").css("display", "none");
-        $(".wiki-extract").html(data.extract);
-        $(".wiki-text").fadeIn(300);
-        $(".wiki-readmore")
-          .fadeIn(300)
-          .attr("href", data.content_urls.desktop.page)
-          .attr("target", "_blank");
-      }
-    },
+    var title = wikiLink.split("/wiki/")[1];
+    $.ajax({
+      url: "https://en.wikipedia.org/api/rest_v1/page/summary/" + title,
+      dataType: "json",
+      success: function (data) {
+        var thumbnail = new Image();
+        if (data.thumbnail && data.thumbnail.source) {
+          thumbnail.src = data.thumbnail.source;
+          thumbnail.onload = function () {
+            $(".wiki-loading").fadeOut(200, function () {
+              $(".wiki-thumbnail-container").css("display", "flex");
+              $(".wiki-thumbnail-container>img")
+                .attr("src", thumbnail.src)
+                .fadeIn(300);
+              $(".wiki-extract").html(data.extract);
+              $(".wiki-text").fadeIn(300);
+              $(".wiki-readmore")
+                .fadeIn(300)
+                .attr("href", data.content_urls.desktop.page)
+                .attr("target", "_blank");
+            });
+          };
+        } else {
+          $(".wiki-loading").fadeOut(200, function () {
+            $(".wiki-thumbnail-container").css("display", "none");
+            $(".wiki-extract").html(data.extract);
+            $(".wiki-text").fadeIn(300);
+            $(".wiki-readmore")
+              .fadeIn(300)
+              .attr("href", data.content_urls.desktop.page)
+              .attr("target", "_blank");
+          });
+        }
+      },
+    });
   });
 }
 
@@ -472,7 +500,7 @@ function changeStyle(style, issue, articleNumber, article) {
   } else {
     $("#style").attr("href", "./styles/" + style);
     writeStyleInCookie(style);
-    styleBoundChanges($(".article-date").text(), `issues/${issue}/${articleNumber}/${article}.geojson`);
+    styleBoundChanges($(".article-date").text(), issue === 'docs' ? `issues/${issue}/${article}.geojson` : `issues/${issue}/${articleNumber}/${article}.geojson`);
     setTimeout(() => {
       selector.fadeOut(500);
     }, 500);

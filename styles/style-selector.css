@@ -1,7 +1,6 @@
 /* STYLE-SELECTOR*/
 
 .style-selector-container {
-  font-family: 'Courier New', Courier, monospace;
   line-height: 1;
   letter-spacing: 0;
   position: fixed;
@@ -21,7 +20,43 @@
   align-items: center;
   height: 100%;
   opacity: 1 !important;
+  font-family: none;
 }
+
+.style-buttons {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 3vw;
+}
+
+.style-button {
+  transform: scale(100%);
+  transition: transform 0.2s ease-in;
+}
+
+.style-button:hover {
+  cursor: pointer;
+  transform: scale(130%);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(1);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+	}
+
+	50% {
+		transform: scale(1.2);
+		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+	}
+
+	100% {
+		transform: scale(1);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
+}
+
 
 .hidden {
   display: none;

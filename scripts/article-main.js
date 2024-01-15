@@ -116,8 +116,8 @@ function displayMetadata(article) {
 
   $(".wiki-close").on("click", function (e) {
     $(".animate").removeClass("animate");
-    $(".wiki-container").fadeOut(100);
-    $(".article-map-container").fadeIn();
+    $(".wiki-container ").toggleClass('active');
+    $(".article-map-container").toggleClass('active');
     $(".metadata-entry").removeClass("active");
     $(".wiki-text").fadeOut(300);
     $(".wiki-thumbnail").fadeOut(300);
@@ -127,21 +127,17 @@ function displayMetadata(article) {
     if (!$(this).hasClass("active") && $(this).attr("data-wiki") !== "null") {
       wikiCall($(this).attr("data-wiki"));
       if (getStyleCookie() === "1500-article.css") {
-        $(".article-map-container").hide();
+        $(".article-map-container").removeClass('active');
       }
-      $(".wiki-container").fadeIn({
-        start: function () {
-          jQuery(this).css("display", "flex");
-        },
-      });
+      $(".wiki-container").addClass('active');
       $(".metadata-entry").removeClass("active");
       $(this).toggleClass("active");
     }
   });
 
   $(document).on("click", ".metadata-entry[data-wiki='null']", function (e) {
-    $(".wiki-container").fadeOut(100);
-    $(".article-map-container").fadeIn();
+    $(".wiki-container ").removeClass('active');
+    $(".article-map-container").addClass('active');
     $(".metadata-entry").removeClass("active");
     $(".wiki-text").fadeOut(300);
     $(".wiki-thumbnail").fadeOut(300);
@@ -169,18 +165,16 @@ $(document).on("click", ".style-selector-container", function (e) {
 });
 
 $(document).on("click", "span.tag:not(.date)[data-wiki]", function (e) {
-  $(".animate").removeClass("animate");
-  this.classList.toggle("animate");
-  wikiCall(this.getAttribute("data-wiki"));
-  $(".metadata-entry[data-wiki='" + this.getAttribute("data-wiki") + "']").addClass("active");
-  if (getStyleCookie() === "1500-article.css") {
-    $(".article-map-container").hide();
+  if (!$(this).hasClass("animate")) {
+    $(".animate").removeClass("animate");
+    this.classList.toggle("animate");
+    wikiCall(this.getAttribute("data-wiki"));
+    $(".metadata-entry[data-wiki='" + this.getAttribute("data-wiki") + "']").addClass("active");
+    if (getStyleCookie() === "1500-article.css") {
+      $(".article-map-container").removeClass('active');
+    }
+    $(".wiki-container").addClass('active');
   }
-  $(".wiki-container").fadeIn({
-    start: function () {
-      jQuery(this).css("display", "flex");
-    },
-  });
 });
 
 
@@ -354,7 +348,7 @@ function mapbox(geojsonUrl, style) {
     style: "mapbox://styles/lzill/clrak0xgs006r01qq8w9m0bow",
     projection: "globe",
     zoom: 0,
-    center: [0, 30],
+    center: [90, 30],
     minZoom: 2,
     maxZoom: 2,
     attributionControl: false,
@@ -605,7 +599,7 @@ const Css1500 = {
       ".article-text p:first-of-type"
     );
     const firstLetter = firstParagraph.textContent.trim().charAt(0);
-    const remainingText = firstParagraph.textContent.trim().slice(1);
+    const remainingText = firstParagraph.innerHTML.trim().slice(1);
 
     firstParagraph.innerHTML = `<span class="drop-cap">${firstLetter}</span>${remainingText}`;
     document.querySelector(

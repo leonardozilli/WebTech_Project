@@ -465,7 +465,7 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin: 1rem 1rem 0 1rem;
+  padding: 1rem 1rem 0 1rem;
   flex: 0 0 60%;
   overflow-y: auto;
 }
@@ -480,6 +480,14 @@ main {
   display: none;
 }
 
+.wiki-text::-webkit-scrollbar {
+  width: 3px;
+}
+
+.wiki-text::-webkit-scrollbar-thumb {
+  background-color: #0000006b;
+}
+
 .wiki-close {
   position: absolute;
   top: -1rem;
@@ -492,6 +500,7 @@ main {
 .wiki-close::before {
   content: 'Close';
   font-family: 'Free Sans Bold';
+  font-size: 1.3rem;
 }
 
 .wiki-close:hover {
@@ -879,6 +888,15 @@ span.tag:hover[data-wiki] {
   }
 }
 
+h3 {
+  font-family: 'Univers 57 Condensed', serif;
+  font-size: 2rem;
+  margin: 0 0 1rem 0 ;
+}
+
+.documentation .text-block {
+  column-count: 1 !important;
+}
 
 
 /* MEDIA QUERIES */
@@ -889,8 +907,27 @@ span.tag:hover[data-wiki] {
     margin-left: 0;
   }
 
-  header{
+  .header-container{
     display: none;
+  }
+
+  header {
+    visibility: hidden;
+  }
+
+  header {
+    visibility: visible;
+    padding: 0;
+    top: unset;
+    left: -5%;
+    bottom: -5%;
+    height: 80vh;
+    width: 110vw;
+    border-top: 1px solid #000;
+  }
+
+  .metadata-bottom {
+    align-self: center;
   }
 
   .article-container {
@@ -903,8 +940,23 @@ span.tag:hover[data-wiki] {
     flex-direction: column;
   }
 
+
+  .titles {
+    max-width: 90vw;
+    transform: none;
+    position: absolute;
+    top: 50%;
+    left: 5vh;
+    transform: translateY(-50%);
+  }
+  .titles > * {
+    margin: 0;
+  }
+
   .article-title {
     font-size: 7vh !important;
+    line-height: 4rem;
+    margin: 0;
   }
 
   .article-text .text-block:nth-of-type(2)::before {
@@ -914,16 +966,46 @@ span.tag:hover[data-wiki] {
     shape-outside: none;
   }
 
-  .cover-page {
-    overflow: hidden;
+  .by {
+    font-size: 1.5rem;
+    text-shadow: -2px 2px 0 var(--off-white);
+  }
+  .article-author {
+    font-size: 2rem;
+    text-shadow: -2px 2px 0 var(--off-white);
+  }
+
+  .article-subtitle {
+    font-size: 1.7rem;
+  }
+
+  .article-date {
+    margin: 0;
+    font-size: 1.5rem;
+    bottom: 3rem;
+    left: 2rem;
+    letter-spacing: 1rem;
   }
 
   .cover-image {
-    max-width: 90vw;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
-  figure {
-    display: flex !important;
+  .cover-image > figcaption{
+    writing-mode: horizontal-tb !important;
+    transform: none !important;
+    transform: rotate(0.8deg);
+  }
+
+  .cover-image > img {
+    object-fit: contain;
+    max-width: 95vw;
+    transform: rotate(0.8deg);
+    height: fit-content;
+    transform: none;
   }
 
   figure:not(.cover-image) {
@@ -931,15 +1013,21 @@ span.tag:hover[data-wiki] {
     max-width: 90vw;
     transform: unset !important;
     align-self: center;
+    grid-template-areas:
+      "B B"
+      "A A"
+      "C C" !important;
   }
 
   figure:not(.cover-image) > img {
+    max-width: 90vw;
   }
 
   figure:not(.cover-image) figcaption {
     font-size: 1.5rem;
     letter-spacing: -2px;
     word-spacing: -5px;
+    max-width: 90vw;
   }
 
   .text-block {
@@ -947,19 +1035,16 @@ span.tag:hover[data-wiki] {
   }
 
   .metadata-container {
-  
     position: absolute;
     display: inline;
     width: 100%;
     height: 80vh;
     bottom: -100vh;
-    background-color: #fae4be;
-    background-image: url("../img/1500/textured-paper.png");
+    background-color: var(--accent-color);
     overflow-y: scroll;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     animation: slide-down 0.5s ease-in-out forwards;
-    box-shadow: inset 0px 0px 60px 0px #9e752ec0, 1px -3px 20px 0px #403f3fc0
   }
 
   .metadata-container.active {
@@ -967,6 +1052,11 @@ span.tag:hover[data-wiki] {
     overflow-y: scroll;
     animation: slide-up 0.5s ease-in-out forwards;
   }
+
+  .metadata-bottom.active {
+
+  }
+
 
   @keyframes slide-up {
   0% {
@@ -1058,6 +1148,7 @@ span.tag:hover[data-wiki] {
     opacity: 0;
     transition: all .4s ease-in-out;
     color: white;
+    font-family: 'Free Sans Bold', serif;
   }
 
   .fab-wrapper.active .fab-buttons{
@@ -1079,5 +1170,9 @@ span.tag:hover[data-wiki] {
 
   .fab-wrapper.active #fab-metadata-button {
     transform: translate(-70px, -20px);
+  }
+
+  .ending-paragraph {
+    margin-bottom: 10rem;
   }
 }

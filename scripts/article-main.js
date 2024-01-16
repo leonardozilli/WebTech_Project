@@ -13,37 +13,54 @@ class Article {
 }
 
 function goto(className) {
-  articleContainer = $(".article-container") 
-  let scrollPos = articleContainer.scrollTop();
   let elements = $(`.${className}`);
 
   if (getStyleCookie() === "1500-article.css") {
+    articleContainer = $(".article-container");
+    let scrollPos = articleContainer.scrollTop();
     let nextElements = elements.filter(function () {
       return $(this).offset().top > 31;
-    })
+    });
 
     if (nextElements.length > 0 && !nextElements.first().hasClass("searched")) {
       nextElement = nextElements.first();
     } else {
-      nextElement = elements.first()
+      nextElement = elements.first();
       $(".searched").removeClass("searched");
     }
 
-    articleContainer.animate({ scrollTop: (scrollPos + nextElement.offset().top) - 30 }, 1000, "easeOutCubic");
+    articleContainer.animate(
+      { scrollTop: scrollPos + nextElement.offset().top - 30 },
+      1000,
+      "easeOutCubic"
+    );
 
     $(".animate").removeClass("animate");
     nextElement.addClass("animate");
     nextElement.addClass("searched");
   } else {
-    $(".animate").removeClass("animate");
-    nextElement = elements.first()
-    nextElement.addClass("animate");
+    let scrollPos = $(window).scrollTop();
+    let nextElements = elements.filter(function () {
+      return $(this).offset().top > scrollPos + 1;
+    });
+
+    if (nextElements.length > 0 && !nextElements.first().hasClass("searched")) {
+      nextElement = nextElements.first();
+    } else {
+      nextElement = elements.first();
+      $(".searched").removeClass("searched");
+    }
+
     $([document.documentElement, document.body]).animate(
       {
         scrollTop: nextElement.offset().top,
       },
       1200
     );
+
+    $(".animate").removeClass("animate");
+    nextElement.addClass("animate");
+    nextElement.addClass("searched");
   }
 }
 
@@ -194,20 +211,17 @@ function buildPage() {
   var [articleNumber, article] = urlSearchParams
     .get("article")
     .split(/-(.+)/);
-
+  
   if (getStyleCookie() === null) {
     $(".style-selector-container").show();
   } else {
-    if (issue === 'docs') {
-      article = articleNumber;
-    }
     changeStyle(getStyleCookie(), issue, articleNumber, article);
   }
 
   $.ajax({
     url:
       issue === "docs"
-        ? `issues/${issue}/${articleNumber}.html`
+        ? `issues/${issue}/${article}.html`
         : `issues/${issue}/${articleNumber}/${article}.html`,
     dataType: "html",
     success: function (data) {
@@ -218,7 +232,7 @@ function buildPage() {
       styleBoundChanges(
         articleObj.date,
         issue === "docs"
-          ? `issues/${issue}/${articleNumber}.geojson`
+          ? `issues/${issue}/${article}.geojson`
           : `issues/${issue}/${articleNumber}/${article}.geojson`
       );
       $(".loading").fadeOut(100);
@@ -536,11 +550,16 @@ $(document).click(function (e) {
 });
 
 $("#fab-metadata-button").click(function (e) {
+  if (getStyleCookie() === "90s-article.css") {
+    $("header").toggleClass("active")
+
+  };
   $(".metadata-container").toggleClass("active");
   $(".article-container").toggleClass("covered");
 });
 
 $(".article-container").click(function (e) {
+  $("header").removeClass("active")
   $(".metadata-container").removeClass("active");
   $(".article-container").removeClass("covered");
 });
@@ -693,6 +712,9 @@ const Css1990 = {
           r.style.setProperty("--accent-color", `#f6f5ec`);
         }
       });
+    } else {
+      var r = document.querySelector(":root");
+      r.style.setProperty("--accent-color", `#f6f5ec`);
     }
   },
 
@@ -719,5 +741,3 @@ $(document).ready(function () {
     document.body.className = "";
   }, 500);
 });
-
-//https://stackoverflow.com/questions/6805482/css3-transition-animation-on-load

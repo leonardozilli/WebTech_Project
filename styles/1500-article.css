@@ -73,10 +73,6 @@
   box-sizing: border-box;
 }
 
-.search_index {
-  background-color: blue;
-}
-
 body {
   background-color: #fae4be;
   background-image: url("../img/1500/textured-paper.png");
@@ -467,6 +463,24 @@ main {
     display: none !important;
 }
 
+.mapboxgl-popup-content {
+  font-family: 'Chapbook', serif;
+  padding: 0.2rem 0.3rem;
+  background-color: #ddd5c5;
+  border: 2px solid #3a302a;
+}
+
+.mapboxgl-popup-tip {
+  color: #fae4be;
+  opacity: 0.8;
+  border: 2px solid #3a302a;
+}
+
+.mapboxgl-popup-close-button {
+  display: none;
+}
+
+
 .article-map-container{
   visibility: hidden;
   opacity: 0;
@@ -723,6 +737,14 @@ J
   letter-spacing: 0.2rem;
 }
 
+h3 {
+  font-family: 'Essays-1743', serif;
+  font-weight: 100;
+  font-size: 1.4rem;
+  text-align: center;
+  margin-top: 3rem;
+}
+
 .article-text p {
   hyphens: auto;
   text-align: justify;
@@ -849,8 +871,6 @@ figure figcaption {
     transform: scaleX(1);
   }
 }
-
-
 
 
 /* MEDIA QUERIES */

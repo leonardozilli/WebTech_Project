@@ -23,11 +23,19 @@
             <div class="header-buttons">
                 <div class="header-button-container" id="">
                     <button class="header-button change-style-button" id="change-style-button"></button>
-                    <div class="header-button-text">Change style</div>
+                    <div class="header-button-text" id="change-style-button">Change style</div>
                 </div>
                 <div class="header-button-container">
                     <button class="header-button home-button" onclick="location.href='./'"></button>
-                    <div class="header-button-text">Homepage</div>
+                    <div class="header-button-text" onclick="location.href='./'">Homepage</div>
+                </div>
+                <div class="header-button-container">
+                    <button class="header-button home-button"></button>
+                    <div class="header-button-text" id="issues-button">Issues</div>
+                </div>
+                <div class="header-button-container">
+                    <button class="header-button disclaimer-button"></button>
+                    <div class="header-button-text" id="disclaimer-button">Disclaimer</div>
                 </div>
             </div>
             <div class="header-icon"><img src="./img/1500/fab-icon.png" alt=""></div>
@@ -43,6 +51,7 @@
         </div>
     </div>
     <main>
+        <div class="disclaimer-container"></div>
         <div class="article-container"></div>
         <div class="metadata-container">
             <div class="metadata-upper">

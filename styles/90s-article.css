@@ -67,6 +67,68 @@ body.preload * {
   transition: background-color 0s, opacity 0s, color 0s, width 0s, height 0s, padding 0s, margin 0s !important;
 }
 
+
+/* DISCLAIMER */
+
+.disclaimer-container {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+  justify-content: center;
+}
+
+.modal-content {
+  display: none;
+  background-color: var(--accent-color);
+  border: 1px solid #000;
+  width: fit-content;
+  height: fit-content;
+  max-width: 60vw;
+  margin: 0;
+  padding: 0;
+  color: #3a302a;
+  font-family: 'Chapbook', 'Humane Bordeaux', serif;
+  letter-spacing: 0.1em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(2deg);
+}
+
+.disclaimer-container.visible .modal-content {
+  display: flex;
+}
+
+.modal-content p {
+  text-align: justify;
+  padding: 0 2rem;
+  font-family: 'News Cycle', serif;
+}
+
+
+.modal-close {
+  text-align: center;
+  text-decoration: none;
+  color: #3a302a;
+  text-decoration: underline rgba(58,48,42, 0);
+  transition: text-decoration-color 300ms;
+  margin: 2rem 0 ;
+  font-family: 'Univers 57 Condensed', serif;
+}
+
+.modal-close:hover {
+  cursor: pointer;
+  text-decoration-color: rgba(58,48,42, 1);
+}
+
 .loading {
   font-size: 1.5rem;
   font-family: 'Times New Arial';
@@ -158,9 +220,13 @@ header:hover {
 .header-buttons {
   display: flex;
   flex-direction: column;
-  gap: 10vh;
+  gap: 2rem;
   align-items: flex-end;
   margin-right: 1rem;
+}
+
+.header-button-container > button {
+  display: none;
 }
 
 .header-button {
@@ -185,10 +251,17 @@ header:hover {
 }
 
 .header-button-text {
-  display: block;
-  top: 0;
-  left: 100%;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-family: 'Univers 57 Condensed', serif;
+  text-transform: uppercase;
+}
+
+.header-button-text:hover {
+  font-weight: bold;
+}
+
+#issues-button::before {
+  content: '^';
+  position: relative;
 }
 
 .header-icon img {

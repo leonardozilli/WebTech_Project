@@ -5,6 +5,7 @@ class Article {
     this.subtitle = element.data("subtitle");
     this.author = element.data("author");
     this.date = element.data("date");
+    this.source = element.data("source");
     this.people = $("span.person[id]");
     this.organizations = $("span.organization");
     this.places = $("span.place");
@@ -84,6 +85,7 @@ function displayMetadata(article) {
   $(".article-author").text(article.author);
   $(".article-subtitle").text(article.subtitle);
   $(".article-date").text(article.date);
+  $(".article-source").text("Source").attr("href", article.source);
 
   const populateTimeline = (dates) => {
     const datesArray = [];
@@ -243,7 +245,7 @@ function buildPage() {
       if (xhr.status === 404) {
         var $errorContainer = $("<div>").addClass("error-container");
         $(".article-container, .metadata-container").remove();
-        $("main").append($errorContainer.load("404.html"));
+        $("main").append($errorContainer.load("components/404.html"));
         $(".loading").fadeOut(100);
       } else {
         alert("An unexpected error occurred. Check the console for details.");
@@ -732,6 +734,17 @@ const Css1990 = {
   },
 };
 
+//display the disclaimer.html component as a modal on button click
+$("#disclaimer-button").on("click", function (e) {
+  //fetch content of disclaimer.html
+  $(".disclaimer-container").load("components/disclaimer.html", function () {
+    $("#modal-close").on("click", function (e) {
+      $(".disclaimer-container, .modal-content").fadeOut(500);
+    });
+  });
+  $(".modal-content").fadeIn(500);
+  $(".disclaimer-container").css("display", "flex").addClass("visible").hide().fadeIn(500);
+});
 
 //---------------------------//
 

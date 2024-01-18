@@ -223,7 +223,7 @@ function buildPage() {
   $.ajax({
     url:
       issue === "docs"
-        ? `issues/${issue}/${article}.html`
+        ? `issues/${issue}/${articleNumber}.html`
         : `issues/${issue}/${articleNumber}/${article}.html`,
     dataType: "html",
     success: function (data) {
@@ -234,7 +234,7 @@ function buildPage() {
       styleBoundChanges(
         articleObj.date,
         issue === "docs"
-          ? `issues/${issue}/${article}.geojson`
+          ? `issues/${issue}/${articleNumber}.geojson`
           : `issues/${issue}/${articleNumber}/${article}.geojson`
       );
       $(".loading").fadeOut(100);
@@ -253,6 +253,7 @@ function buildPage() {
     },
   });
 }
+
 
 function fitTitle(titleElement) {
   var titleHeight = titleElement.height();
@@ -501,6 +502,8 @@ function changeStyle(style, issue, articleNumber, article) {
     issue = article.data("issue");
     articleNumber = article.data("order");
     article = article.data("filename");
+  } else if (issue === 'docs') {
+    article = 'documentation'
   }
   const selector = $(".style-selector-container");
 
@@ -581,6 +584,7 @@ const Css1500 = {
 
     const groupedItems = {};
     items.each(function (idx, item) {
+      console.log(item)
       const initial = item.textContent[0].toUpperCase();
 
       if (!groupedItems[initial]) {
@@ -699,10 +703,9 @@ const Css1500 = {
 
 const Css1990 = {
   extractColor: () => {
-    let color;
     const img = document.querySelector(".cover-image img");
     if (img) {
-      img.addEventListener("load", function () {
+      if (img.complete) {
         var vibrant = new Vibrant(img, 32, 5);
         var swatches = vibrant.swatches();
         try {
@@ -713,7 +716,20 @@ const Css1990 = {
           var r = document.querySelector(":root");
           r.style.setProperty("--accent-color", `#f6f5ec`);
         }
-      });
+      } else {
+        img.addEventListener("load", function () {
+          var vibrant = new Vibrant(img, 32, 5);
+          var swatches = vibrant.swatches();
+          try {
+            var color = swatches["LightVibrant"].getRgb();
+            var r = document.querySelector(":root");
+            r.style.setProperty("--accent-color", `rgb(${color})`);
+          } catch (err) {
+            var r = document.querySelector(":root");
+            r.style.setProperty("--accent-color", `#f6f5ec`);
+          }
+        });
+      }
     } else {
       var r = document.querySelector(":root");
       r.style.setProperty("--accent-color", `#f6f5ec`);

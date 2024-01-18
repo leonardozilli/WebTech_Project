@@ -831,6 +831,22 @@ h3 {
   margin-top: 3rem;
 }
 
+h4 {
+  font-family: 'Essays-1743', serif;
+  font-weight: 100;
+  font-size: 1.4rem;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+h5 {
+  font-family: 'Essays-1743', serif;
+  font-weight: 100;
+  font-size: 1rem;
+  text-align: center;
+  margin: 3rem 0 1rem 0 ;
+}
+
 .article-text p {
   hyphens: auto;
   text-align: justify;

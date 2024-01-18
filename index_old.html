@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CarbOff</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/styles/1500-home.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="./scripts/main.js"></script>
+    <script src="./scripts/map.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+    <link id="style" rel="stylesheet" href="styles/style-selector.css" />
+</head>
+
+<body>
+    <header id="header">
+        <!--navbar-->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">CarbOFF</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Issues
+                            </a>
+                            <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item dropdown-toggle" href="#">Issue 1</a>
+                                <ul class="dropdown-menu dropdown-submenu">
+                                    <li>
+                                        <a class="dropdown-item" href="#">Article 1</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Article 2</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Article 3</a>
+                                    </li>
+                                </ul>                                    
+                            </li>
+                            <li>
+                                <a class="dropdown-item dropdown-toggle" href="#">Issue 2</a>
+                                <ul class="dropdown-menu dropdown-submenu">
+                                    <li>
+                                        <a class="dropdown-item" href="#">Aricle 1</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Article 2</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Article 3</a>
+                                    </li>
+                                </ul>    
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">See all issues</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="documentation.html">Documentation</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="disclaimer.html">Disclaimer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>     
+        <!--section-hero: introduction to the project-->
+        <section id="section-hero">
+            <div class="hero-image">
+                <div class="hero-text">
+                    <h1>CarbOFF</h1>
+                    <p>A changing view on climate change</p>
+                    <button><a href="#project">Explore the project</a></button>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <main>
+        <div class="style-selector-expanded" id="style-selector">
+            <h1>Select a User Style</h1>
+            <div class="style-buttons">
+                <button class="style-buttn" id="style1">Style 1</button>
+                <button class="style-buttn" id="style2">Style 2</button>
+                <button class="style-buttn" id="style3">Style 3</button>
+            </div>
+        </div>
+        <section class="double-folio" id="landing">
+            <div class="map-container">
+                <div class="map" id="map"></div>
+            </div>
+            <div class="button-container">
+                <button class="button" id="scrolldown-heart"
+                    onClick="document.getElementById('titlepage').scrollIntoView({behavior: 'smooth'});"></button>
+            </div>
+        </section>
+        <section class="titlepage folio" id="titlepage">
+            <img class="decoration" src="./img/1500/decoration.png" alt="">
+            <h1>TITLE</h1>
+            <h3>AND</h3>
+            <h2>SUBTITLE</h2>
+            <hr class="horizontal-line">
+            <div class="latest-issue-container">
+                <h3>LATEST ISSUE:</h3>
+                <img src="./img/1500/issue-logo.png" alt="" class="latest-issue-image">
+
+            </div>
+        </section>
+        <section class="folio" id="">
+            <h1>Older Issues:</h1>
+            <ul class="issues-list" id="issueList"></ul>
+        </section>
+        <section class="articles folio">
+            <h1>Latest Articles</h1>
+            <ul class="articles-list" id="articleList"></ul>
+    </main>
+
+    <footer id="footer"></footer>
+    <script>
+        $.getJSON('./issues/issuesDB.json', function (objson) {
+            const articleList = $("#articleList");
+            const issueList = $("#issueList");
+
+            objson.issues.forEach((issue) => {
+                issueList.append("<li><a href='issues/" + issue.number + "/'>" + issue.number + "</a></li>");
+                issue.articles.forEach((article) => {
+                    const articleTitle = article.filename.replace(".html", "");
+                    articleList.append(`<li><p onclick=loadPage('read.html?issue=${issue.number}&article=${article.number}-${articleTitle}')>${articleTitle}</p></li>`);
+                    articleList.append("<li><a href='read.html?issue=" + issue.number + "&article=" + article.number + "-" + articleTitle + "'>" + articleTitle + "</a></li>");
+                });
+            });
+
+        }).fail(function () {
+            console.log("Get from issuesDB: an error has occurred.");
+        });
+    </script>
+    <script src="test.js"></script>
+</body>
+
+</html>

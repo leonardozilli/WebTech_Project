@@ -16,7 +16,7 @@ class Article {
 function goto(className) {
   let elements = $(`.${className}`);
 
-  if (getStyleCookie() === "1500-article.css") {
+  if (getStyleCookie() === "1500.css") {
     articleContainer = $(".article-container");
     let scrollPos = articleContainer.scrollTop();
     let nextElements = elements.filter(function () {
@@ -145,7 +145,7 @@ function displayMetadata(article) {
   $(document).on("click", ".metadata-entry", function (e) {
     if (!$(this).hasClass("active") && $(this).attr("data-wiki") !== "null") {
       wikiCall($(this).attr("data-wiki"));
-      if (getStyleCookie() === "1500-article.css") {
+      if (getStyleCookie() === "1500.css") {
         $(".article-map-container").removeClass('active');
       }
       $(".wiki-container").addClass('active');
@@ -189,7 +189,7 @@ $(document).on("click", "span.tag:not(.date)[data-wiki]", function (e) {
     this.classList.toggle("animate");
     wikiCall(this.getAttribute("data-wiki"));
     $(".metadata-entry[data-wiki='" + this.getAttribute("data-wiki") + "']").addClass("active");
-    if (getStyleCookie() === "1500-article.css") {
+    if (getStyleCookie() === "1500.css") {
       $(".article-map-container").removeClass('active');
     }
     $(".wiki-container").addClass('active');
@@ -219,11 +219,12 @@ function buildPage() {
   } else {
     changeStyle(getStyleCookie(), issue, articleNumber, article);
   }
+  console.log(issue, articleNumber, article)
 
   $.ajax({
     url:
       issue === "docs"
-        ? `issues/${issue}/${articleNumber}.html`
+        ? `issues/${issue}/${article}.html`
         : `issues/${issue}/${articleNumber}/${article}.html`,
     dataType: "html",
     success: function (data) {
@@ -234,7 +235,7 @@ function buildPage() {
       styleBoundChanges(
         articleObj.date,
         issue === "docs"
-          ? `issues/${issue}/${articleNumber}.geojson`
+          ? `issues/${issue}/${article}.geojson`
           : `issues/${issue}/${articleNumber}/${article}.geojson`
       );
       $(".loading").fadeOut(100);
@@ -268,14 +269,14 @@ function fitTitle(titleElement) {
 
 function styleBoundChanges(date, geojson) {
   mapbox(geojson, getStyleCookie());
-  if (getStyleCookie() === "1500-article.css") {
+  if (getStyleCookie() === "1500.css") {
     fitTitle($(".article-title"));
     Css1990.revert1990();
     Css1500.organizeList();
     Css1500.countLines();
     Css1500.dropCaps();
     $(".article-date").text(Css1500.dateToRoman(date));
-  } else if (getStyleCookie() === "90s-article.css") {
+  } else if (getStyleCookie() === "90s.css") {
     $(".metadata-bottom").appendTo('header');
     Css1500.revert1500(date);
     Css1990.extractColor();
@@ -371,7 +372,7 @@ function mapbox(geojsonUrl, style) {
     attributionControl: false,
   };
 
-  var map = new mapboxgl.Map((style === "1500-article.css") ? map1500 : map1990);
+  var map = new mapboxgl.Map((style === "1500.css") ? map1500 : map1990);
 
   map.dragRotate.disable();
   map.touchZoomRotate.disableRotation();
@@ -555,7 +556,7 @@ $(document).click(function (e) {
 });
 
 $("#fab-metadata-button").click(function (e) {
-  if (getStyleCookie() === "90s-article.css") {
+  if (getStyleCookie() === "90s.css") {
     $("header").toggleClass("active")
 
   };
@@ -750,9 +751,7 @@ const Css1990 = {
   },
 };
 
-//display the disclaimer.html component as a modal on button click
 $("#disclaimer-button").on("click", function (e) {
-  //fetch content of disclaimer.html
   $(".disclaimer-container").load("components/disclaimer.html", function () {
     $("#modal-close").on("click", function (e) {
       $(".disclaimer-container, .modal-content").fadeOut(500);

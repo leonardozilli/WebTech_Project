@@ -103,6 +103,10 @@ body.preload * {
   transform: rotate(2deg);
 }
 
+.modal-content > ul {
+  text-align: left;
+}
+
 .disclaimer-container.visible .modal-content {
   display: flex;
 }
@@ -723,7 +727,7 @@ main {
 
 .article-title {
   font-family: 'Univers 57 Condensed', 'serif';
-  font-size: 15vh !important;
+  font-size: 15vh;
   letter-spacing: 0.2em;
   margin: 0 8rem 0 0;
   text-transform: uppercase;
@@ -849,6 +853,10 @@ main {
   font-family: 'News Cycle', serif;
 }
 
+.article-text a {
+  color: #000;
+}
+
 .text-block:nth-of-type(2) {
   margin-top: 10vh;
 }
@@ -965,6 +973,12 @@ h3 {
   font-family: 'Univers 57 Condensed', serif;
   font-size: 2rem;
   margin: 0 0 1rem 0 ;
+}
+
+h2 {
+  font-family: 'Univers 57 Condensed', serif;
+  font-size: 1.7rem;
+  margin: 1rem 0 0.7rem 0 ;
 }
 
 h4 {

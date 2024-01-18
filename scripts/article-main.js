@@ -214,12 +214,10 @@ function buildPage() {
     .get("article")
     .split(/-(.+)/);
   
+  
   if (getStyleCookie() === null) {
     $(".style-selector-container").show();
-  } else {
-    changeStyle(getStyleCookie(), issue, articleNumber, article);
   }
-  console.log(issue, articleNumber, article)
 
   $.ajax({
     url:
@@ -232,12 +230,7 @@ function buildPage() {
       const articleObj = new Article($("article").first());
       document.title = `${articleObj.title}, by ${articleObj.author}`;
       displayMetadata(articleObj);
-      styleBoundChanges(
-        articleObj.date,
-        issue === "docs"
-          ? `issues/${issue}/${article}.geojson`
-          : `issues/${issue}/${articleNumber}/${article}.geojson`
-      );
+      changeStyle(getStyleCookie(), issue, articleNumber, article);
       $(".loading").fadeOut(100);
       $(".article-text, .metadata-container").animate({ opacity: 0.9 }, 700);
       $(".header-container").animate({ right: "0" }, 500);
@@ -256,27 +249,35 @@ function buildPage() {
 }
 
 
-function fitTitle(titleElement) {
+function fitTitle(titleElement, style) {
   var titleHeight = titleElement.height();
-  var maxHeight = $(window).height() * 0.14;
-  var titleWidth = titleElement.width();
-  var maxWidth = $(".article-container").height();
-  var Vh = $(window).height() * 0.07;
-  if (titleHeight > maxHeight || titleWidth > maxWidth) {
-    titleElement.css("font-size", Vh + "px");
+  var maxHeight = $(window).height() * 0.3;
+  if (style === 1500) {
+    var fontSize = parseFloat(titleElement.css("font-size"));
+    if (titleHeight > maxHeight) {
+      titleElement.css("font-size", fontSize - 20);
+      fitTitle(titleElement, 1500)
+    }
+  } else if (style === 90) {
+    var fontSize = parseFloat(titleElement.css("font-size"));
+    if (titleHeight > maxHeight) {
+      titleElement.css("font-size", fontSize - 30);
+      fitTitle(titleElement, 90)
+    }
   }
 }
 
 function styleBoundChanges(date, geojson) {
   mapbox(geojson, getStyleCookie());
   if (getStyleCookie() === "1500.css") {
-    fitTitle($(".article-title"));
+    fitTitle($(".article-title"), 1500);
     Css1990.revert1990();
     Css1500.organizeList();
     Css1500.countLines();
     Css1500.dropCaps();
     $(".article-date").text(Css1500.dateToRoman(date));
   } else if (getStyleCookie() === "90s.css") {
+    fitTitle($(".article-title"), 90);
     $(".metadata-bottom").appendTo('header');
     Css1500.revert1500(date);
     Css1990.extractColor();
@@ -585,7 +586,6 @@ const Css1500 = {
 
     const groupedItems = {};
     items.each(function (idx, item) {
-      console.log(item)
       const initial = item.textContent[0].toUpperCase();
 
       if (!groupedItems[initial]) {

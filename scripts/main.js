@@ -207,6 +207,40 @@ $(document).on("click", "#disclaimer-button", function (e) {
     .fadeIn(500);
 });
 
+function populateLists() {
+$.getJSON("./issues/issuesDB.json", function (objson) {
+    const articleList = $("#articleList");
+    const issueList = $("#issueList");
+
+    objson.issues.forEach((issue) => {
+    issueList.append(
+        "<li><a href='issues/" +
+        issue.number +
+        "/'>" +
+        issue.number +
+        "</a></li>"
+    );
+    issue.articles.forEach((article) => {
+        console.log(article);
+        const articleTitle = article.filename.replace(".html", "");
+        articleList.append(
+        "<li><a href='read.html?issue=" +
+            issue.number +
+            "&article=" +
+            article.number +
+            "-" +
+            article.filename.replace(".html", "") +
+            "'>" +
+            article.title +
+            "</a></li>"
+        );
+    });
+    });
+}).fail(function () {
+    console.log("Get from issuesDB: an error has occurred.");
+});
+}
+
 $(document).ready(function () {
   $("main").prepend(
     '<div class="style-selector-container" style="display: none;"></div>'
@@ -218,4 +252,5 @@ $(document).ready(function () {
   } else {
     changeStyle(getStyleCookie());
   }
+  populateLists();
 });

@@ -263,12 +263,34 @@ header.article:hover {
   font-weight: bold;
 }
 
-#issues-button::before {
-  content: '^';
-  position: relative;
+.header-icon img {
+  display: none;
 }
 
-.header-icon img {
+.collapsible-list.issues {
+  position: absolute;
+  left: calc(var(--header-width) - 3rem);
+  top: 2rem;
+  padding: 0 1rem;
+  background-color: var(--accent-color);
+  border: 1px solid #000;
+}
+
+.collapsible-list.issues li {
+  font-family: 'Univers 57 Condensed', serif;
+  font-size: 1rem;
+  text-align: left;
+  list-style-type: none;
+  white-space: nowrap;
+
+}
+
+.collapsible-list li:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.collapsible-list {
   display: none;
 }
 

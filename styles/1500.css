@@ -337,7 +337,7 @@ body.article:has(header.article:hover) {
   transition: 0.3s;
 }
 
-header.article:hover .header-button-text {
+header.article:hover .header-button-text, header.article:hover .collapsible-list li {
   visibility: visible;
   opacity: 0.8;
   transition: opacity 0.5s ease-out;
@@ -345,6 +345,35 @@ header.article:hover .header-button-text {
 
 .header-button-text:hover {
   font-weight: bold;
+}
+
+.collapsible-list {
+  display: none;
+  margin: 0;
+  text-align: left;
+}
+
+.collapsible-list.active {
+    display: block;
+}
+
+.collapsible-list li {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  transition: opacity 0.5s ease-out;
+}
+
+.collapsible-list li:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.coll-article {
+  padding-left: 1rem;
 }
 
 
@@ -1079,6 +1108,10 @@ figure figcaption {
 /* MEDIA QUERIES */
 
 @media only screen and (max-width: 1000px) {
+  body.article {
+    display: flex;
+  }
+
   header.article{
     display: none;
   }
@@ -1092,6 +1125,15 @@ figure figcaption {
 
   .cover-image > img {
     max-width: 80%;
+  }
+
+  .separator {
+    margin: 2rem 0 0 0;
+    text-align: justify;
+  }
+
+  #holy_line1 {
+    font-size: 1.4rem;
   }
 
   .metadata-container {

@@ -196,6 +196,13 @@ $(document).on("click", "span.tag:not(.date)[data-wiki]", function (e) {
   }
 });
 
+function toggleCollapsibleList(target) {
+    $(`.collapsible-list.${target}`).slideToggle();
+}
+
+$('header').on('mouseleave', function (e) {
+  $(`.collapsible-list`).slideUp();
+});
 
 function buildPage() {
   /*$.get("components/header.html", function (data) {

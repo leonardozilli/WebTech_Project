@@ -30,8 +30,22 @@
                 </div>
                 <div class="header-button-container">
                     <button class="header-button home-button"></button>
-                    <div class="header-button-text" id="issues-button">Issues</div>
+                    <div class="header-button-text" id="issues-button" onclick="toggleCollapsibleList('issues')">Issues ></div>
                 </div>
+                <ul class="collapsible-list issues">
+                    <li class="issue-button issue1" onclick="toggleCollapsibleList('article1')">Issue 1</li>
+                    <ul class="collapsible-list coll-article article1">
+                        <li class="article-button">Article 1</li>
+                        <li class="article-button">Article 2</li>
+                        <li class="article-button">Article 3</li>
+                    </ul>
+                    <li class="issue-button issue2" onclick="toggleCollapsibleList('article2')">Issue 2</li>
+                    <ul class="collapsible-list coll-article article2">
+                        <li class="article-button">Article 1</li>
+                        <li class="article-button">Article 2</li>
+                        <li class="article-button">Article 3</li>
+                    </ul>
+                </ul>
                 <div class="header-button-container">
                     <button class="header-button disclaimer-button"></button>
                     <div class="header-button-text" id="disclaimer-button">Disclaimer</div>

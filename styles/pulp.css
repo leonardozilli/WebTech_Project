@@ -30,6 +30,36 @@
   src: url("../fonts/pulp/wichita-serial/wichita-serial-bold.ttf");
 }
 
+@font-face {
+  font-family: "Goudy Old Style";
+  src: url("../fonts/pulp/goudy-old-style/goi_____.ttf");
+  src: url("../fonts/pulp/goudy-old-style/GOUDOS.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Theano Old Style";
+  src: url("../fonts/pulp/Theano-Old-Style/TheanoOldStyle-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Goudy Old Style";
+  src: url("../fonts/pulp/goudy-old-style/GOUDOSB.TTF");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Theano Old Style";
+  src: url("../fonts/pulp/goudy-old-style/GOUDOSI.TTF");
+  font-weight: normal;
+  font-style: italic;
+}
+
+
 /* body */
 /* @font-face {
   font-family: 'EB Garamond', serif;
@@ -40,8 +70,9 @@
 
 
 body, html {
+  font-family: 'Theano Old Style';
   /* font-family: 'EB Garamond', serif !important; */
-  font-family: 'EB Garamond', serif !important;
+  /* font-family: "Goudy Old Style" !important; */
   font-weight: 500 !important;
   font-size: 10pt !important;
   line-height: 11pt !important;
@@ -380,7 +411,7 @@ body, html {
     /*styling h2 */
       .plp-row.center h2 {
         /* font-family: "Cooper Black Regular"; */
-        font-family: 'EB Garamond', serif;
+        font-family: "Theano Old Style";
         font-size: 36pt!important;
         font-weight: 700;
         letter-spacing: 0cm;
@@ -578,12 +609,6 @@ footer h5 {
 
 }
 
-.style-selector-content {
-  background-color: ;
-}
-
-
-
 
 /* ARTICLE */
 
@@ -769,6 +794,29 @@ article img{
 .ending-paragraph {
   column-count: 1 !important;
 }
+
+span.tag[data-wiki] {
+  white-space: nowrap;
+  text-shadow: 0px 0px 1px #000000;
+  opacity: 1;
+}
+
+span.tag[data-wiki]::before {
+  content: '';
+  display: inline-block;
+  background-image: url('../img/1500/note.png');
+  background-size: contain;
+  background-position-y: center;
+  background-repeat: no-repeat;
+  height: 0.9rem;
+  width: 0.8rem;
+  opacity: 0.8;
+}
+
+span.tag:hover[data-wiki] {
+  cursor: pointer;
+}
+
 
 
 

@@ -1,3 +1,5 @@
+/* HOMEPAGE */
+
 /* ricordati di raccogliere tutti i button in un unico tipo (specifica per quello nell'hiro position absolute e per quello in .center-container no */
 /* cover-title, nav-brand */
 @import url('https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap');
@@ -565,5 +567,62 @@ footer h5 {
 }
 
 
-  
 
+
+/* ARTICLE */
+
+body {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.cover-page {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.titles {
+  width: 50%;
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+article  {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.cover-page img {
+  width: 40vw;
+  
+}
+
+.text-block{
+  width: 10in;
+  column-count: 2;
+  padding: 27pt;
+  column-gap: 6pt;
+  column-width: 186pt !important;
+}
+
+.text-block h2 {
+  text-align: center;
+  font-family: 'EB Garamond', serif;
+  font-size: 10pt !important;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.text-block p{
+  margin-top: 0ch;
+}

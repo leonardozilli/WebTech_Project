@@ -729,12 +729,24 @@ main.article {
 .article-date {
   font-family: 'Univers 57 Condensed', 'serif';
   position: absolute;
-  bottom: 2rem;
+  bottom: 4rem;
   right: 0;
   letter-spacing: 3rem;
   text-shadow: -2px 2px 0 var(--off-white);
 }
 
+.article-source {
+  font-family: 'Univers 57 Condensed', 'serif';
+  text-decoration: none;
+  color: #000;
+  position: absolute;
+  bottom: 2rem;
+  right: 1rem;
+  letter-spacing: 1rem;
+  text-shadow: -2px 2px 0 var(--off-white);
+  transform: rotate(-3deg);
+  margin: 0 10rem 0 0;
+}
 
 .cover-page>.titles {
   display: flex;

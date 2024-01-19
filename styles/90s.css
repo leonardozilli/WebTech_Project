@@ -51,7 +51,7 @@
   box-sizing: border-box;
 }
 
-body {
+body.article {
   margin: 0;
   padding: 0;
   display: flex;
@@ -183,7 +183,7 @@ body.preload * {
 
 /* HEADER */
 
-header {
+header.article {
   display: flex;
   position: fixed;
   flex-direction: column;
@@ -202,7 +202,7 @@ header {
   transition: width 0.5s ease-out;
 }
 
-header:hover {
+header.article:hover {
   width: 22vw;
   transition: width 0.5s ease-out
 }
@@ -297,7 +297,7 @@ html::-webkit-scrollbar {
 
 
 
-main {
+main.article {
   margin-left: var(--header-width);
 }
 
@@ -1002,7 +1002,7 @@ h5 {
 
 @media only screen and (max-width: 1000px) {
 
-  main {
+  main.article {
     margin-left: 0;
   }
 
@@ -1010,12 +1010,12 @@ h5 {
     display: none;
   }
 
-  header {
+  header.article {
     display: none;
     visibility: hidden;
   }
 
-  header {
+  header.article {
     visibility: visible;
     padding: 0;
     top: unset;

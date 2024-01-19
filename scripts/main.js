@@ -221,8 +221,6 @@ $.getJSON("./issues/issuesDB.json", function (objson) {
         "</a></li>"
     );
     issue.articles.forEach((article) => {
-        console.log(article);
-        const articleTitle = article.filename.replace(".html", "");
         articleList.append(
         "<li><a href='read.html?issue=" +
             issue.number +

@@ -20,14 +20,10 @@
     <link id="style" rel="stylesheet" href="styles/style-selector.css" />
 </head>
 
-<body class="preload">
-    <header>
+<body class="preload article">
+    <header class="article">
         <div class="header-container">
             <div class="header-buttons">
-                <div class="header-button-container" id="">
-                    <button class="header-button change-style-button" id="change-style-button"></button>
-                    <div class="header-button-text" id="change-style-button">Change style</div>
-                </div>
                 <div class="header-button-container">
                     <button class="header-button home-button" onclick="location.href='./'"></button>
                     <div class="header-button-text" onclick="location.href='./'">Homepage</div>
@@ -44,6 +40,10 @@
                     <button class="header-button documentation-button"></button>
                     <div class="header-button-text" id="documentation-button" onclick="location.href='read.html?issue=docs&article=documentation'">Documentation</div>
                 </div>
+                <div class="header-button-container">
+                    <button class="header-button change-style-button" id="change-style-button"></button>
+                    <div class="header-button-text" id="change-style-button">Change style</div>
+                </div>
             </div>
             <div class="header-icon"><img src="./img/1500/fab-icon.png" alt=""></div>
         </div>
@@ -57,7 +57,7 @@
             <button class="fab-button" id="fab-metadata-button">M</button>
         </div>
     </div>
-    <main>
+    <main class="article">
         <div class="disclaimer-container"></div>
         <div class="article-container"></div>
         <div class="metadata-container">

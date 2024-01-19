@@ -26,20 +26,17 @@
 }
 
 .style-buttons {
-  all: unset;
   display: flex !important;
   flex-flow: row wrap !important;
   gap: 3vw !important;
 }
 
 .style-button {
-  all: unset;
   transform: scale(100%) !important;
   transition: transform 0.9s ease-in !important;
 }
 
 .style-button:hover {
-  all: unset;
   cursor: pointer !important;
   animation: pulse 2s infinite !important;
 }

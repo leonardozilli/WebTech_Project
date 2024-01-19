@@ -214,15 +214,14 @@ function buildPage() {
     .get("article")
     .split(/-(.+)/);
   
-  
-  if (getStyleCookie() === null) {
+  if (getStyleCookie() === 'null') {
     $(".style-selector-container").show();
   }
 
   $.ajax({
     url:
       issue === "docs"
-        ? `issues/${issue}/${article}.html`
+        ? `issues/${issue}/${articleNumber}.html`
         : `issues/${issue}/${articleNumber}/${article}.html`,
     dataType: "html",
     success: function (data) {
@@ -255,7 +254,7 @@ function fitTitle(titleElement, style) {
   if (style === 1500) {
     var fontSize = parseFloat(titleElement.css("font-size"));
     if (titleHeight > maxHeight) {
-      titleElement.css("font-size", fontSize - 20);
+      titleElement.css("font-size", fontSize - 10);
       fitTitle(titleElement, 1500)
     }
   } else if (style === 90) {
@@ -499,26 +498,30 @@ $(document).on(
 );
 
 function changeStyle(style, issue, articleNumber, article) {
-  if (!issue) {
-    article = $(".article-text");
-    issue = article.data("issue");
-    articleNumber = article.data("order");
-    article = article.data("filename");
-  } else if (issue === 'docs') {
-    article = 'documentation'
-  }
-  const selector = $(".style-selector-container");
-
-  if ($("#style").attr("href").includes(style)) {
-    selector.fadeOut(600);
-    writeStyleInCookie(style);
+  if (style === 'null') {
   } else {
-    $("#style").attr("href", "./styles/" + style);
-    writeStyleInCookie(style);
-    styleBoundChanges($(".article-date").text(), issue === 'docs' ? `issues/${issue}/${article}.geojson` : `issues/${issue}/${articleNumber}/${article}.geojson`);
-    setTimeout(() => {
-      selector.fadeOut(500);
-    }, 500);
+    if (!issue) {
+      article = $(".article-text");
+      issue = article.data("issue");
+      articleNumber = article.data("order");
+      article = article.data("filename");
+    } else if (issue === 'docs') {
+      article = 'documentation'
+    }
+    const selector = $(".style-selector-container");
+
+    if ($("#style").attr("href").includes(style)) {
+      selector.fadeOut(600);
+      writeStyleInCookie(style);
+    } else {
+      $("#style").attr("href", "./styles/" + style);
+      writeStyleInCookie(style);
+      styleBoundChanges($(".article-date").text(), issue === 'docs' ? `issues/${issue}/${article}.geojson` : `issues/${issue}/${articleNumber}/${article}.geojson`);
+      setTimeout(() => {
+        selector.fadeOut(500);
+      }, 500);
+    }
+
   }
 }
 
@@ -766,6 +769,6 @@ $("#disclaimer-button").on("click", function (e) {
 $(document).ready(function () {
   buildPage();
   setTimeout(function () {
-    document.body.className = "";
+    $('body').removeClass("preload")
   }, 500);
 });

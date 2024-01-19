@@ -705,6 +705,28 @@ const Css1500 = {
   },
 };
 
+const CssPulp = {
+  dropCaps: () => {
+    const firstParagraph = document.querySelector(
+      ".text-block p"
+    );
+    const firstLetter = firstParagraph.textContent.trim().charAt(0);
+    const remainingText = firstParagraph.innerHTML.trim().slice(1);
+
+    firstParagraph.innerHTML = `<span class="drop-cap">${firstLetter}</span>${remainingText}`;
+    document.querySelector(
+      ".drop-cap"
+    ).style.backgroundImage = `url(img/1500/icaps/${firstLetter.toLowerCase()}.gif)`;
+  },
+
+  applyPulp: () => {
+    CssPulp.dropCaps();
+    $(".article-date").text(
+      CssPulp.dateToRoman($(".article-date").text().replace(/ /g, "/"))
+    );
+  },
+};
+
 const Css1990 = {
   extractColor: () => {
     const img = document.querySelector(".cover-image img");

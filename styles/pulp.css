@@ -368,7 +368,7 @@ body, html {
 
       }
 
-      @media only screen and (max-width: 768px){
+      @media only screen and (min-width:481px) and (max-width: 768px){
         .card{
           width: 49% !important;
           margin-bottom: 2pt;
@@ -380,17 +380,17 @@ body, html {
     
     
     /*styling h2 */
-      h2 {
+      .plp-row.center h2 {
         /* font-family: "Cooper Black Regular"; */
         font-family: 'EB Garamond', serif;
-        font-size: 36pt !important;
+        font-size: 36pt!important;
         font-weight: 700;
         letter-spacing: 0cm;
         font-variant: small-caps;
         /* text-transform: uppercase; */
       }
 
-      h2::first-letter{
+      .plp-row.center h2::first-letter{
         text-transform: capitalize;
       }
 
@@ -571,41 +571,127 @@ footer h5 {
 
 /* ARTICLE */
 
-body {
+body{
+  margin: 0;
+}
+
+.article-text  {
   width: 100%;
   display: flex;
   flex-flow: column;
   flex-wrap: wrap;
   align-items: center;
+  border: rebeccapurple solid 2px;
+}
+article img{
+  max-width: 20vw;
 }
 
-.cover-page {
+.header-container{
   width: 100%;
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
-  align-items: center;
-}
-.titles {
-  width: 50%;
-  display: flex;
-  flex-flow: column;
-  flex-wrap: wrap;
-  align-items: center;
+  justify-content: left;
 }
 
-article  {
+.header-buttons{
   width: 100%;
   display: flex;
-  flex-flow: column;
-  flex-wrap: wrap;
+  flex-flow: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+
+.header-icon{
+  display: none;
+}
+
+article {
+  width: 10in;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.cover-page img {
-  width: 40vw;
-  
+article img{
+
 }
+
+
+.cover-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border: red solid 2px;
+}
+
+.article-date {
+  order: 1;
+  font-family: "ClaremontBold";
+  font-size: 8pt;
+  border: black  solid 2pt;
+  outline: black  solid -2pt;
+  height: 19pt;
+  width: 186pt;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.cover-image {
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+  .img{
+    order: 1;
+  }
+
+  .img-description {
+    order: 2;
+  }
+
+  .img-attribution {
+    order: 3;
+  }
+
+.titles {
+  order:3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+  .article-title{
+    order:1;
+  }
+
+  .article-subtitle {
+    order: 2;
+  }
+
+  .by {
+    display: none;
+  }
+
+  .article-author{
+    order: 3
+  }
+
+  .article-author::before {
+    content: "by ";
+  }
+
+.article-source{
+  order:4;
+}
+
+
+
+
 
 .text-block{
   width: 10in;
@@ -625,4 +711,16 @@ article  {
 
 .text-block p{
   margin-top: 0ch;
+}
+
+
+
+.drop-cap {
+  color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 3rem;
+  margin-right: 0.5rem;
+  font-size: 0px;
+  float: left;
 }

@@ -228,7 +228,7 @@ function buildPage() {
   $.ajax({
     url:
       issue === "docs"
-        ? `issues/${issue}/${articleNumber}.html`
+        ? `issues/${issue}/${article}.html`
         : `issues/${issue}/${articleNumber}/${article}.html`,
     dataType: "html",
     success: function (data) {
@@ -256,20 +256,23 @@ function buildPage() {
 
 
 function fitTitle(titleElement, style) {
-  var titleHeight = titleElement.height();
-  var maxHeight = $(window).height() * 0.3;
   if (style === 1500) {
+    var titleHeight = titleElement.height();
+    var maxHeight = $(window).height() * 0.3;
     var fontSize = parseFloat(titleElement.css("font-size"));
     if (titleHeight > maxHeight) {
       titleElement.css("font-size", fontSize - 10);
       fitTitle(titleElement, 1500)
     }
   } else if (style === 90) {
+    var titleHeight = titleElement.height();
+    var maxHeight = $(window).height() * 0.6;
     var fontSize = parseFloat(titleElement.css("font-size"));
+    console.log(titleHeight, fontSize, maxHeight)
     if (titleHeight > maxHeight) {
-      titleElement.css("font-size", fontSize - 30);
-      fitTitle(titleElement, 90)
+      titleElement.css('font-size', titleHeight / (titleElement.text().length * 0.2) + 'px')
     }
+    //$(box).css('font-size', width/$(line).width()*100-1);
   }
 }
 
@@ -288,6 +291,11 @@ function styleBoundChanges(date, geojson) {
     Css1500.revert1500(date);
     Css1990.extractColor();
     Css1990.dataText();
+  } else if (getStyleCookie() === 'pulp.css') {
+
+  } else {
+    Css1500.revert1500(date);
+    Css1990.revert1990();
   }
 }
 
@@ -429,6 +437,7 @@ function mapbox(geojsonUrl, style) {
           if (feature.geometry) {
             if (feature.geometry.type === "Point") {
               const el = document.createElement("div");
+              console.log(feature)
               el.className = "marker " + feature.properties.classes[2];
               el.id = feature.properties.id;
               var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
@@ -465,7 +474,7 @@ function mapbox(geojsonUrl, style) {
                 type: "fill",
                 source: layerId,
                 paint: {
-                  "fill-color": "rgba(132, 128, 107, 0.3)",
+                  "fill-color": getStyleCookie() === '90s.css' ? pickColor($(':root').css('--accent-color')) : "rgba(132, 128, 107, 0.3)",
                 },
               });
 
@@ -492,6 +501,15 @@ function mapbox(geojsonUrl, style) {
   });
 
   map.fitBounds(map.getBounds());
+}
+
+function pickColor(color) {
+  if (color.startsWith('#')){
+    return 'rgba(246, 245, 236, 0.4)'
+  } else {
+    var color = color.replace('rgb', 'rgba').replace(')', ', 0.2)');
+    return color;
+  }
 }
 
 //style change//

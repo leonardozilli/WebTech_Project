@@ -15,6 +15,7 @@
         "classes": [
           "tag",
           "place",
+          "city",
           "geneva"
         ],
         "name": "Geneva"

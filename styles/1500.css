@@ -1263,6 +1263,16 @@ figure figcaption {
   }
 }
 
+hr {
+  border: none;
+  height: 1rem;
+  opacity: 0.9;
+  background-image: url('../img/1500/line.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 
 
 /* HOMEPAGE */
@@ -1302,6 +1312,43 @@ nav.navbar {
 .nav-item > a:hover {
   font-weight: bold;
   cursor: pointer;
+}
+
+.dropdown-menu li {
+  position: relative;
+}
+
+.dropdown-menu .dropdown-submenu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: -7px;
+}
+
+.dropdown-menu .dropdown-submenu-left {
+  right: 100%;
+  left: auto;
+}
+
+.dropdown-menu>li:hover>.dropdown-submenu {
+  display: block;
+}
+
+.dropdown-menu.show,
+.dropdown-menu.dropdown-submenu {
+  padding: 0pt;
+  border-radius: 0% !important;
+  background-color: rgb(207, 176, 119);
+
+}
+
+.dropdown-divider {
+  margin: 0pt !important;
+}
+
+.dropdown-item:hover {
+  background-color: rgb(227, 27, 18) !important;
+  color: rgb(227, 192, 172) !important;
 }
 
 #section-hero {

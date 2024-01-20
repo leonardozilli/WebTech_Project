@@ -30,6 +30,36 @@
   src: url("../fonts/pulp/wichita-serial/wichita-serial-bold.ttf");
 }
 
+@font-face {
+  font-family: "Goudy Old Style";
+  src: url("../fonts/pulp/goudy-old-style/goi_____.ttf");
+  src: url("../fonts/pulp/goudy-old-style/GOUDOS.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Theano Old Style";
+  src: url("../fonts/pulp/Theano-Old-Style/TheanoOldStyle-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Goudy Old Style";
+  src: url("../fonts/pulp/goudy-old-style/GOUDOSB.TTF");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Theano Old Style";
+  src: url("../fonts/pulp/goudy-old-style/GOUDOSI.TTF");
+  font-weight: normal;
+  font-style: italic;
+}
+
+
 /* body */
 /* @font-face {
   font-family: 'EB Garamond', serif;
@@ -40,8 +70,9 @@
 
 
 body, html {
+  font-family: 'Theano Old Style';
   /* font-family: 'EB Garamond', serif !important; */
-  font-family: 'EB Garamond', serif !important;
+  /* font-family: "Goudy Old Style" !important; */
   font-weight: 500 !important;
   font-size: 10pt !important;
   line-height: 11pt !important;
@@ -143,12 +174,6 @@ body, html {
       
     }
 
-    @media only screen and (max-width: 480px) {
-
-    }
-
-    @media only screen and (max-width: 768px) {}
-
 
     .hero-text h1{
       font-family: 'Rammetto One', sans-serif;
@@ -182,10 +207,6 @@ body, html {
         line-height: 19pt;
         text-transform: uppercase;
       }
-    }
-
-    @media only screen and (max-width: 768px) {
-
     }
 
     a {
@@ -230,6 +251,14 @@ body, html {
       outline-color: rgb(227, 192, 172);
       color:rgb(227, 192, 172) !important;
     }
+
+    main button:focus{
+      background-color: rgb(227,27,18);
+      border-color: rgb(227, 192, 172);
+      outline-color: rgb(227, 192, 172);
+      color:rgb(227, 192, 172) !important;
+    }
+
 
     main button:hover a{
       color:rgb(227, 192, 172) !important;
@@ -382,7 +411,7 @@ body, html {
     /*styling h2 */
       .plp-row.center h2 {
         /* font-family: "Cooper Black Regular"; */
-        font-family: 'EB Garamond', serif;
+        font-family: "Theano Old Style";
         font-size: 36pt!important;
         font-weight: 700;
         letter-spacing: 0cm;
@@ -567,6 +596,18 @@ footer h5 {
 }
 
 
+.style-selector-content h1 {
+  font-size: 36pt;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-family: 'Gloucester Old Style W01';
+  line-height: 30pt;
+  font-weight: 700;
+  color: black;
+  -webkit-text-stroke: 0.12pt black;
+  text-transform: uppercase;
+
+}
 
 
 /* ARTICLE */
@@ -581,10 +622,10 @@ body{
   flex-flow: column;
   flex-wrap: wrap;
   align-items: center;
-  border: rebeccapurple solid 2px;
 }
 article img{
   max-width: 20vw;
+  filter: contrast(200%) grayscale(100%);
 }
 
 .header-container{
@@ -607,16 +648,6 @@ article img{
   display: none;
 }
 
-article {
-  width: 10in;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-article img{
-
-}
 
 
 .cover-page {
@@ -624,19 +655,22 @@ article img{
   flex-direction: column;
   align-items: center;
   width: 100%;
-  border: red solid 2px;
+  padding: 0pt 27pt;
 }
 
 .article-date {
   order: 1;
   font-family: "ClaremontBold";
-  font-size: 8pt;
-  border: black  solid 2pt;
-  outline: black  solid -2pt;
+  font-size: 11pt;
+  border: black  solid 1pt;
+  outline: black  solid 1pt;
+  outline-offset: -2pt;
   height: 19pt;
-  width: 186pt;
+  width: 100%;
+  max-width: 100%;
   text-align: center;
-  vertical-align: middle;
+  padding-top: 4pt;
+  margin: 0px;
 }
 
 .cover-image {
@@ -644,17 +678,25 @@ article img{
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  font-style: italic;
+  font-size: 12pt;
+  margin: 0px;
 }
 
-  .img{
+  .cover-image img{
     order: 1;
+    max-width: 7in;
+    width: 100%;
+    height: auto;
+    margin: 14pt 0pt;
   }
 
-  .img-description {
+  .cover-image .image-description {
     order: 2;
   }
 
-  .img-attribution {
+  .cover-image .image-attribution {
     order: 3;
   }
 
@@ -663,14 +705,21 @@ article img{
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
   .article-title{
     order:1;
+    font-size: 32pt;
+    line-height: 34pt;
+    margin: 19.5pt opt;
   }
 
   .article-subtitle {
     order: 2;
+    font-weight: 600;
+    font-style: italic;
+    margin: 0pt 0pt 18pt 0pt;
   }
 
   .by {
@@ -678,35 +727,52 @@ article img{
   }
 
   .article-author{
-    order: 3
+    order: 3;
+    text-transform: uppercase;
+    font-style: italic;
+    font-size: 18pt;
+    margin: 0pt 0pt 18pt 0pt;
   }
 
   .article-author::before {
-    content: "by ";
+    content: "By ";
+    font-style: italic;
+    text-transform: none;
   }
 
 .article-source{
   order:4;
+  font-weight: 600;
+  font-style: italic;
 }
 
 
 
 
 
-.text-block{
-  width: 10in;
+.article-text > :not(.cover-page){
+  max-width: 7in;
+  width: 100%;
   column-count: 2;
-  padding: 27pt;
+  padding: 16pt 27pt;
   column-gap: 6pt;
   column-width: 186pt !important;
+  
 }
 
-.text-block h2 {
+.article-text h2 {
   text-align: center;
   font-family: 'EB Garamond', serif;
   font-size: 10pt !important;
   text-transform: uppercase;
   font-weight: 400;
+}
+
+.article-text > :not(.cover-page) figure {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
 }
 
 .text-block p{
@@ -723,4 +789,98 @@ article img{
   margin-right: 0.5rem;
   font-size: 0px;
   float: left;
+}
+
+.ending-paragraph {
+  column-count: 1 !important;
+}
+
+span.tag[data-wiki] {
+  white-space: nowrap;
+  text-shadow: 0px 0px 1px #000000;
+  opacity: 1;
+}
+
+span.tag[data-wiki]::before {
+  content: '';
+  display: inline-block;
+  background-image: url('../img/1500/note.png');
+  background-size: contain;
+  background-position-y: center;
+  background-repeat: no-repeat;
+  height: 0.9rem;
+  width: 0.8rem;
+  opacity: 0.8;
+}
+
+span.tag:hover[data-wiki] {
+  cursor: pointer;
+}
+
+
+
+
+/* DISCLAIMER*/
+
+.disclaimer-container {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+  justify-content: center;
+}
+
+.modal-content {
+  display: none;
+  background-color: #f2f2f2;
+  width: fit-content;
+  height: fit-content;
+  max-width: 60vw;
+  margin: auto;
+  padding: 0;
+  color: black;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: black solid 2pt;
+  outline: black solid 1pt;
+  outline-offset: -5pt ;
+}
+
+.modal-content > ul {
+  text-align: left;
+}
+
+.disclaimer-container.visible .modal-content {
+  display: flex;
+}
+
+.modal-content > p:first-of-type {
+  padding-top: 1rem;
+}
+
+.modal-content p {
+  text-align: justify;
+  padding: 0 2rem;
+}
+
+
+.modal-close {
+  text-align: center;
+  color: black;
+  text-decoration: underline;
+  transition: text-decoration-color 300ms;
+  margin: 2rem 0 ;
+}
+
+.modal-close:hover {
+  cursor: pointer;
+  color: rgb(227,27,18); 
+  text-decoration: none;
 }

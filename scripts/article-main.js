@@ -293,6 +293,9 @@ function styleBoundChanges(date, geojson) {
     CssPulp.addSmallCapsToFirstWord();
     CssPulp.dropCaps();
     CssPulp.addChapterNumbers();
+    CssPulp.wrapH5WithDateContainer();
+    CssPulp.createArticleBody();
+    CssPulp.formatDate();
     
 
   } else {
@@ -784,12 +787,120 @@ const CssPulp = {
     });
   },
 
-  applyPulp: () => {
-    CssPulp.dropCaps();
-    $(".article-date").text(
-      CssPulp.dateToRoman($(".article-date").text().replace(/ /g, "/"))
-    );
+  wrapH5WithDateContainer: () => {
+    const articleText = document.querySelector('.article-text');
+    const coverPageH5 = document.querySelector('.cover-page h5');
+  
+    if (coverPageH5 && articleText) {
+      // Get the data-issue attribute value from .article-text
+      const issueNumberValue = articleText.getAttribute('data-issue');
+      const articleNumberValue = articleText.getAttribute('data-order');
+
+      // Create a new div.issue-number before h5
+      const issueNumberContainer = document.createElement('div');
+      issueNumberContainer.className = 'issue-number';
+      issueNumberContainer.textContent = `issue ${issueNumberValue.toString()}`; // Set the content to data-issue value (or an empty string if not available)
+
+      // Create a new div.article-number after h5
+      const articleNumberContainer = document.createElement('div');
+      articleNumberContainer.className = 'article-number';
+      articleNumberContainer.textContent = `article ${articleNumberValue.toString()}`;
+
+
+      // Create a new div.article-date-container
+      const dateContainer = document.createElement('div');
+      dateContainer.className = 'article-date-container';
+      coverPageH5.parentNode.insertBefore(dateContainer, coverPageH5);
+  
+      
+      // Wrap the h5 element with the new div
+      dateContainer.appendChild(issueNumberContainer);
+      dateContainer.appendChild(coverPageH5);
+      dateContainer.appendChild(articleNumberContainer);
+    }
   },
+
+
+  createArticleBody: () => {
+    // Select all .article-text elements except those with the class .cover-page or .ending-paragraph
+    const articleTextElements = document.querySelectorAll('.article-text > :not(.cover-page, .ending-paragraph)');
+  
+    // Create a new div.article-body
+    const articleBody = document.createElement('div');
+    articleBody.className = 'article-body';
+  
+    // Append each selected element to the articleBody
+    articleTextElements.forEach((element) => {
+      articleBody.appendChild(element);
+    });
+
+    // Insert the articleBody as the second child of .article-text
+    const firstArticleText = document.querySelector('.article-text');
+    if (firstArticleText) {
+      const firstChild = firstArticleText.firstElementChild;
+
+      // If there is a first child, insert the articleBody after it
+      if (firstChild) {
+        firstArticleText.insertBefore(articleBody, firstChild.nextSibling);
+      } else {
+        // If there is no first child, simply append the articleBody
+        firstArticleText.appendChild(articleBody);
+      }
+    }
+  },
+
+  formatDate: () => {
+    // Parse the input date string
+    const element = document.querySelector('.article-date');
+    const inputDate = element.innerHTML;
+
+    const dateParts = inputDate.split('/');
+    if (dateParts.length === 3){
+      var month = parseInt(dateParts[0], 10);
+      var day = parseInt(dateParts[1], 10);
+      var year = parseInt(dateParts[2], 10);
+    } else {
+      var month = parseInt(dateParts[0], 10);
+      var year = parseInt(dateParts[1], 10);
+    }
+
+    // Check if the day component is present
+    const hasDay = !isNaN(day);
+  
+    // Create a Date object
+    const formattedDate = hasDay
+      ? new Date(year, month - 1, day)
+      : new Date(year, month - 1);
+
+    // Get full names for day and month using toLocaleString
+    const dayOfWeek = hasDay ? formattedDate.toLocaleString('en-US', { weekday: 'long' }) : '';
+    const monthName = formattedDate.toLocaleString('en-US', { month: 'long' });
+
+    // Format the output string
+    let formattedOutput = '';
+
+    if (hasDay) {
+      formattedOutput = `${dayOfWeek}, ${monthName} ${day}, ${year}`;
+    } else {
+      formattedOutput = `${monthName}, ${year}`;
+    }
+
+    element.textContent = formattedOutput;
+  }
+
+
+  
+
+
+  
+
+
+  // applyPulp: () => {
+  //   CssPulp.dropCaps();
+  //   $(".article-date").text(
+  //     CssPulp.dateToRoman($(".article-date").text().replace(/ /g, "/"))
+  //   );
+  // },
 };
 
 const Css1990 = {

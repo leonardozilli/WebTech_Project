@@ -284,7 +284,7 @@ body.article.preload * {
   gap: 1rem;
   margin-bottom: auto;
   align-items: flex-start;
-  width: 100%;
+  width: 50%;
   padding-left: 1rem;
 }
 

@@ -290,6 +290,10 @@ function styleBoundChanges(date, geojson) {
     Css1990.extractColor();
     Css1990.dataText();
   } else if (getStyleCookie() === 'pulp.css') {
+    CssPulp.addSmallCapsToFirstWord();
+    CssPulp.dropCaps();
+    CssPulp.addChapterNumbers();
+    
 
   } else {
     Css1500.revert1500(date);
@@ -729,16 +733,55 @@ const Css1500 = {
 
 const CssPulp = {
   dropCaps: () => {
-    const firstParagraph = document.querySelector(
-      ".text-block p"
-    );
-    const firstLetter = firstParagraph.textContent.trim().charAt(0);
-    const remainingText = firstParagraph.innerHTML.trim().slice(1);
+    const paragraphs = document.querySelectorAll(".small-caps");
+    paragraphs.forEach((paragraph) => {
+      const firstLetter = paragraph.textContent.trim().charAt(0);
+      const remainingText = paragraph.innerHTML.trim().slice(1);
+  
+      paragraph.innerHTML = `<span class="drop-cap">${firstLetter}</span>${remainingText}`;
+    });
+  },
 
-    firstParagraph.innerHTML = `<span class="drop-cap">${firstLetter}</span>${remainingText}`;
-    document.querySelector(
-      ".drop-cap"
-    ).style.backgroundImage = `url(img/1500/icaps/${firstLetter.toLowerCase()}.gif)`;
+  addSmallCapsToFirstWord: () => {
+    const paragraphs = document.querySelectorAll(".text-block h2+p");
+    paragraphs.forEach((paragraph) => {
+      const words = paragraph.textContent.trim().split(' ');
+      if (words.length > 0) {
+        words[0] = `<span class="small-caps">${words[0]}</span>`;
+        paragraph.innerHTML = words.join(' ');
+      }
+    });
+
+    const firstParagraph = document.querySelector(
+      ".article-text p:first-of-type"
+    );
+    const words = firstParagraph.textContent.trim().split(' ');
+      if (words.length > 0) {
+        words[0] = `<span class="small-caps">${words[0]}</span>`;
+        firstParagraph.innerHTML = words.join(' ');
+      }
+  },
+  
+
+  addChapterNumbers: () => {
+    const h2Elements = document.querySelectorAll(".article-container h2");
+
+    const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+  
+    let chapterNumber = 1;
+  
+    h2Elements.forEach((h2Element) => {
+      // Create a new line with the same styles as h2
+      const chapterLine = document.createElement("div");
+      chapterLine.textContent = `Chapter ${romanNumerals[chapterNumber- 1].toString()}.`;
+      chapterLine.className = 'chapter-heading';
+  
+      // Insert the new line before the h2 element
+      h2Element.parentNode.insertBefore(chapterLine, h2Element);
+  
+      // Increment chapter number for the next occurrence
+      chapterNumber++;
+    });
   },
 
   applyPulp: () => {

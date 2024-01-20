@@ -964,6 +964,11 @@ h5 {
   color: #3a302a;
 }
 
+
+.small-caps {
+  font-variant: small-caps;
+}
+
 .drop-cap {
   color: transparent;
   background-size: contain;

@@ -268,7 +268,6 @@ function fitTitle(titleElement, style) {
     var titleHeight = titleElement.height();
     var maxHeight = $(window).height() * 0.6;
     var fontSize = parseFloat(titleElement.css("font-size"));
-    console.log(titleHeight, fontSize, maxHeight)
     if (titleHeight > maxHeight) {
       titleElement.css('font-size', titleHeight / (titleElement.text().length * 0.2) + 'px')
     }
@@ -279,7 +278,6 @@ function fitTitle(titleElement, style) {
 function styleBoundChanges(date, geojson) {
   mapbox(geojson, getStyleCookie());
   if (getStyleCookie() === "1500.css") {
-    fitTitle($(".article-title"), 1500);
     Css1990.revert1990();
     Css1500.organizeList();
     Css1500.countLines();
@@ -437,7 +435,6 @@ function mapbox(geojsonUrl, style) {
           if (feature.geometry) {
             if (feature.geometry.type === "Point") {
               const el = document.createElement("div");
-              console.log(feature)
               el.className = "marker " + feature.properties.classes[2];
               el.id = feature.properties.id;
               var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(

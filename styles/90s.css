@@ -13,6 +13,13 @@
 }
 
 @font-face {
+  font-family: 'Theinhardt Bold';
+  src: url('../fonts/Theinhardt/Theinhardt-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Generic g20';
   src: url('../fonts/generic/g20-fr-classic-demo-generic-19495/Generic-G20-FR-Classic-DEMO.otf') format('opentype');
   font-weight: normal;
@@ -33,6 +40,12 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Distro Bold';
+  src: url('../fonts/Distro\ True\ Type/DISTROB_.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 @font-face {
   font-family: 'Distro Mix';
@@ -44,6 +57,13 @@
 @font-face {
   font-family: 'Distro Mix Accent';
   src: url('../fonts/Distro\ True\ Type/DISTROH_.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Distro Mix V';
+  src: url('../fonts/Distro\ True\ Type/DISTROBV.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -298,7 +318,7 @@ header.article:hover {
 }
 
 .header-button-text {
-  font-family: 'Univers 57 Condensed', serif;
+  font-family: 'Generic g20', serif;
   text-transform: uppercase;
 }
 
@@ -312,7 +332,7 @@ header.article:hover {
 
 .collapsible-list.issues {
   position: absolute;
-  left: calc(var(--header-width) - 3rem);
+  left: calc(var(--header-width) - 2rem);
   top: 2rem;
   padding: 0 1rem;
   background-color: var(--accent-color);
@@ -320,7 +340,7 @@ header.article:hover {
 }
 
 .collapsible-list.issues li {
-  font-family: 'Univers 57 Condensed', serif;
+  font-family: 'Generic g20', serif;
   font-size: 1rem;
   text-align: left;
   list-style-type: none;
@@ -428,7 +448,7 @@ main.article {
 }
 
 .metadata-entry, .year-entry, .month-entry {
-  font-family: 'Univers 57 Condensed', 'serif';
+  font-family: 'Crakos', 'serif';
   font-size: 0.8rem;
   text-decoration: none;
   color: #3a302a;
@@ -446,6 +466,9 @@ main.article {
 
 .metadata-entry[data-wiki^="https"]::after {
   content: '*';
+  font-family: 'Distro Mix', serif;
+  font-size: 1.2rem;
+  line-height: 1rem;
   display: inline-block;
 }
 
@@ -462,7 +485,7 @@ main.article {
 }
 
 .metadata-buttons-container button{
-  font-family: 'Univers 57 Condensed', serif;
+  font-family: 'Generic g20', serif;
   font-size: 1.5rem;
   height: 2rem;
   border: none;
@@ -739,7 +762,7 @@ main.article {
 
 .cover-image>.image-description {
   grid-area: B;
-  font-family: 'Free Sans Bold', 'serif';
+  font-family: 'Generic g20', 'serif';
   font-size: 1rem;
   text-align: left;
   letter-spacing: 1px;
@@ -755,7 +778,7 @@ main.article {
 
 .cover-image > .image-attribution {
   grid-area: A;
-  font-family: 'Free Sans Bold', 'serif';
+  font-family: 'Generic g20', 'serif';
   font-size: 1rem;
   margin-top: 0.5rem;
   text-align: right;
@@ -770,16 +793,16 @@ main.article {
 }
 
 .article-date {
-  font-family: 'Univers 57 Condensed', 'serif';
+  font-family: 'Generic g80', 'serif';
   position: absolute;
   bottom: 4rem;
   right: 0;
-  letter-spacing: 3rem;
+  letter-spacing: 2rem;
   text-shadow: -2px 2px 0 var(--off-white);
 }
 
 .article-source {
-  font-family: 'Univers 57 Condensed', 'serif';
+  font-family: 'Distro Mix Accent', 'serif';
   text-decoration: none;
   color: #000;
   position: absolute;
@@ -787,8 +810,14 @@ main.article {
   right: 1rem;
   letter-spacing: 1rem;
   text-shadow: -2px 2px 0 var(--off-white);
-  transform: rotate(-3deg);
+  transform: scale(100%) rotate(-3deg);
+  transition: transform 0.3s ease;
   margin: 0 10rem 0 0;
+}
+
+.article-source:hover {
+  transform: scale(110%) rotate(-3deg);
+  transition: transform 0.3s ease;
 }
 
 .cover-page>.titles {
@@ -822,7 +851,7 @@ main.article {
 }
 
 .by {
-  font-family: 'Free Sans Bold', serif;
+  font-family: 'Distro Mix', serif;
   font-size: 1.2em;
   font-weight: 100;
   letter-spacing: 0.2em;
@@ -830,7 +859,7 @@ main.article {
 }
 
 .article-author {
-  font-family: 'Times New Arial', serif;
+  font-family: 'Distro Mix Accent', serif;
   font-size: 3em;
   font-weight: 100;
   font-style: italic;
@@ -838,7 +867,7 @@ main.article {
 }
 
 .article-subtitle {
-  font-family: 'News Cycle Bold', serif;
+  font-family: 'Distro Bold', serif;
   font-size: 1.7em;
   font-weight: 100;
   letter-spacing: 0.2rem;
@@ -860,13 +889,13 @@ main.article {
 }
 
 .pull-quote {
-  font-family: 'Times New Arial', serif;
+  font-family: 'Generic g50', serif;
   font-size: 3rem;
   text-transform: capitalize; 
 }
 
 .pull-quote:nth-of-type(even) {
-  font-family: 'Times New Arial', serif;
+  font-family: 'Generic g50', serif;
   font-size: 3rem;
   text-transform: capitalize; 
   text-align: right;
@@ -876,7 +905,7 @@ main.article {
   content: attr(data-text);
   display: block;
   position: absolute;
-  font-family: 'Times New Arial', serif;
+  font-family: 'Generic g50', serif;
   font-size: 3rem;
   text-transform: capitalize; 
   transform: rotate(94deg) translate(-20%, -100%);
@@ -888,7 +917,7 @@ main.article {
   content: attr(data-text);
   display: block;
   position: absolute;
-  font-family: 'Times New Arial', serif;
+  font-family: 'Generic g50', serif;
   font-size: 3rem;
   text-transform: capitalize; 
   left: 0;
@@ -901,7 +930,7 @@ main.article {
   content: attr(data-text);
   display: block;
   position: absolute;
-  font-family: 'Times New Arial', serif;
+  font-family: 'Generic g50', serif;
   font-size: 3rem;
   text-transform: capitalize; 
   transform: rotate(-2deg) translateY(-100%);
@@ -913,7 +942,7 @@ main.article {
   content: attr(data-text);
   display: block;
   position: absolute;
-  font-family: 'Times New Arial', serif;
+  font-family: 'Generic g50', serif;
   font-size: 3rem;
   text-transform: capitalize; 
   transform: rotate(3deg) translateY(-50%);
@@ -1001,7 +1030,7 @@ figure:not(.cover-image):nth-of-type(even) > .image-attribution {
 }
 
 figure:not(.cover-image) figcaption {
-  font-family: 'Free Sans Bold', 'serif';
+  font-family: 'Generic g20', 'serif';
   font-size: 2rem;
   text-align: left;
   letter-spacing: -3px;
@@ -1432,7 +1461,7 @@ nav.navbar {
 }
 
 .navbar-nav {
-  font-family: 'Univers 57 Condensed', serif;
+  font-family: 'Generic g20', serif;
   text-transform: uppercase;
   color: #000 !important;
   font-size: 3.7vh;
@@ -1443,9 +1472,21 @@ nav.navbar {
   font-weight: bold;
 }
 
+.nav-item > a {
+  transform: scale(100%);
+  transition: transform 0.3s ease;
+}
+
 .nav-item > a:hover {
-  font-weight: bold;
+  transform: scale(105%);
+  transition: transform 0.3s ease;
+  color: #000;
+  font-family: 'Generic g80', serif;
   cursor: pointer;
+}
+
+.nav-item.show  {
+  font-family: 'Distro Mix V', serif;
 }
 
 .dropdown-menu li {
@@ -1472,7 +1513,7 @@ nav.navbar {
 .dropdown-menu.dropdown-submenu {
   padding: 0pt;
   border-radius: 0% !important;
-  background-color: rgb(207, 176, 119);
+  background-color: var(--off-white)
 
 }
 
@@ -1481,12 +1522,11 @@ nav.navbar {
 }
 
 .dropdown-item:hover {
-  background-color: rgb(227, 27, 18) !important;
-  color: rgb(227, 192, 172) !important;
+  background-color: #a48f22;
 }
 
 #section-hero {
-  height: 90vh;
+  height: 40vh;
 }
 
 .hero-image {
@@ -1503,20 +1543,20 @@ nav.navbar {
 }
 
 .hero-text > h1 {
-  font-family: 'Univers 57 Reversed', 'Chapbook';
+  font-family: 'Theinhardt Bold', 'Generic g80';
+  color: #000;
   text-transform: uppercase;
   font-size: 25vh;
   letter-spacing: 1rem;
   margin-right:-1rem;
   width: 80vw;
-  line-height: 0.6;
+  line-height: 0.8;
   transform: rotate(0.5deg);
-  z-index: -1;
 }
 
 
 .hero-text > p {
-  font-family: 'Cock', serif;
+  font-family: 'Crakos', serif;
   font-size: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 1rem;
@@ -1535,29 +1575,89 @@ nav.navbar {
   margin-top: 2rem;
 }
 
-.hero-text > button {
-  background-color: transparent;
-  border: none;
-  background-image: url("../img/1500/underline.png");
-  background-size: 100% 7px;
-  background-repeat: no-repeat;
-  background-position-y: bottom;
-  margin: auto 0 5vh 0;
-  width: fit-content;
-  align-self: center;
+.hero-text > button { 
+    background-color: transparent;
+    position: absolute;
+    bottom: 100;
+    right: 16vw;
+    margin-bottom: 2rem;
+    border: none;
+    width: fit-content;
+    align-self: center;
+    transform: scale(100%) rotate(67deg);
+    transition: transform 0.3s ease;
+}
+
+.plp-row > button { 
+    background-color: transparent;
+    margin-bottom: 2rem;
+    border: none;
+    width: fit-content;
+    align-self: center;
+    transform: scale(100%) rotate(3deg);
+    transition: transform 0.3s ease;
+}
+
+.plp-row > button:hover {
+  transform: scale(110%) rotate(3deg);
+  transition: transform 0.3s ease;
+}
+
+.section-map > .plp-column > .plp-row {
+  display: none;
+}
+
+#project {
+  margin-top: 70vh;
+  background-color: var(--off-white);
+  z-index: 5;
 }
 
 .hero-text > button:hover {
-  font-weight: 600;
+  transform: scale(110%) rotate(67deg);
+  transition: transform 0.3s ease;
 }
 
-.hero-text > button > a {
-  font-family: 'Humane Bordeaux', serif;
+.hero-text > button > a, .plp-row > button > a {
+  font-family: 'Distro Mix Accent', serif;
   font-size: 1.5rem;
-  color: #3a302a;
+  color: #000;
   text-decoration: none;
 }
 
+.plp-row.button-right > p::before{
+  float: inline-end;
+  height: 50vw;
+  aspect-ratio: 1 / 1;
+  shape-outside: ellipse(333px 303px at 147px -187px);
+  position: relative;
+  top: -40vw;
+  left: -15vw;
+}
+
+body.home .map-container {
+  position: absolute;
+  height: 50vw;
+  width: 50vw;
+  top: 50vh;
+  left: 50vw;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+body.home .map-container > .mapboxgl-map {
+  height: 100%;
+  width: 100%;
+}
+
+.section-project-content {
+  background-color: var(--off-white);
+}
+
+body.home h2 {
+  font-family: 'Generic g50', serif;
+  font-size: 2rem;
+}
 
 .card-container {
   display: flex;
@@ -1578,4 +1678,135 @@ nav.navbar {
   border-image-outset: 5px 6px 6px 6px;
   border-image-repeat: stretch stretch;
   padding: 1rem;
+}
+
+  /* Slideshow container */
+  .slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+    border-image: url("../img/1500/upper-border.png");
+    border-image-slice: 27 31 27 22;
+    border-image-width: 10px 10px 10px 10px;
+    border-image-outset: 5px 6px 6px 6px;
+    border-image-repeat: stretch stretch;
+    padding: 1rem;
+  }
+
+  .slideshow-container img{
+    overflow: hidden;
+  }
+
+
+  /* Hide the images by default */
+  .mySlides {
+    display: none;
+  }
+
+  /* Next & previous buttons */
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: #3a302a;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    user-select: none;
+    text-decoration: none !important;
+
+  }
+
+  .prev {
+    left: -10%;
+  }
+
+  .next {
+    right: -10%;
+  }
+
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover, .next:hover {
+    transform: scale(130%);
+  }
+
+  /* Caption text */
+  .slideshow-text {
+    font-family: "Humane Bordeaux", serif;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+    top:auto;
+    bottom: 0;
+    position: absolute;
+    left: 50%;
+    width: 99%;
+    transform: translateX(-50%);
+    text-align: center;
+    transition: 0.5s;
+    color: #3a302a;
+    background-color: #fae4be;
+    background-image: url("../img/1500/textured-paper.png");
+  }
+
+  /* Number text (1/3 etc) */
+  .numbertext {
+    display: none;
+  }
+  .dots-container{
+    display: none;
+  }
+
+  /* Fading animation */
+  .fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+
+  }
+
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+
+  /* On smaller screens, decrease text size */
+  @media only screen and (max-width: 480px) {
+      .prev, .next,.slideshow-text {
+        font-size: 12pt !important;
+      }
+
+      .mySlides:hover .slideshow-text{
+        font-size: 15pt !important;
+      }
+
+      .dot {
+        height: 12px;
+        width: 12px; 
+      }
+
+      .prev, .next {
+        padding: 10px;
+      }
+    }
+
+
+
+
+footer.home > .container > .plp-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid #000;
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
+  padding: 0 2rem;
+}
+
+#disclaimer-button:hover {
+  font-weight: 600;
+  cursor: pointer;
 }

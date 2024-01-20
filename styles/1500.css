@@ -984,7 +984,7 @@ article p::before {
 
 figure+p,
 article p:first-of-type,
-p:not([data-lines]) {
+article p:not([data-lines]) {
   text-indent: 0.2rem !important;
 }
 
@@ -1338,7 +1338,13 @@ nav.navbar {
 .dropdown-menu.dropdown-submenu {
   padding: 0pt;
   border-radius: 0% !important;
-  background-color: rgb(207, 176, 119);
+  background-color: #fae4be;
+  background-image: url("../img/1500/textured-paper.png");
+  border-image: url("../img/1500/upper-border.png");
+  border-image-slice: 27 31 27 22;
+  border-image-width: 10px 10px 10px 10px;
+  border-image-outset: 10px 8px 7px 7px;
+  border-image-repeat: stretch stretch;
 
 }
 
@@ -1347,8 +1353,9 @@ nav.navbar {
 }
 
 .dropdown-item:hover {
-  background-color: rgb(227, 27, 18) !important;
-  color: rgb(227, 192, 172) !important;
+  background-color: #fae4be;
+  background-image: url("../img/1500/textured-paper.png");
+  font-weight: bold;
 }
 
 #section-hero {
@@ -1394,6 +1401,8 @@ nav.navbar {
   text-transform: uppercase;
   letter-spacing: 1rem;
   margin-right:-1rem;
+  text-align: center !important;
+  text-align-last: center !important;
 }
 
 .hero-text > p::after {
@@ -1431,10 +1440,58 @@ nav.navbar {
   text-decoration: none;
 }
 
+body.home p {
+  text-align: justify;
+  text-align-last: justify;
+}
+
+.plp-row.center + .plp-row > p {
+  column-count: 2;
+  column-gap: 2rem;
+  text-align-last: unset;
+}
+
+body.home p::first-letter {
+  font-size: 2rem;
+  line-height: 2.5rem;
+  float: left;
+  margin-right: 0.2rem;
+  margin-bottom: -1rem;
+  padding-right: 0;
+}
+
+.plp-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.plp-row > button > a {
+  font-family: 'Humane Bordeaux', serif;
+  font-size: 1.5rem;
+  color: #3a302a;
+  text-decoration: none;
+}
+
+.plp-row > button:hover {
+  font-weight: 600;
+}
+
+.plp-row > button {
+  background-color: transparent;
+  border: none;
+  background-image: url("../img/1500/underline.png");
+  background-size: 100% 7px;
+  background-repeat: no-repeat;
+  background-position-y: bottom;
+  margin: auto 0 5vh 0;
+  width: fit-content;
+  align-self: center;
+}
+
 
 .card-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
@@ -1442,7 +1499,9 @@ nav.navbar {
 }
   
 .card {
-  max-width: 20vw;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
   background-color: transparent;
   border: none;
   border-image: url("../img/1500/upper-border.png");
@@ -1451,5 +1510,201 @@ nav.navbar {
   border-image-outset: 5px 6px 6px 6px;
   border-image-repeat: stretch stretch;
   padding: 1rem;
+  align-items: center;
 }
 
+.card > img {
+  height: 10rem;
+  width: 5rem;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #3a302a;
+  margin-right: 1rem;
+}
+
+.card > .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card > .container > button {
+  background-color: transparent;
+  border: none;
+  background-image: url("../img/1500/underline.png");
+  background-size: 100% 7px;
+  background-repeat: no-repeat;
+  background-position-y: bottom;
+  width: fit-content;
+  align-self: center;
+}
+
+.card > .container > button > a {
+  font-family: 'Humane Bordeaux', serif;
+  font-size: 1.5rem;
+  color: #3a302a;
+  text-decoration: none;
+}
+
+.card > .container > button > a:hover {
+  font-weight: 600;
+}
+
+  /* Slideshow container */
+  .slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+    border-image: url("../img/1500/upper-border.png");
+    border-image-slice: 27 31 27 22;
+    border-image-width: 10px 10px 10px 10px;
+    border-image-outset: 5px 6px 6px 6px;
+    border-image-repeat: stretch stretch;
+    padding: 1rem;
+  }
+
+  .slideshow-container img{
+    overflow: hidden;
+  }
+
+
+  /* Hide the images by default */
+  .mySlides {
+    display: none;
+  }
+
+  /* Next & previous buttons */
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: #3a302a;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    user-select: none;
+    text-decoration: none !important;
+
+  }
+
+  .prev {
+    left: -10%;
+  }
+
+  .next {
+    right: -10%;
+  }
+
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover, .next:hover {
+    transform: scale(130%);
+  }
+
+  /* Caption text */
+  .slideshow-text {
+    font-family: "Humane Bordeaux", serif;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+    top:auto;
+    bottom: 0;
+    position: absolute;
+    left: 50%;
+    width: 99%;
+    transform: translateX(-50%);
+    text-align: center;
+    transition: 0.5s;
+    color: #3a302a;
+    background-color: #fae4be;
+    background-image: url("../img/1500/textured-paper.png");
+  }
+
+  /* Number text (1/3 etc) */
+  .numbertext {
+    display: none;
+  }
+  .dots-container{
+    display: none;
+  }
+
+  /* Fading animation */
+  .fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+
+  }
+
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+
+  /* On smaller screens, decrease text size */
+  @media only screen and (max-width: 480px) {
+      .prev, .next,.slideshow-text {
+        font-size: 12pt !important;
+      }
+
+      .mySlides:hover .slideshow-text{
+        font-size: 15pt !important;
+      }
+
+      .dot {
+        height: 12px;
+        width: 12px; 
+      }
+
+      .prev, .next {
+        padding: 10px;
+      }
+    }
+
+
+
+.plp-column {
+  width: 100%;
+}
+
+body.home .map-container {
+  height: 50vh;
+  width: 100%;
+  border-image: url("../img/1500/upper-border.png");
+  border-image-slice: 27 31 27 22;
+  border-image-width: 10px 10px 10px 10px;
+  border-image-outset: 10px 15px 10px 10px;
+  border-image-repeat: stretch stretch;
+  padding: 1rem;
+  margin: 1rem 0 3rem 0;
+}
+
+body.home .map-container > .mapboxgl-map {
+  height: 100%;
+  width: 100%;
+  border-image: url("../img/1500/map-border.png");
+  border-image-slice: 90 90 90 90;
+  border-image-width: 35px 41px 40px 40px;
+  border-image-outset: 20px 23px 20px 20px;
+  border-image-repeat: round;
+}
+
+
+footer.home > .container > .plp-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-image: url("../img/1500/upper-border.png");
+  border-image-slice: 27 31 27 22;
+  border-image-width: 10px 0px 0px 0px;
+  border-image-outset: 5px 6px 6px 6px;
+  border-image-repeat: stretch stretch;
+
+}
+
+#disclaimer-button:hover {
+  font-weight: 600;
+  cursor: pointer;
+}

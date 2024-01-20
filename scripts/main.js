@@ -8,6 +8,7 @@ function changeStyle(style) {
   } else {
     $("#style").attr("href", "./styles/" + style);
     writeStyleInCookie(style);
+    mapbox(style)
     setTimeout(() => {
       selector.fadeOut(500);
     }, 500);
@@ -39,31 +40,36 @@ function getStyleCookie() {
 }
 
 function mapbox(style) {
+  $('#map').empty()
   mapboxgl.accessToken =
     "pk.eyJ1IjoibHppbGwiLCJhIjoiY2xuNjlkODZpMGVjczJtcW1wN2VkcHExaSJ9.zhOJVlpnVZXhtBntooFkgw";
 
-    const mapConfigs = {
-    "1500-article.css": {
-        container: "map",
-        style: "mapbox://styles/lzill/cln69j4oi039y01qu4eugc6lw",
-        projection: "mercator",
-        center: [0, 30],
-        zoom: 1.1,
-        attributionControl: false,
+  const mapConfigs = {
+    "1500.css": {
+      container: document.getElementById("map"),
+      style: "mapbox://styles/lzill/cln69j4oi039y01qu4eugc6lw",
+      projection: "mercator",
+      center: [0, 30],
+      zoom: 1.1,
+      attributionControl: false,
     },
-    "90s-article.css": {
-        container: "map",
-        style: "mapbox://styles/lzill/clrak0xgs006r01qq8w9m0bow",
-        projection: "globe",
-        zoom: 0,
-        center: [90, 30],
-        minZoom: 2,
-        maxZoom: 2,
-        attributionControl: false,
+    "90s.css": {
+      container: document.getElementById("map"),
+      style: "mapbox://styles/lzill/clrak0xgs006r01qq8w9m0bow",
+      projection: "globe",
+      zoom: 0,
+      center: [90, 30],
+      minZoom: 2,
+      maxZoom: 2,
+      attributionControl: false,
     },
-    };
+  };
 
-  var map = new mapboxgl.Map(mapConfigs[getStyleCookie()]);
+  var map = new mapboxgl.Map(mapConfigs[style]);
+
+  map.on("load", function () {
+    map.resize();
+  });
 
   map.dragRotate.disable();
   map.touchZoomRotate.disableRotation();
@@ -104,78 +110,6 @@ function mapbox(style) {
     });
   }, 10);
 
-  map.on("load", () => {
-    $.ajax({
-      url: geojsonUrl,
-      dataType: "json",
-      success: (data) => {
-        for (const feature of data.features) {
-          if (feature.geometry) {
-            if (feature.geometry.type === "Point") {
-              const el = document.createElement("div");
-              el.className = "marker " + feature.properties.classes[2];
-              el.id = feature.properties.id;
-              var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-                feature.properties.name
-              );
-              var marker = new ClickableMarker(el)
-                .setLngLat([
-                  feature.geometry.coordinates[1],
-                  feature.geometry.coordinates[0],
-                ])
-                .setPopup(popup)
-                .addTo(map);
-              (function (marker, el) {
-                el.addEventListener("mouseenter", () => marker.togglePopup());
-                el.addEventListener("mouseleave", () => marker.togglePopup());
-                el.addEventListener("click", (e) => {
-                  e.stopPropagation();
-                  goto(el.id);
-                });
-              })(marker, el);
-            } else if (
-              feature.geometry.type === "Polygon" ||
-              feature.geometry.type == "MultiPolygon"
-            ) {
-              const layerId = feature.properties.id;
-
-              map.addSource(layerId, {
-                type: "geojson",
-                data: feature,
-              });
-
-              map.addLayer({
-                id: layerId,
-                type: "fill",
-                source: layerId,
-                paint: {
-                  "fill-color": "rgba(132, 128, 107, 0.3)",
-                },
-              });
-
-              map.on("click", layerId, async (event) => {
-                const clicked_layer = await debounceClickHandler(map, event);
-                goto(clicked_layer);
-              });
-
-              map.on("mouseenter", layerId, () => {
-                map.getCanvas().style.cursor = "pointer";
-              });
-
-              map.on("mouseleave", layerId, () => {
-                map.getCanvas().style.cursor = "";
-              });
-            }
-          }
-        }
-      },
-      error: (error) => {
-        console.error("Error loading GeoJSON file:", error);
-      },
-    });
-  });
-
-  map.fitBounds(map.getBounds());
 }
 
 $("#disclaimer-button").on("click", function (e) {

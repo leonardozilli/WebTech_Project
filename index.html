@@ -20,6 +20,8 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com"><!--due volte è un errore?-->
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
 
         <link id="style" rel="stylesheet" href="" />
         <!--maps-->
@@ -27,6 +29,7 @@
         <link rel="preload" href="/styles/1500.css" as="style">
         <link rel="preload" href="/styles/90s.css" as="style">
         <link rel="preload" href="/styles/pulp.css" as="style">
+        <link rel="preload" href = "/styles/future.css" as="style">
         <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
         <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
     </head>
@@ -101,9 +104,13 @@
             <section id="section-hero">
                 <div class="hero-image">
                     <div class="hero-text">
-                        <h1>CarbOFF</h1>
-                        <p>A changing view on climate change</p>
-                        <button><a href="#project">Explore the project</a></button>
+                        <div class="hero-text-container">
+                            <h1>CarbOFF</h1>
+                            <p>A changing view on climate change</p>
+                        </div>
+                        <div class="hero-button-container">
+                            <button><a href="#project">Explore the project</a></button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -166,7 +173,7 @@
                                     <img src="forest.jpg" alt="Denim Jeans" style="width:100%">
                                     <div class="container">
                                         <div class="center">
-                                            <h3>Transparent future</h3>
+                                            <h3>Future</h3>
                                         </div>
                                         <p>This theme gets its inspiration from the uprising technologies of the transparent glasses. The question here is: how can we focus on something, if we are always distracted by the background?</p>
                                         <button><a >Apply</a></button>

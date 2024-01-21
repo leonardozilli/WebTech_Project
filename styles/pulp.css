@@ -986,6 +986,7 @@ header.article{
 
 
 .header-container{
+  order:2;
   width: 100%;
   display: flex;
   flex-flow: row;

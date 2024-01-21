@@ -1,0 +1,410 @@
+
+
+/* HOME STYLE */
+
+body {
+    /*  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)) */
+    background-image: url("../forest.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+/* STYLE NAVBAR */
+.navbar{
+    order:2;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    text-align: center;
+    height: 10vh;
+}
+
+.navbar .container-fluid {
+    width: 60%;
+    display: flex; 
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.navbar-collapse.navbar-collapse {
+    display: flex;
+    flex-direction: row;
+    justify-content: center !important;
+}
+
+.me-auto {
+    margin-right: 0px !important;
+
+}
+
+
+main.home {
+    order: 1;
+    max-height: 88vh;
+    margin: 1vh;
+    overflow-y: scroll;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.main p{
+    font-size: 12pt;
+}
+
+
+.hero-image {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    align-items: center; 
+    justify-content: center;
+}
+
+.hero-text {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-button-container {
+    flex: column;
+    flex-grow: 1;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+  }
+
+  
+
+  .hero-text-container{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-text-container p{
+    font-size: 12pt; 
+  }
+
+  .hero-text-container h1 {
+    font-size: 72pt;
+  }
+
+
+.external> section > .plp-column {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex: 1;
+    height: 88vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.plp-row{
+    width: 100%;
+    padding: 0px 2vw;
+}
+
+.button-right{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+
+/* CARD */
+/* stylying cards */
+
+.card-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.card {
+    display: flex !important;
+    flex-flow: column !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    max-height: 70vh;
+    text-align: left;
+    width: 24% !important;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    /* background-color: rgba(255, 255, 255, 1); */
+  }
+
+  .container {
+    padding: 2pt;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card img{
+    width: auto;
+    height: 50%;
+    overflow: hidden;
+    padding: 4px;
+    border-radius: 16px;
+  }
+
+  .card h3 {
+    font-weight: 700;
+    font-size: 16pt !important;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+    text-align: center;
+  }
+
+  .card p{
+    max-height: 10vh;
+    overflow-y: scroll;
+  }
+
+/* SLIDESHOW */
+/* Slideshow container */
+.slideshow-container {
+    max-width: auto;
+    height: 70vh;
+    position: relative;
+    margin: auto;
+  }
+
+  .slideshow-container img{
+    overflow: hidden !important;
+    height: 100%;
+    width: auto;
+  }
+
+
+  /* Hide the images by default */
+  .mySlides {
+    display: none;
+  }
+
+  /* Next & previous buttons */
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    background-color: rgb(227, 192, 172);
+    color:black;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    text-decoration: none !important;
+
+  }
+
+  /* Position the "next button" to the right */
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover, .next:hover {
+    background-color: rgb(227,27,18);
+    color: rgb(227, 192, 172) !important;
+  }
+
+  /* Caption text */
+  .slideshow-text {
+    font-family: "Cooper Black Regular";;
+    font-size: 16pt;
+    padding: 8px 12px 16px 12px;
+    top:auto;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    transition: 0.5s;
+    background-color: rgb(227, 192, 172);
+    color:black;
+  }
+
+  .mySlides:hover .slideshow-text{
+    background-color: rgb(227,27,18);
+    color: rgb(227, 192, 172) !important;
+    font-size: 24pt;
+  }
+
+  /* Number text (1/3 etc) */
+  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+
+  /* The dots/bullets/indicators */
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: rgb(227, 192, 172);
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+
+  .dots-container{
+    text-align:center;
+    margin-bottom: 20px;
+  }
+
+  .active, .dot:hover {
+    background-color: rgb(227,27,18);
+  }
+
+  /* Fading animation */
+  .fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+
+  }
+
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+
+  /* On smaller screens, decrease text size */
+  @media only screen and (max-width: 480px) {
+      .prev, .next,.slideshow-text {
+        font-size: 12pt !important;
+      }
+
+      .mySlides:hover .slideshow-text{
+        font-size: 15pt !important;
+      }
+
+      .dot {
+        height: 12px;
+        width: 12px; 
+      }
+
+      .prev, .next {
+        padding: 10px;
+      }
+    }
+
+
+  
+
+
+
+footer.home{
+    display: none;
+}
+
+
+
+/* DISCLAIMER*/
+
+.disclaimer-container {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+  }
+  
+  .modal-content {
+    display: none;
+    background-color: #f2f2f2;
+    width: fit-content;
+    height: fit-content;
+    max-width: 60vw;
+    margin: auto;
+    padding: 0;
+    color: black;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: black solid 2pt;
+    outline: black solid 1pt;
+    outline-offset: -5pt ;
+  }
+  
+  .modal-content > ul {
+    text-align: left;
+  }
+  
+  .disclaimer-container.visible .modal-content {
+    display: flex;
+  }
+  
+  .modal-content > p:first-of-type {
+    padding-top: 1rem;
+  }
+  
+  .modal-content p {
+    text-align: justify;
+    padding: 0 2rem;
+  }
+  
+  
+  .modal-close {
+    text-align: center;
+    color: black;
+    text-decoration: underline;
+    transition: text-decoration-color 300ms;
+    margin: 2rem 0 ;
+  }
+  
+  .modal-close:hover {
+    cursor: pointer;
+    color: rgb(227,27,18); 
+    text-decoration: none;
+  }
+  
+
+  
+
+
+

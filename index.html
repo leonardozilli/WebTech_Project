@@ -80,7 +80,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="read.html?issue=docs&article=1-documentation" target="_blank">Documentation</a>
+                            <a class="nav-link" href="read.html?issue=docs&article=documentation" target="_blank">Documentation</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="disclaimer-button">Disclaimer</a>
@@ -118,7 +118,7 @@
                             
                             <div class="plp-row button-right">
                                 <p>CarbOFF is a megazine facing one of the <i>hottest</i> topics nowadays: climate change. Explore diffent perspective in the articles while adapting your point of view using our <a href="#themes">different themes</a>: they will allow you to travel in time, from the Middle Ages to the fragile yet-to-come future. Not only, but you get to explore all the countries and all the places named in our issues through our <a href="#landing">Map</a>. This project is realised for the exam of <i>Web Technology and Information Modeling</i> of the master course in <i>Digital Humanities and Digital Knowledge</i> at <b><i>Alma Mater Studiorum</i>- Università di Bologna</b>.</p>
-                                <button><a class="element-with-dynamic-dots" href="read.html?issue=docs&article=1-documentation" target="_blank">Documentation</a></button>
+                                <button><a class="element-with-dynamic-dots" href="read.html?issue=docs&article=documentation" target="_blank">Documentation</a></button>
                             </div>
                         </div>
                     </section>
@@ -138,8 +138,8 @@
                                         <div class="center">
                                             <h3>16th century</h3>
                                         </div>
-                                        <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-                                            <button><a href="" onclick="changeStyle('1500.css')">Apply</a></button>
+                                        <p>Inspired by one of the most historically significant and revolutionary texts of its time, the Geneva Bible.</p>
+                                            <button><a onclick="changeStyle('1500.css')">Apply</a></button>
                                     </div>
                                 </div>
                                 <div class="card">
@@ -149,17 +149,17 @@
                                             <h3>Pulp Magazine</h3>
                                         </div>
                                         <p>Pulp magazines were inexpensive fiction magazines that were published from 1896 through the 1960s. This style is inspired by some of the top venues published during the 30s, the golden age of the pulps.</p>
-                                            <button><a href="">Apply</a></button>
+                                            <button><a onclick="changeStyle('pulp.css')">Apply</a></button>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <img src="issues/docs/img/1990/raygun_cover.png" alt="Denim Jeans" style="width:100%">
                                     <div class="container">
                                         <div class="center">
-                                            <h3>1990s</h3>
+                                            <h3>Nineties</h3>
                                         </div>
-                                        <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-                                            <button><a href="" onclick="changeStyle('90s.css')">Apply</a></button>
+                                        <p>Inspired by the deconstructive approach of the "grandfather of grunge", David Carson and his magazine "Ray Gun".</p>
+                                            <button><a onclick="changeStyle('90s.css')">Apply</a></button>
                                     </div>
                                 </div>
                                 <div class="card">
@@ -169,7 +169,7 @@
                                             <h3>Transparent future</h3>
                                         </div>
                                         <p>This theme gets its inspiration from the uprising technologies of the transparent glasses. The question here is: how can we focus on something, if we are always distracted by the background?</p>
-                                        <button><a href="">Apply</a></button>
+                                        <button><a >Apply</a></button>
                                     </div>
                                 </div>
                             </div>
@@ -255,7 +255,7 @@
                     <a id="disclaimer-button">Disclaimer</a>
                 </li>
                 <li class="mb-1">
-                    <a href="read.html?issue=docs&article=1-documentation" target="_blank">Documentation</a>
+                    <a href="read.html?issue=docs&article=documentation" target="_blank">Documentation</a>
                 </li>
                 </ul>
             </div>
@@ -301,10 +301,10 @@
             const contentWidth = element.clientWidth;
             const dots = element.querySelector('::before');
             
-            const dotsWidth = dots.clientWidth;
-            const maxDots = Math.floor(contentWidth / dotsWidth);
+            //const dotsWidth = dots.clientWidth;
+            //const maxDots = Math.floor(contentWidth / dotsWidth);
         
-            dots.style.content = '. '.repeat(Math.max(maxDots, 1)).trim();
+            //dots.style.content = '. '.repeat(Math.max(maxDots, 1)).trim();
         }
         
         // Call the function initially and whenever the window is resized

@@ -41,6 +41,13 @@
 }
 
 @font-face {
+  font-family: 'Distro';
+  src: url('../fonts/Distro\ True\ Type/DISTRO__.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Distro Bold';
   src: url('../fonts/Distro\ True\ Type/DISTROB_.ttf') format('truetype');
   font-weight: normal;
@@ -136,7 +143,7 @@ body.preload * {
 .disclaimer-container {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 99;
   padding-top: 100px;
   left: 0;
   top: 0;
@@ -158,16 +165,26 @@ body.preload * {
   margin: 0;
   padding: 0;
   color: #3a302a;
-  font-family: 'Chapbook', 'Humane Bordeaux', serif;
   letter-spacing: 0.1em;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   transform: rotate(2deg);
+  padding-top: 1rem;
 }
 
 .modal-content > ul {
+  max-width: 100%;
   text-align: left;
+  margin: 1rem;
+  padding-right: 2rem;
+}
+
+.modal-content li {
+  font-family: 'Univers 57 Condensed', serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .disclaimer-container.visible .modal-content {
@@ -638,7 +655,7 @@ main.article {
 .wiki-extract {
   max-height: 30vw;
   color: #000;
-  font-family: 'News Cycle', serif;
+  font-family: 'Distro Mix', serif;
 }
 
 .wiki-extract::-webkit-scrollbar {
@@ -685,9 +702,9 @@ main.article {
 }
 
 .wiki-readmore {
-  font-family: 'Univers 57 Condensed', 'serif';
+  font-family: 'Crakos', 'serif';
   text-align: center;
-  text-decoration: none;
+  text-transform: uppercase;
   color: #000;
   text-decoration: none rgba(58,48,42, 0);
   transition: text-decoration-color 0.3s ease, transform 0.3s ease;
@@ -956,7 +973,9 @@ main.article {
   margin: 0;
   line-height: 1.2rem;
   text-indent: 1.5rem;
-  font-family: 'Distro Mix', 'News Cycle', serif;
+  font-family: 'Distro', 'News Cycle', serif;
+  letter-spacing: 0.1rem;
+  font-size: 0.9rem;
 }
 
 .article-text a {
@@ -976,9 +995,8 @@ figure:not(.cover-image) > img {
 }
 
 figure:not(.cover-image) {
-  margin: 3rem 0 2rem;
   padding: 0;
-  margin: 1rem 0;
+  margin: 3rem 0;
 }
 
 figure:not(.cover-image):nth-of-type(odd) {
@@ -1040,7 +1058,9 @@ figure:not(.cover-image) figcaption {
 
 .ending-paragraph {
   text-align: center;
-  font-family: 'Univers 57 Condensed', serif;
+  font-family: 'Crakos', 'Univers 57 Condensed', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.7rem;
   font-size: 1.4rem;
   line-height: 1.2rem;
   font-weight: 100;
@@ -1556,11 +1576,21 @@ nav.navbar {
 
 
 .hero-text > p {
-  font-family: 'Crakos', serif;
-  font-size: 1.5rem;
+  font-family: 'Crakos', serif !important;
+  font-size: 1.5rem !important;
   text-transform: uppercase;
-  letter-spacing: 1rem;
+  letter-spacing: 1rem !important;
   margin-right:-1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation-play-state: paused;
+}
+
+body.home p {
+  font-family: 'Distro', 'News Cycle', serif;
+  letter-spacing: 0.1rem;
+  font-size: 0.9rem;
 }
 
 .hero-text > p::after {
@@ -1570,10 +1600,60 @@ nav.navbar {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  width: 100%;
+  width: 4rem;
   height: 4rem;
   margin-top: 2rem;
+  animation: 1.5s spin backwards;
+  animation-delay: 0.2s;
 }
+
+.hero-text > h1::after {
+  content: '';
+  display: block;
+  position: absolute;
+  background-image: url('../img/1990/flower.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 4rem;
+  height: 4rem;
+  margin-top: 2rem;
+  animation: 1.5s spin backwards;
+  animation-delay: 0.4s;
+}
+
+.hero-text::after {
+  content: '';
+  display: block;
+  position: absolute;
+  background-image: url('../img/1990/cross.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 4rem;
+  height: 4rem;
+  margin-top: 2rem;
+  animation: 1.5s spin backwards;
+  animation-delay: 0.6s;
+}
+
+.hero-text > p:hover::after {
+  animation-play-state: running;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.2);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+
 
 .hero-text > button { 
     background-color: transparent;
@@ -1593,9 +1673,9 @@ nav.navbar {
     margin-bottom: 2rem;
     border: none;
     width: fit-content;
-    align-self: center;
     transform: scale(100%) rotate(3deg);
     transition: transform 0.3s ease;
+    margin-left: 10rem;
 }
 
 .plp-row > button:hover {
@@ -1608,7 +1688,7 @@ nav.navbar {
 }
 
 #project {
-  margin-top: 70vh;
+  margin-top: 60vh;
   background-color: var(--off-white);
   z-index: 5;
 }
@@ -1626,13 +1706,12 @@ nav.navbar {
 }
 
 .plp-row.button-right > p::before{
-  float: inline-end;
+  content: '';
+  float: right;
   height: 50vw;
   aspect-ratio: 1 / 1;
-  shape-outside: ellipse(333px 303px at 147px -187px);
+  shape-outside: ellipse(200px 135px at 253px -1px);
   position: relative;
-  top: -40vw;
-  left: -15vw;
 }
 
 body.home .map-container {
@@ -1640,8 +1719,7 @@ body.home .map-container {
   height: 50vw;
   width: 50vw;
   top: 50vh;
-  left: 50vw;
-  transform: translateX(-50%);
+  left: 40vw;
   z-index: 1;
 }
 
@@ -1654,6 +1732,10 @@ body.home .map-container > .mapboxgl-map {
   background-color: var(--off-white);
 }
 
+#themes {
+  margin-top: -60vh;
+}
+
 body.home h2 {
   font-family: 'Generic g50', serif;
   font-size: 2rem;
@@ -1661,7 +1743,7 @@ body.home h2 {
 
 .card-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
@@ -1669,15 +1751,82 @@ body.home h2 {
 }
   
 .card {
-  max-width: 20vw;
+  max-width: 70%;
   background-color: transparent;
-  border: none;
-  border-image: url("../img/1500/upper-border.png");
-  border-image-slice: 27 31 27 22;
-  border-image-width: 10px 10px 10px 10px;
-  border-image-outset: 5px 6px 6px 6px;
-  border-image-repeat: stretch stretch;
+  border: 2px solid;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+
+.card:nth-child(2) {
+  max-width: 70%;
+  background-color: transparent;
+  border: 2px solid;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  transform: rotate(3deg);
+  margin-left: auto;
+}
+
+.card:nth-child(3) {
+  max-width: 70%;
+  background-color: transparent;
+  border: 2px solid;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  transform: rotate(-2deg);
+}
+
+.card:nth-child(4) {
+  max-width: 70%;
+  background-color: transparent;
+  border: 2px solid;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  margin-left: auto;
+}
+
+.card > img {
+  max-width: 20vw;
+}
+
+.card > .container {
+  width: 55vw;
+  top: -10%;
+  left: 30%;
   padding: 1rem;
+}
+
+.card > .container > button{
+  border: none;
+  text-align: right;
+  background-color: transparent;
+}
+
+.card > .container > button > a{
+  font-family: 'Crakos', serif;
+  text-transform: uppercase;
+  text-decoration: underline;
+  letter-spacing: 1rem;
+  margin-right: -3rem;
+}
+
+.card > .container > button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.card > .container > .center > h3 {
+  font-family: 'Generic g20', serif;
 }
 
   /* Slideshow container */
@@ -1798,15 +1947,45 @@ body.home h2 {
 footer.home > .container > .plp-row {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 2px solid #000;
-  border-left: 2px solid #000;
-  border-right: 2px solid #000;
+  justify-content: center;
+  align-items: last baseline;
   padding: 0 2rem;
 }
+
+footer.home {
+  border: 2px solid #000;
+  border-radius: 50%;
+}
+
+
+footer.home > .container > .plp-row h5 {
+  font-family: 'Generic g20', serif;
+}
+
+footer.home > .container > .plp-row ul {
+  font-family: 'Distro', serif;
+}
+
+footer.home > .container > .plp-row a{
+  color: #000;
+}
+
+footer.home > .container > .plp-row > div:nth-child(2){
+  text-align: right;
+}
+
 
 #disclaimer-button:hover {
   font-weight: 600;
   cursor: pointer;
+}
+
+footer.home > .text-center {
+  font-family: 'Crakos', serif;
+  text-transform: uppercase;
+}
+
+footer.home > .text-center::first-letter {
+  font-family: 'Distro', serif;
+  text-transform: uppercase;
 }

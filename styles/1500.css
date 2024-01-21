@@ -98,7 +98,7 @@ body.article {
   font-family: 'Chapbook', 'Humane Bordeaux', serif;
   letter-spacing: 0.1em;
   display: grid;
-  grid-template-columns: 10% 90%;
+  grid-template-columns: 8% 92%;
   overflow-x: hidden;
   box-shadow: inset 0px 0px 60px 0px #9e752e5c;
   transition: 0.3s;
@@ -145,7 +145,16 @@ body.article {
 }
 
 .modal-content > ul {
+  max-width: 100%;
   text-align: left;
+  margin: 1rem;
+  padding-right: 2rem;
+}
+
+.modal-content li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .disclaimer-container.visible .modal-content {
@@ -284,7 +293,7 @@ body.article.preload * {
   gap: 1rem;
   margin-bottom: auto;
   align-items: flex-start;
-  width: 50%;
+  width: 100%;
   padding-left: 1rem;
 }
 
@@ -957,7 +966,7 @@ h5 {
   margin: 0;
   text-indent: 1rem;
   font-variant-numeric: lining-nums;
-  line-height: 1;
+  line-height: 1rem;
 }
 
 .article-text a {
@@ -976,6 +985,7 @@ h5 {
   padding: 3rem;
   font-size: 0px;
   float: left;
+  margin-right: 0.2rem;
 }
 
 
@@ -1493,38 +1503,61 @@ body.home p::first-letter {
   align-self: center;
 }
 
+body.home a {
+  color: #3a302a;
+}
+
 
 .card-container {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
+  gap: 3rem;
   margin: 2rem 0;
+  max-width: 90%;
 }
   
 .card {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: auto 30%;
   width: 100%;
   background-color: transparent;
   border: none;
-  border-image: url("../img/1500/upper-border.png");
-  border-image-slice: 27 31 27 22;
-  border-image-width: 10px 10px 10px 10px;
-  border-image-outset: 5px 6px 6px 6px;
-  border-image-repeat: stretch stretch;
-  padding: 1rem;
   align-items: center;
 }
 
 .card > img {
-  height: 10rem;
-  width: 5rem;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid #3a302a;
-  margin-right: 1rem;
+  max-height: 50vh;
+  object-fit: contain;
+  border-image-slice: 25 32 25 32 fill;
+  border-image-width: 12px 12px 12px 12px;
+  border-image-outset: 8px 12px 10px 10px; 
+  border-image-repeat: round round;
+  border-image-source: url('../img/1500/image-borders.png');
+ 
+}
+
+.card > .container > .center > h3 {
+    font-family: 'Cock', serif;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.5rem;
+    text-align: left;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.card > .container > .center +  p  {
+  text-align: unset;
+  text-align-last: unset;
+  line-height: 0.9rem;
+  margin: 0;
+}
+
+.card > .container > .center +  p::first-letter  {
+  all: unset;
 }
 
 .card > .container {

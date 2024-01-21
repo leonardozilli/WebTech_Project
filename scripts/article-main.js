@@ -228,7 +228,7 @@ function buildPage() {
   $.ajax({
     url:
       issue === "docs"
-        ? `issues/${issue}/${article}.html`
+        ? `issues/${issue}/documentation.html`
         : `issues/${issue}/${articleNumber}/${article}.html`,
     dataType: "html",
     success: function (data) {
@@ -236,6 +236,7 @@ function buildPage() {
       const articleObj = new Article($("article").first());
       document.title = `${articleObj.title}, by ${articleObj.author}`;
       displayMetadata(articleObj);
+      //console.log($(".text-block p:first-of-type").css('line-height'))
       changeStyle(getStyleCookie(), issue, articleNumber, article);
       $(".loading").fadeOut(100);
       $(".article-text, .metadata-container").animate({ opacity: 0.9 }, 700);
@@ -534,9 +535,7 @@ function changeStyle(style, issue, articleNumber, article) {
       issue = article.data("issue");
       articleNumber = article.data("order");
       article = article.data("filename");
-    } else if (issue === 'docs') {
-      article = 'documentation'
-    }
+    } 
     const selector = $(".style-selector-container");
 
     if ($("#style").attr("href").includes(style)) {
@@ -545,7 +544,7 @@ function changeStyle(style, issue, articleNumber, article) {
     } else {
       $("#style").attr("href", "./styles/" + style);
       writeStyleInCookie(style);
-      styleBoundChanges($(".article-date").text(), issue === 'docs' ? `issues/${issue}/${article}.geojson` : `issues/${issue}/${articleNumber}/${article}.geojson`);
+      styleBoundChanges($(".article-date").text(), issue === 'docs' ? `issues/${issue}/documentation.geojson` : `issues/${issue}/${articleNumber}/${article}.geojson`);
       setTimeout(() => {
         selector.fadeOut(500);
       }, 500);
@@ -644,7 +643,7 @@ const Css1500 = {
   countLines: () => {
     let articleLines = 0;
     $("article p").each(function () {
-      const lineHeight = parseFloat($(this).css("line-height"));
+      const lineHeight = 16;
       const height = $(this).height();
       const lines = Math.round(height / lineHeight) + 1;
       articleLines += lines;

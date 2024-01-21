@@ -40,7 +40,7 @@ function getStyleCookie() {
 }
 
 function mapbox(style) {
-  $('#map').empty()
+  $("#map").empty();
   mapboxgl.accessToken =
     "pk.eyJ1IjoibHppbGwiLCJhIjoiY2xuNjlkODZpMGVjczJtcW1wN2VkcHExaSJ9.zhOJVlpnVZXhtBntooFkgw";
 
@@ -60,16 +60,144 @@ function mapbox(style) {
       zoom: 0,
       center: [90, 30],
       minZoom: 2,
+      attributionControl: false,
+    },
+    "pulp.css": {
+      container: document.getElementById("map"),
+      style: "mapbox://styles/lzill/cln69j4oi039y01qu4eugc6lw",
+      projection: "mercator",
+      zoom: 0,
+      center: [90, 30],
+      minZoom: 2,
       maxZoom: 2,
       attributionControl: false,
     },
   };
 
   var map = new mapboxgl.Map(mapConfigs[style]);
-
   map.on("load", function () {
     map.resize();
+    $.ajax({
+      url: "issues/issuesDB.json",
+      dataType: "json",
+      success: (data) => {
+        for (const issue of data.issues) {
+          issueNumber = issue.number;
+          for (const article of issue.articles) {
+            const geojsonUrl =
+              issueNumber === "docs"
+                ? "issues/docs/documentation.geojson"
+                : `issues/${issueNumber}/${article.number}/` +
+                  article.filename.replace(".html", ".geojson");
+            $.ajax({
+              url: geojsonUrl,
+              dataType: "json",
+              success: (geodata) => {
+                for (const feature of geodata.features) {
+                  if (feature.geometry) {
+                    if (feature.geometry.type === "Point") {
+                      var marker = $(".marker#" + feature.properties.id);
+                      var el;
+                      if (marker.length) {
+                        prev = marker.attr("articles");
+                        marker.attr(
+                          "articles",
+                          prev + `${issue.number}.${article.number}-`
+                        );
+                      } else {
+                        el = document.createElement("div");
+                        el.className =
+                          "marker " + feature.properties.classes[2];
+                        el.id = feature.properties.id;
+                        el.setAttribute(
+                          "articles",
+                          `${issue.number}.${article.number}-`
+                        );
+                      }
+                      if (marker.attr("articles")) {
+                        console.log(feature.properties.name)
+                        var popupContent = `<h3>${
+                          feature.properties.name
+                        }</h3><p>Appears in the following articles:</p><ul class="marker-articles-list" id="${
+                          feature.properties.id
+                        }">`;
+                        for (const markerId of marker
+                          .attr("articles")
+                          .split("-")
+                          .filter(Boolean)) {
+                          markerIds = markerId.split(".");
+                          markerIssue = markerIds[0] - 1;
+                          markerArticle = markerIds[1] - 1;
+                          popupContent += `<li><a href="read.html?issue=${markerIds[0]}&article=${markerIds[1]}-` + data.issues[markerIssue].articles[markerArticle].filename.replace(".html", "") + `">` + data.issues[markerIssue].articles[markerArticle].title + "</a></li>";
+                        }
+                        popupContent += "</ul>";
+                        
+                      } else {
+                        popupContent = `<h3>${
+                          feature.properties.name
+                        }</h3><p>Appears in the following articles:</p><ul class="marker-articles-list" id="${
+                          el.id
+                        }"><li><a href="read.html?issue=${issueNumber}&article=${
+                          article.number
+                        }-${article.filename.replace(".html", "")}">${
+                          article.title
+                        }</a></li></ul>`;
+                      }
+                      console.log(popupContent)
+
+
+                      var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+                        popupContent
+                      );
+                      var marker = new mapboxgl.Marker(el)
+                        .setLngLat([
+                          feature.geometry.coordinates[1],
+                          feature.geometry.coordinates[0],
+                        ])
+                        .setPopup(popup)
+                        .addTo(map);
+
+                      (function (marker, el) {
+                        el.addEventListener("click", () =>
+                          marker.togglePopup()
+                        );
+                      })(marker, el);
+                    } else if (
+                      feature.geometry.type === "Polygon" ||
+                      feature.geometry.type == "MultiPolygon"
+                    ) {
+                      const layerId = feature.properties.id;
+                      try {
+                        map.addSource(layerId, {
+                          type: "geojson",
+                          data: feature,
+                        });
+                        map.addLayer({
+                          id: layerId,
+                          type: "fill",
+                          source: layerId,
+                          paint: {
+                            "fill-color": "rgba(132, 128, 107, 0.3)",
+                          },
+                        });
+                      } catch (e) {}
+                    }
+                  }
+                }
+              },
+              error: (error) => {
+                console.error("Error loading GeoJSON file:", error);
+              },
+            });
+          }
+        }
+      },
+      error: (error) => {
+        console.error("Error loading issuesDB json file:", error);
+      },
+    });
   });
+
 
   map.dragRotate.disable();
   map.touchZoomRotate.disableRotation();
@@ -109,7 +237,6 @@ function mapbox(style) {
       resolve(selectedFeature ? selectedFeature.source : null);
     });
   }, 10);
-
 }
 
 $("#disclaimer-button").on("click", function (e) {

@@ -588,8 +588,14 @@ main.article {
 }
 
 .mapboxgl-popup-content {
-  font-family: 'Univers 57 Condensed', serif;
+  font-family: 'Crakos', serif;
   font-size: 1.2rem;
+  color: #000;
+  border: 2px solid #000;
+}
+
+.mapboxgl-popup-content > h3{
+  font-family: 'Crakos', serif;
   color: #000;
   border: none;
 }
@@ -1542,7 +1548,15 @@ nav.navbar {
 }
 
 .dropdown-item:hover {
-  background-color: #a48f22;
+  background-color: var(--accent-color);
+}
+
+.dropdown-item {
+  font-family: 'Generic g20', serif;
+  text-transform: uppercase;
+  color: #000 !important;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
 }
 
 #section-hero {

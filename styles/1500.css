@@ -631,6 +631,26 @@ main.article {
   border: 2px solid #3a302a;
 }
 
+body.home .mapboxgl-popup-content {
+  font-family: 'Chapbook', serif;
+  padding: 0.2rem 0.3rem;
+  background-color: #ddd5c5 !important;
+  border: 2px solid #3a302a;
+}
+
+.mapboxgl-popup-content > h3 {
+  margin: 0;
+}
+
+.mapboxgl-popup-content > p {
+  text-align: left !important;
+  text-align-last: left !important;
+}
+
+.mapboxgl-popup-content > p::first-letter {
+  all: unset !important;
+}
+
 .mapboxgl-popup-tip {
   color: #fae4be;
   opacity: 0.8;
@@ -1358,7 +1378,7 @@ nav.navbar {
   border-image: url("../img/1500/upper-border.png");
   border-image-slice: 27 31 27 22;
   border-image-width: 10px 10px 10px 10px;
-  border-image-outset: 10px 8px 7px 7px;
+  border-image-outset: 6px 7px 7px 7px;
   border-image-repeat: stretch stretch;
 
 }

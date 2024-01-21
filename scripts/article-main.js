@@ -517,6 +517,42 @@ function pickColor(color) {
   }
 }
 
+function populateLists() {
+    $.getJSON("issues/issuesDB.json", function (objson) {
+        const issueList = $("#issue-dropdown");
+
+        objson.issues.forEach((issue) => {
+            if (issue.number !== "docs") {
+                const issueItem = $(
+                  `<li class='issue-button issue${issue.number}' onclick=toggleCollapsibleList('article${issue.number}')></li>`
+                ).text("Issue " + issue.number);
+                const articleList = $(`<ul class='collapsible-list coll-article article${issue.number}'></ul>`);
+
+                issue.articles.forEach((article) => {
+                    const articleItem = $("<li></li>");
+                    const articleLink = $(
+                        "<a class='dropdown-item' href='read.html?issue=" +
+                        issue.number +
+                        "&article=" +
+                        article.number +
+                        "-" +
+                        article.filename.replace(".html", "") +
+                        "'></a>"
+                    ).text(article.title);
+                    articleItem.append(articleLink);
+                    articleList.append(articleItem);
+                });
+
+                issueItem.append(articleList);
+                issueList.append(issueItem);
+            }
+        });
+    }).fail(function () {
+        console.log("Get from issuesDB: an error has occurred.");
+    });
+}
+
+
 //style change//
 $(document).on(
   "click",
@@ -965,6 +1001,7 @@ $("#disclaimer-button").on("click", function (e) {
 
 $(document).ready(function () {
   buildPage();
+  populateLists();
   setTimeout(function () {
     $('body').removeClass("preload")
   }, 500);

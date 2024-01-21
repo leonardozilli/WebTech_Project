@@ -631,6 +631,26 @@ main.article {
   border: 2px solid #3a302a;
 }
 
+body.home .mapboxgl-popup-content {
+  font-family: 'Chapbook', serif;
+  padding: 0.2rem 0.3rem;
+  background-color: #ddd5c5 !important;
+  border: 2px solid #3a302a;
+}
+
+.mapboxgl-popup-content > h3 {
+  margin: 0;
+}
+
+.mapboxgl-popup-content > p {
+  text-align: left !important;
+  text-align-last: left !important;
+}
+
+.mapboxgl-popup-content > p::first-letter {
+  all: unset !important;
+}
+
 .mapboxgl-popup-tip {
   color: #fae4be;
   opacity: 0.8;
@@ -1358,7 +1378,7 @@ nav.navbar {
   border-image: url("../img/1500/upper-border.png");
   border-image-slice: 27 31 27 22;
   border-image-width: 10px 10px 10px 10px;
-  border-image-outset: 10px 8px 7px 7px;
+  border-image-outset: 6px 7px 7px 7px;
   border-image-repeat: stretch stretch;
 
 }
@@ -1393,7 +1413,7 @@ nav.navbar {
   height: 75vh;
 }
 
-.hero-text {
+.hero-text-container {
   text-align: center;
   max-width: 50vw;
   height: 100%;
@@ -1401,7 +1421,7 @@ nav.navbar {
   flex-direction: column;
 }
 
-.hero-text > h1 {
+.hero-text-container > h1 {
   font-family: 'MediaevalItalique', 'Cock', serif;
   font-weight: 100;
   text-transform: uppercase;
@@ -1410,7 +1430,7 @@ nav.navbar {
   margin-right:-1rem;
 }
 
-.hero-text > p {
+.hero-text-container > p {
   font-family: 'Cock', serif;
   font-size: 1.5rem;
   text-transform: uppercase;
@@ -1420,7 +1440,7 @@ nav.navbar {
   text-align-last: center !important;
 }
 
-.hero-text > p::after {
+.hero-text-container > p::after {
   content: '';
   display: block;
   background-image: url('../img/1500/fab-icon.png');
@@ -1432,7 +1452,14 @@ nav.navbar {
   margin-top: 2rem;
 }
 
-.hero-text > button {
+.hero-button-container {
+  position: absolute;
+  top: 85vh;
+  left: 50vw;
+  transform: translateX(-50%);
+}
+
+.hero-button-container > button {
   background-color: transparent;
   border: none;
   background-image: url("../img/1500/underline.png");
@@ -1444,11 +1471,11 @@ nav.navbar {
   align-self: center;
 }
 
-.hero-text > button:hover {
+.hero-button-container > button:hover {
   font-weight: 600;
 }
 
-.hero-text > button > a {
+.hero-button-container > button > a {
   font-family: 'Humane Bordeaux', serif;
   font-size: 1.5rem;
   color: #3a302a;

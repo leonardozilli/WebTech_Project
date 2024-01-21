@@ -269,35 +269,40 @@ $(document).on("click", "#disclaimer-button", function (e) {
 });
 
 function populateLists() {
-$.getJSON("./issues/issuesDB.json", function (objson) {
-    const articleList = $("#articleList");
-    const issueList = $("#issueList");
+    $.getJSON("issues/issuesDB.json", function (objson) {
+        const issueList = $("#issue-dropdown");
 
-    objson.issues.forEach((issue) => {
-    issueList.append(
-        "<li><a href='issues/" +
-        issue.number +
-        "/'>" +
-        issue.number +
-        "</a></li>"
-    );
-    issue.articles.forEach((article) => {
-        articleList.append(
-        "<li><a href='read.html?issue=" +
-            issue.number +
-            "&article=" +
-            article.number +
-            "-" +
-            article.filename.replace(".html", "") +
-            "'>" +
-            article.title +
-            "</a></li>"
-        );
+        objson.issues.forEach((issue) => {
+            if (issue.number !== "docs") {
+                const issueItem = $("<li class='nav-item dropdown'></li>");
+                const issueLink = $(
+                    "<a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'></a>"
+                ).text("Issue " + issue.number);
+                const articleList = $("<ul class='dropdown-menu dropdown-submenu article-dropdown'></ul>");
+
+                issue.articles.forEach((article) => {
+                    const articleItem = $("<li></li>");
+                    const articleLink = $(
+                        "<a class='dropdown-item' href='read.html?issue=" +
+                        issue.number +
+                        "&article=" +
+                        article.number +
+                        "-" +
+                        article.filename.replace(".html", "") +
+                        "'></a>"
+                    ).text(article.title);
+                    articleItem.append(articleLink);
+                    articleList.append(articleItem);
+                });
+
+                issueItem.append(issueLink);
+                issueItem.append(articleList);
+                issueList.prepend(issueItem);
+            }
+        });
+    }).fail(function () {
+        console.log("Get from issuesDB: an error has occurred.");
     });
-    });
-}).fail(function () {
-    console.log("Get from issuesDB: an error has occurred.");
-});
 }
 
 $(document).ready(function () {

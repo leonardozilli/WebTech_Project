@@ -588,8 +588,14 @@ main.article {
 }
 
 .mapboxgl-popup-content {
-  font-family: 'Univers 57 Condensed', serif;
+  font-family: 'Crakos', serif;
   font-size: 1.2rem;
+  color: #000;
+  border: 2px solid #000;
+}
+
+.mapboxgl-popup-content > h3{
+  font-family: 'Crakos', serif;
   color: #000;
   border: none;
 }
@@ -1542,7 +1548,15 @@ nav.navbar {
 }
 
 .dropdown-item:hover {
-  background-color: #a48f22;
+  background-color: var(--accent-color);
+}
+
+.dropdown-item {
+  font-family: 'Generic g20', serif;
+  text-transform: uppercase;
+  color: #000 !important;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
 }
 
 #section-hero {
@@ -1556,13 +1570,13 @@ nav.navbar {
   align-items: center;
 }
 
-.hero-text {
+.hero-text-container {
   text-align: center;
   display: flex;
   flex-direction: column;
 }
 
-.hero-text > h1 {
+.hero-text-container > h1 {
   font-family: 'Theinhardt Bold', 'Generic g80';
   color: #000;
   text-transform: uppercase;
@@ -1575,7 +1589,7 @@ nav.navbar {
 }
 
 
-.hero-text > p {
+.hero-text-container > p {
   font-family: 'Crakos', serif !important;
   font-size: 1.5rem !important;
   text-transform: uppercase;
@@ -1593,7 +1607,7 @@ body.home p {
   font-size: 0.9rem;
 }
 
-.hero-text > p::after {
+.hero-text-container > p::after {
   content: '';
   display: block;
   background-image: url('../img/1990/star.png');
@@ -1607,7 +1621,7 @@ body.home p {
   animation-delay: 0.2s;
 }
 
-.hero-text > h1::after {
+.hero-text-container > h1::after {
   content: '';
   display: block;
   position: absolute;
@@ -1622,7 +1636,7 @@ body.home p {
   animation-delay: 0.4s;
 }
 
-.hero-text::after {
+.hero-text-container::after {
   content: '';
   display: block;
   position: absolute;
@@ -1655,16 +1669,16 @@ body.home p {
 
 
 
-.hero-text > button { 
+.hero-button-container > button { 
     background-color: transparent;
     position: absolute;
     bottom: 100;
-    right: 16vw;
+    left: 10vw;
     margin-bottom: 2rem;
     border: none;
     width: fit-content;
     align-self: center;
-    transform: scale(100%) rotate(67deg);
+    transform: scale(100%) rotate(-3deg);
     transition: transform 0.3s ease;
 }
 
@@ -1693,12 +1707,12 @@ body.home p {
   z-index: 5;
 }
 
-.hero-text > button:hover {
-  transform: scale(110%) rotate(67deg);
+.hero-button-container > button:hover {
+  transform: scale(110%);
   transition: transform 0.3s ease;
 }
 
-.hero-text > button > a, .plp-row > button > a {
+.hero-button-container > button > a, .plp-row > button > a {
   font-family: 'Distro Mix Accent', serif;
   font-size: 1.5rem;
   color: #000;

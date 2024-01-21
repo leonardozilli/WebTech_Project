@@ -1413,7 +1413,7 @@ nav.navbar {
   height: 75vh;
 }
 
-.hero-text {
+.hero-text-container {
   text-align: center;
   max-width: 50vw;
   height: 100%;
@@ -1421,7 +1421,7 @@ nav.navbar {
   flex-direction: column;
 }
 
-.hero-text > h1 {
+.hero-text-container > h1 {
   font-family: 'MediaevalItalique', 'Cock', serif;
   font-weight: 100;
   text-transform: uppercase;
@@ -1430,7 +1430,7 @@ nav.navbar {
   margin-right:-1rem;
 }
 
-.hero-text > p {
+.hero-text-container > p {
   font-family: 'Cock', serif;
   font-size: 1.5rem;
   text-transform: uppercase;
@@ -1440,7 +1440,7 @@ nav.navbar {
   text-align-last: center !important;
 }
 
-.hero-text > p::after {
+.hero-text-container > p::after {
   content: '';
   display: block;
   background-image: url('../img/1500/fab-icon.png');
@@ -1452,7 +1452,14 @@ nav.navbar {
   margin-top: 2rem;
 }
 
-.hero-text > button {
+.hero-button-container {
+  position: absolute;
+  top: 85vh;
+  left: 50vw;
+  transform: translateX(-50%);
+}
+
+.hero-button-container > button {
   background-color: transparent;
   border: none;
   background-image: url("../img/1500/underline.png");
@@ -1464,11 +1471,11 @@ nav.navbar {
   align-self: center;
 }
 
-.hero-text > button:hover {
+.hero-button-container > button:hover {
   font-weight: 600;
 }
 
-.hero-text > button > a {
+.hero-button-container > button > a {
   font-family: 'Humane Bordeaux', serif;
   font-size: 1.5rem;
   color: #3a302a;

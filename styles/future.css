@@ -152,14 +152,15 @@ p {
 
 
 main.home {
-    order: 1;
-    max-height: 87vh;
-    margin: 1vh;
-    overflow-y: scroll;
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
-    border-radius: 30px;
-    font-family: 'Poppins', sans-serif;
+  order: 1;
+  max-height: 87vh;
+  padding: 1vw 0px;
+  width: 100vw;
+  overflow-y: scroll;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+  border-radius: 30px;
+  font-family: 'Poppins', sans-serif;
 }
 
 main.home h2 {
@@ -589,6 +590,7 @@ footer.home{
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 30px;
     margin: 1vw;
+    max-height: 87vh;
   }
 
   .article-text > :not(.cover-page) img{
@@ -981,6 +983,7 @@ header.article{
 }
 
 
+
 @media only screen and (min-width:768px) and (max-width: 1024px){
     .hero-text h1{
         font-size: 48pt;   
@@ -1019,7 +1022,8 @@ header.article{
 
 }
 
-@media only screen and (max-width:480px){
+/* media home */
+@media screen and (max-width:480px) {
     .hero-text{
         display: flex;
         flex-direction: column;
@@ -1036,10 +1040,12 @@ header.article{
 
     main.home h2 {
         font-size: 16pt !important;
+        text-align: center;
     }
 
     main.home p {
         font-size: 10pt;
+        padding-right: 0%;
     }
 
     .theme > .card-container {
@@ -1059,4 +1065,76 @@ header.article{
         width: 100% !important;
         margin-bottom: 5pt;
     }
+
+  main.home {
+    background-color: transparent;
+  }
+
+  .slider {
+    margin: 10px 0px;
+    border-radius: 20px;
+  }
+
+  .slider:not(.hero-image.slider) {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
 }
+
+
+.hero-text.sized{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-text.sized h1{
+  font-size: 36pt;
+}
+.hero-text.sized p {
+  font-size: 10pt;
+  text-align: center;
+  padding-right: 0px !important;
+}
+
+main.home .hero-text.sized h2 {
+  font-size: 16pt !important;
+  text-align: center;
+}
+
+main.home.sized p {
+  font-size: 10pt;
+  padding-right: 0%;
+}
+
+.theme > .card-container.sized {
+  display: flex;
+  overflow-y: scroll;
+  flex-direction: column;
+}
+
+.card-container.sized {
+  display: flex;
+  overflow-y: scroll;
+  flex-direction: column;
+  justify-content: flex-start !important;
+}
+
+.card.sized{
+  width: 100% !important;
+  margin-bottom: 5pt;
+}
+
+main.home.sized {
+background-color: transparent;
+}
+
+.slider.sized {
+margin: 10px 0px;
+border-radius: 20px;
+}
+
+.slider:not(.hero-image.slider).sized {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.fab-wrapper {display: none;}

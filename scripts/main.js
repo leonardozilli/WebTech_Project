@@ -354,3 +354,51 @@ $(document).ready(function () {
   }
   populateLists();
 });
+
+
+function sizeMain() {
+  const mainHome = document.querySelector('main.home');
+  const currentWidth = mainHome.clientWidth;
+  var heroText = document.getElementsByClassName('hero-text')[0];
+  var cardContainer = document.getElementsByClassName('card-container')[0];
+  var cards = document.getElementsByClassName('card');
+  var sliders = document.getElementsByClassName('slider');
+  if (currentWidth > 760) {
+    // If the width is bigger than 760px, set it to 480px
+    mainHome.style.width = '479px';
+
+    heroText.classList.add('sized');
+    cardContainer.classList.add('sized');
+
+    for (let i = 0; i < cards.length; i++){
+      var card = cards[i];
+      card.classList.add('sized');
+    }
+
+    for (let i = 0; i < sliders.length; i++){
+      var slider = sliders[i];
+      slider.classList.add('sized');
+    }
+
+    mainHome.classList.add('sized');
+
+
+    } else if (currentWidth <= 480) {
+    // If the width is 480px, set it to 100vw
+    mainHome.style.width = '100vw';
+
+    heroText.classList.remove('sized');
+    cardContainer.classList.remove('sized');
+    for (let i = 0; i < cards.length; i++){
+      var card = cards[i];
+      card.classList.remove('sized');
+      }
+    for (let i = 0; i < sliders.length; i++){
+      var slider = sliders[i];
+      slider.classList.remove('sized');
+      }
+
+    mainHome.classList.remove('sized');
+  }
+
+}

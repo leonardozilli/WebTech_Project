@@ -300,7 +300,7 @@ function styleBoundChanges(date, geojson) {
     CssPulp.createArticleBody();
     CssPulp.formatDate();
   } else if (getStyleCookie() === 'future.css'){
-    CssFuture.wrapElements();
+    CssFuture.sizeMain();
   } else {
     Css1500.revert1500(date);
     Css1990.revert1990();
@@ -961,36 +961,7 @@ const CssPulp = {
   // },
 };
 
-const CssFuture = {
-  wrapElements:() =>{
-    // Get references to the elements
-    var heroTextELements = document.querySelectorAll('.hero-text');
-    var heroText= document.getElementsByClassName('.hero-text')[0];
-    var h1Element = heroTextELements[0];
-    var pElement = heroTextELements[1];
-    var buttonElement = heroTextELements[2];
 
-    // Create new containers
-    var textContainer = document.createElement('div');
-    textContainer.className = 'hero-text-container';
-    var buttonContainer = document.createElement('div');
-    buttonContainer.className = 'hero-button-container';
-
-    // Append h1 and p to the text container
-    textContainer.appendChild(h1Element);
-    textContainer.appendChild(pElement);
-
-    // Append button to the button container
-    buttonContainer.appendChild(buttonElement);
-
-    // Replace existing hero-text content with the new containers
-    heroText.innerHTML = '';
-    heroText.appendChild(textContainer);
-    heroText.appendChild(buttonContainer);
-}
-
- 
-};
 
 const Css1990 = {
   extractColor: () => {

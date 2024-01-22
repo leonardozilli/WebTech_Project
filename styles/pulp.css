@@ -998,7 +998,7 @@ main.article {
   text-decoration: none;
 }
 
-/* trova immagine */
+/* non funziona:trova immagine */
 .wiki-close {
   position: absolute;
   top: 1rem;
@@ -1419,3 +1419,9 @@ span.tag:hover[data-wiki] {
   color: rgb(227,27,18); 
   text-decoration: none;
 }
+
+.size-slider {
+  display: none;
+}
+
+.fab-wrapper {display: none;}

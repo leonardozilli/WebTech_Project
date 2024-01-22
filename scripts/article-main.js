@@ -292,6 +292,7 @@ function styleBoundChanges(date, geojson) {
     Css1990.extractColor();
     Css1990.dataText();
   } else if (getStyleCookie() === 'pulp.css') {
+    // non funziona
     CssPulp.addSmallCapsToFirstWord();
     CssPulp.dropCaps();
     CssPulp.addChapterNumbers();

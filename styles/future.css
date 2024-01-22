@@ -338,10 +338,11 @@ main.home p{
 
 /* Slideshow container */
 .slideshow-container {
-    max-width: auto;
-    height: 80%;
-    position: relative;
-    /* margin: auto; */
+  max-width: 80vh;
+  position: relative;
+  margin: auto;
+  outline: black solid 2pt ;
+  outline-offset: 3pt;
   }
 
   .slideshow-container img{
@@ -448,6 +449,21 @@ main.home p{
   @keyframes fade {
     from {opacity: .4}
     to {opacity: 1}
+  }
+
+
+  .map-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 80vh;
+    width: 80vw;
+  }
+
+
+  .map {
+    height: 100%;
   }
 
   /* On smaller screens, decrease text size */

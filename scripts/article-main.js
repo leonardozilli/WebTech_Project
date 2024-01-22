@@ -189,6 +189,7 @@ $(document).on("click", "span.tag:not(.date)[data-wiki]", function (e) {
     this.classList.toggle("animate");
     wikiCall(this.getAttribute("data-wiki"));
     $(".metadata-entry[data-wiki='" + this.getAttribute("data-wiki") + "']").addClass("active");
+    $(".metadata-container").toggleClass("active");
     if (getStyleCookie() === "1500.css") {
       $(".article-map-container").removeClass('active');
     }

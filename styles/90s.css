@@ -1103,25 +1103,25 @@ span.tag:hover[data-wiki] {
 }
 
 h3 {
-  font-family: 'Univers 57 Condensed', serif;
+  font-family: 'Generic g50', serif;
   font-size: 2rem;
   margin: 0 0 1rem 0 ;
 }
 
 h2 {
-  font-family: 'Univers 57 Condensed', serif;
+  font-family: 'Generic g50', serif;
   font-size: 1.7rem;
   margin: 1rem 0 0.7rem 0 ;
 }
 
 h4 {
-  font-family: 'Univers 57 Condensed', serif;
+  font-family: 'Generic g50', serif;
   font-size: 1.7rem;
   margin: 0 0 1rem 0 ;
 }
 
 h5 {
-  font-family: 'Univers 57 Condensed', serif;
+  font-family: 'Generic g50', serif;
   font-size: 1.3rem;
   margin: 1rem 0 0.5rem 0 ;
 }
@@ -1148,7 +1148,8 @@ h5 {
     visibility: hidden;
   }
 
-  header.article {
+  header.article.active {
+    display: flex;
     visibility: visible;
     padding: 0;
     top: unset;
@@ -1157,10 +1158,21 @@ h5 {
     height: 80vh;
     width: 110vw;
     border-top: 1px solid #000;
+    justify-content: flex-start;
+  }
+
+  .lists-container {
+    height: unset;
+    align-self: center;
   }
 
   .metadata-bottom {
+    margin-top: 2rem;
     align-self: center;
+  }
+
+  .metadata-container.active {
+    display: flex;
   }
 
   .article-container {
@@ -1187,7 +1199,7 @@ h5 {
   }
 
   .article-title {
-    font-size: 7vh !important;
+    font-size: 2rem !important;
     line-height: 4rem;
     margin: 0;
   }
@@ -1225,6 +1237,8 @@ h5 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: fit-content;
+    margin-top: 10vh;
   }
 
   .cover-image > figcaption{
@@ -1235,10 +1249,8 @@ h5 {
 
   .cover-image > img {
     object-fit: contain;
-    max-width: 95vw;
     transform: rotate(0.8deg);
     height: fit-content;
-    transform: none;
   }
 
   figure:not(.cover-image) {

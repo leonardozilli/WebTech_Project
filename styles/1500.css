@@ -842,7 +842,7 @@ J
   justify-items: center;
   align-self: center;
   justify-self: center;
-  max-width: 35vw;
+  max-width: 70%;
 }
 
 .article-date {
@@ -1217,6 +1217,7 @@ figure figcaption {
     height: 40%;
     border-image-outset: 25px;
     padding: 0;
+    min-height: unset;
   }
 
 
@@ -1231,6 +1232,23 @@ figure figcaption {
     top: 0;
     right: 0;
     padding: 0;
+    flex-direction: column;
+  }
+
+  .wiki-text {
+    padding: 0;
+  }
+
+  .wiki-readmore {
+    margin: 0;
+  }
+
+  .wiki-thumbnail-container {
+    height: 100%;
+    padding: 0;
+  }
+
+  .wiki-close {
   }
 
   .article-container.covered {
@@ -1296,6 +1314,39 @@ figure figcaption {
   .fab-wrapper.active #fab-metadata-button {
     transform: translate(-70px, -20px);
   }
+
+
+  #section-hero::before{
+    width: 80vw !important;
+  }
+
+  .hero-text-container > h1 {
+    font-size: 13vw !important;
+  }
+
+  main.home {
+    width: 80vw !important;
+  }
+
+  footer.home > .container > .plp-row {
+    flex-direction: column !important;
+  }
+
+  .card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1rem;
+  }
+
+  .card > .container {
+    text-align: center;
+  }
+
+  .card > .container > .center > h3 {
+    text-align: center !important;
+  }
 }
 
 hr {
@@ -1328,6 +1379,10 @@ body.home {
 
 main.home {
   width: 50vw;
+}
+
+.container-fluid {
+  justify-content: center;
 }
 
 section {
@@ -1387,6 +1442,12 @@ nav.navbar {
   margin: 0pt !important;
 }
 
+#themes > .plp-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .dropdown-item:hover {
   background-color: #fae4be;
   background-image: url("../img/1500/textured-paper.png");
@@ -1413,12 +1474,20 @@ nav.navbar {
   height: 75vh;
 }
 
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .hero-text-container {
   text-align: center;
   max-width: 50vw;
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .hero-text-container > h1 {
@@ -1438,6 +1507,15 @@ nav.navbar {
   margin-right:-1rem;
   text-align: center !important;
   text-align-last: center !important;
+}
+
+.hero-text-container > p::first-letter {
+  all: unset;
+  font-size: 1.5rem !important;
+  line-height: unset !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  float: none !important;
 }
 
 .hero-text-container > p::after {

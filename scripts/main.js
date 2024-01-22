@@ -64,8 +64,8 @@ function mapbox(style) {
     },
     "pulp.css": {
       container: document.getElementById("map"),
-      style: "mapbox://styles/itisdone/clrorcpit007z01pn4cwvb2vc",
-      projection: "globe",
+      style: "mapbox://styles/itisdone/clrjfeik700pc01pdc9zj7zzr",
+      projection: "mercator",
       zoom: 0,
       center: [90, 30],
       minZoom: 2,
@@ -73,9 +73,9 @@ function mapbox(style) {
       attributionControl: false,
     },
     "future.css": {
-      container: "article-map",
-      style: "mapbox://styles/itisdone/clrjfeik700pc01pdc9zj7zzr",
-      projection: "mercator",
+      container: document.getElementById("map"),
+      style: "mapbox://styles/itisdone/clrorcpit007z01pn4cwvb2vc",
+      projection: "globe",
       zoom: 0,
       center: [90, 30],
       minZoom: 2,
@@ -126,7 +126,7 @@ function mapbox(style) {
                         );
                       }
                       if (marker.attr("articles")) {
-                        console.log(feature.properties.name);
+                        //console.log(feature.properties.name);
                         var popupContent = `<h3>${feature.properties.name}</h3><p>Appears in the following articles:</p><ul class="marker-articles-list" id="${feature.properties.id}">`;
                         for (const markerId of marker
                           .attr("articles")
@@ -157,7 +157,7 @@ function mapbox(style) {
                           article.title
                         }</a></li></ul>`;
                       }
-                      console.log(popupContent);
+                      //console.log(popupContent);
 
                       var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
                         popupContent
@@ -171,9 +171,10 @@ function mapbox(style) {
                         .addTo(map);
 
                       (function (marker, el) {
-                        el.addEventListener("click", () =>
-                          marker.togglePopup()
-                        );
+                        el.addEventListener("click", (e) => {
+                          marker.togglePopup();
+                          e.stopPropagation();
+                        });
                       })(marker, el);
                     } else if (
                       feature.geometry.type === "Polygon" ||
@@ -192,6 +193,29 @@ function mapbox(style) {
                           paint: {
                             "fill-color": "rgba(132, 128, 107, 0.3)",
                           },
+                        });
+                        map.on("mouseenter", layerId, () => {
+                          map.getCanvas().style.cursor = "pointer";
+                        });
+
+                        map.on("mouseleave", layerId, () => {
+                          map.getCanvas().style.cursor = "";
+                        });
+                        map.on("click", layerId, async (e) => {
+                          popupContent = `<h3>${
+                            e.features[0].properties.name
+                          }</h3><p>Appears in the following articles:</p><ul class="marker-articles-list" id="${
+                            el.id
+                          }"><li><a href="read.html?issue=${issueNumber}&article=${
+                            article.number
+                          }-${article.filename.replace(".html", "")}">${
+                            article.title
+                          }</a></li></ul>`;
+                          await debounceClickHandler(map, e);
+                          new mapboxgl.Popup()
+                            .setLngLat(e.lngLat)
+                            .setHTML(popupContent)
+                            .addTo(map);
                         });
                       } catch (e) {}
                     }

@@ -376,7 +376,7 @@ function mapbox(geojsonUrl, style) {
 
   const mapConfigs = {
     "1500.css": {
-      container: document.getElementById("map"),
+      container: document.getElementById("article-map"),
       style: "mapbox://styles/lzill/cln69j4oi039y01qu4eugc6lw",
       projection: "mercator",
       center: [0, 30],
@@ -384,7 +384,7 @@ function mapbox(geojsonUrl, style) {
       attributionControl: false,
     },
     "90s.css": {
-      container: document.getElementById("map"),
+      container: document.getElementById("article-map"),
       style: "mapbox://styles/lzill/clrak0xgs006r01qq8w9m0bow",
       projection: "globe",
       zoom: 0,
@@ -393,8 +393,8 @@ function mapbox(geojsonUrl, style) {
       attributionControl: false,
     },
     "pulp.css": {
-      container: document.getElementById("map"),
-      style: "mapbox://styles/itisdone/clrorcpit007z01pn4cwvb2vc",
+      container: document.getElementById("article-map"),
+      style: "mapbox://styles/itisdone/clrjfeik700pc01pdc9zj7zzr",
       projection: "globe",
       zoom: 0,
       center: [90, 30],
@@ -403,8 +403,8 @@ function mapbox(geojsonUrl, style) {
       attributionControl: false,
     },
     "future.css": {
-      container: "article-map",
-      style: "mapbox://styles/itisdone/clrjfeik700pc01pdc9zj7zzr",
+      container: document.getElementById("article-map"),
+      style: "mapbox://styles/itisdone/clrorcpit007z01pn4cwvb2vc",
       projection: "mercator",
       zoom: 0,
       center: [90, 30],

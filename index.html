@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />      
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>CarbOff</title>
-        <link href="img/1500/favicon_light.png" rel="icon" media="(prefers-color-scheme: dark)">
-        <link href="img/1500/favicon.png" rel="icon" media="(prefers-color-scheme: light)">
+        <link href="img/favicon_dark.png" rel="icon" media="(prefers-color-scheme: light)">
+        <link href="img/favicon.png" rel="icon" media="(prefers-color-scheme: dark)">
         <!--da farmi spiegare-->        
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"
             integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
@@ -18,7 +18,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="stylesheet" href="styles/style-selector.css" />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com"><!--due volte è un errore?-->
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
@@ -26,10 +25,10 @@
         <link id="style" rel="stylesheet" href="" />
         <!--maps-->
         <script src="scripts/main.js"></script>
-        <link rel="preload" href="/styles/1500.css" as="style">
-        <link rel="preload" href="/styles/90s.css" as="style">
-        <link rel="preload" href="/styles/pulp.css" as="style">
-        <link rel="preload" href = "/styles/future.css" as="style">
+        <link rel="preload" href="styles/1500.css" as="style">
+        <link rel="preload" href="styles/90s.css" as="style">
+        <link rel="preload" href="styles/pulp.css" as="style">
+        <link rel="preload" href = "styles/future.css" as="style">
         <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
         <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
     </head>
@@ -51,7 +50,7 @@
                             </a>
                             <ul class="dropdown-menu" id="issue-dropdown">
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">See all issues</a></li>
+                            <li><a class="dropdown-item" href="#issueList">See all issues</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -157,7 +156,7 @@
 
 
                     
-                    <section class="slideshow-issues">
+                    <section class="slideshow-issues" id="issueList">
                         <div class="plp-column border-btm issues">
                             <div class="plp-row center">
                                 <h2>See Our Issues</h2>
@@ -190,7 +189,6 @@
                             </div>   
                         </div>     
                     </section>
-                    <section id="issueList"></section>
                     <hr>
                     <section id="articleList">
 

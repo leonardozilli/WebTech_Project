@@ -64,7 +64,17 @@ function mapbox(style) {
     },
     "pulp.css": {
       container: document.getElementById("map"),
-      style: "mapbox://styles/lzill/cln69j4oi039y01qu4eugc6lw",
+      style: "mapbox://styles/itisdone/clrorcpit007z01pn4cwvb2vc",
+      projection: "globe",
+      zoom: 0,
+      center: [90, 30],
+      minZoom: 2,
+      maxZoom: 2,
+      attributionControl: false,
+    },
+    "future.css": {
+      container: "article-map",
+      style: "mapbox://styles/itisdone/clrjfeik700pc01pdc9zj7zzr",
       projection: "mercator",
       zoom: 0,
       center: [90, 30],
@@ -75,6 +85,7 @@ function mapbox(style) {
   };
 
   var map = new mapboxgl.Map(mapConfigs[style]);
+
   map.on("load", function () {
     map.resize();
     $.ajax({
@@ -115,12 +126,8 @@ function mapbox(style) {
                         );
                       }
                       if (marker.attr("articles")) {
-                        console.log(feature.properties.name)
-                        var popupContent = `<h3>${
-                          feature.properties.name
-                        }</h3><p>Appears in the following articles:</p><ul class="marker-articles-list" id="${
-                          feature.properties.id
-                        }">`;
+                        console.log(feature.properties.name);
+                        var popupContent = `<h3>${feature.properties.name}</h3><p>Appears in the following articles:</p><ul class="marker-articles-list" id="${feature.properties.id}">`;
                         for (const markerId of marker
                           .attr("articles")
                           .split("-")
@@ -128,10 +135,17 @@ function mapbox(style) {
                           markerIds = markerId.split(".");
                           markerIssue = markerIds[0] - 1;
                           markerArticle = markerIds[1] - 1;
-                          popupContent += `<li><a href="read.html?issue=${markerIds[0]}&article=${markerIds[1]}-` + data.issues[markerIssue].articles[markerArticle].filename.replace(".html", "") + `">` + data.issues[markerIssue].articles[markerArticle].title + "</a></li>";
+                          popupContent +=
+                            `<li><a href="read.html?issue=${markerIds[0]}&article=${markerIds[1]}-` +
+                            data.issues[markerIssue].articles[
+                              markerArticle
+                            ].filename.replace(".html", "") +
+                            `">` +
+                            data.issues[markerIssue].articles[markerArticle]
+                              .title +
+                            "</a></li>";
                         }
                         popupContent += "</ul>";
-                        
                       } else {
                         popupContent = `<h3>${
                           feature.properties.name
@@ -143,8 +157,7 @@ function mapbox(style) {
                           article.title
                         }</a></li></ul>`;
                       }
-                      console.log(popupContent)
-
+                      console.log(popupContent);
 
                       var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
                         popupContent
@@ -197,7 +210,6 @@ function mapbox(style) {
       },
     });
   });
-
 
   map.dragRotate.disable();
   map.touchZoomRotate.disableRotation();

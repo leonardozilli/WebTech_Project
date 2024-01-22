@@ -374,51 +374,47 @@ function mapbox(geojsonUrl, style) {
   mapboxgl.accessToken =
     "pk.eyJ1IjoibHppbGwiLCJhIjoiY2xuNjlkODZpMGVjczJtcW1wN2VkcHExaSJ9.zhOJVlpnVZXhtBntooFkgw";
 
-  const map1500 = {
-    container: "article-map",
-    style: "mapbox://styles/lzill/cln69j4oi039y01qu4eugc6lw",
-    projection: "mercator",
-    center: [0, 30],
-    zoom: 1.1,
-    attributionControl: false,
+  const mapConfigs = {
+    "1500.css": {
+      container: document.getElementById("map"),
+      style: "mapbox://styles/lzill/cln69j4oi039y01qu4eugc6lw",
+      projection: "mercator",
+      center: [0, 30],
+      zoom: 1.1,
+      attributionControl: false,
+    },
+    "90s.css": {
+      container: document.getElementById("map"),
+      style: "mapbox://styles/lzill/clrak0xgs006r01qq8w9m0bow",
+      projection: "globe",
+      zoom: 0,
+      center: [90, 30],
+      minZoom: 2,
+      attributionControl: false,
+    },
+    "pulp.css": {
+      container: document.getElementById("map"),
+      style: "mapbox://styles/itisdone/clrorcpit007z01pn4cwvb2vc",
+      projection: "globe",
+      zoom: 0,
+      center: [90, 30],
+      minZoom: 2,
+      maxZoom: 2,
+      attributionControl: false,
+    },
+    "future.css": {
+      container: "article-map",
+      style: "mapbox://styles/itisdone/clrjfeik700pc01pdc9zj7zzr",
+      projection: "mercator",
+      zoom: 0,
+      center: [90, 30],
+      minZoom: 2,
+      maxZoom: 2,
+      attributionControl: false,
+    },
   };
 
-  const map1990 = {
-    container: "article-map",
-    style: "mapbox://styles/lzill/clrak0xgs006r01qq8w9m0bow",
-    projection: "globe",
-    zoom: 0,
-    center: [90, 30],
-    minZoom: 2,
-    maxZoom: 2,
-    attributionControl: false,
-  };
-
-  const mapPulp = {
-    container: "article-map",
-    style: "mapbox://styles/itisdone/clrorcpit007z01pn4cwvb2vc",
-    projection: "globe",
-    zoom: 0,
-    center: [90, 30],
-    minZoom: 2,
-    maxZoom: 2,
-    attributionControl: false,
-  };
-
-  const mapFuture = {
-    container: "article-map",
-    style: "mapbox://styles/itisdone/clrjfeik700pc01pdc9zj7zzr",
-    projection: "mercator",
-    zoom: 0,
-    center: [90, 30],
-    minZoom: 2,
-    maxZoom: 2,
-    attributionControl: false,
-  };
-
-
-
-  var map = new mapboxgl.Map((style === "1500.css") ? map1500 : map1990);
+  var map = new mapboxgl.Map(mapConfigs[style]);
 
   map.dragRotate.disable();
   map.touchZoomRotate.disableRotation();
@@ -460,6 +456,7 @@ function mapbox(geojsonUrl, style) {
   }, 10);
 
   map.on("load", () => {
+    map.resize();
     $.ajax({
       url: geojsonUrl,
       dataType: "json",

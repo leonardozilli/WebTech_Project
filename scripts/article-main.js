@@ -394,6 +394,30 @@ function mapbox(geojsonUrl, style) {
     attributionControl: false,
   };
 
+  const mapPulp = {
+    container: "article-map",
+    style: "mapbox://styles/itisdone/clrorcpit007z01pn4cwvb2vc",
+    projection: "globe",
+    zoom: 0,
+    center: [90, 30],
+    minZoom: 2,
+    maxZoom: 2,
+    attributionControl: false,
+  };
+
+  const mapFuture = {
+    container: "article-map",
+    style: "mapbox://styles/itisdone/clrjfeik700pc01pdc9zj7zzr",
+    projection: "mercator",
+    zoom: 0,
+    center: [90, 30],
+    minZoom: 2,
+    maxZoom: 2,
+    attributionControl: false,
+  };
+
+
+
   var map = new mapboxgl.Map((style === "1500.css") ? map1500 : map1990);
 
   map.dragRotate.disable();

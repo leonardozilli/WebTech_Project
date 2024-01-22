@@ -863,6 +863,11 @@ main.article {
   max-width: 100%;
 }
 
+.wiki-thumbnail img{
+  filter: contrast(200%), grayscale(100%);
+
+}
+
 
 
 .wiki-text{
@@ -1155,7 +1160,7 @@ article img{
 }
 
   .article-title{
-    order:1;
+    order: 1;
     font-size: 32pt;
     line-height: 34pt;
     margin: 19.5pt opt;

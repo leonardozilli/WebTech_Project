@@ -337,6 +337,10 @@ body.article.preload * {
   white-space: nowrap;
 }
 
+.size-slider {
+  display: none;
+}
+
 .header-icon img {
   height: 4rem;
 }
@@ -348,7 +352,7 @@ body.article:has(header.article:hover) {
 
 header.article:hover .header-button-text, header.article:hover .collapsible-list li {
   visibility: visible;
-  opacity: 0.8;
+  opacity: 1;
   transition: opacity 0.5s ease-out;
 }
 
@@ -360,6 +364,16 @@ header.article:hover .header-button-text, header.article:hover .collapsible-list
   display: none;
   margin: 0;
   text-align: left;
+}
+
+.collapsible-list li > a {
+  color: #3a302a;
+  text-decoration: none;
+}
+
+.collapsible-list li > a:hover {
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .collapsible-list.active {
@@ -374,10 +388,12 @@ header.article:hover .header-button-text, header.article:hover .collapsible-list
   padding: 0;
   white-space: nowrap;
   transition: opacity 0.5s ease-out;
+  max-width: 20vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.collapsible-list li:hover {
-    font-weight: bold;
+.collapsible-list .issue-button:hover {
     cursor: pointer;
 }
 

@@ -55,6 +55,13 @@
 }
 
 @font-face {
+  font-family: 'Distro Symbols';
+  src: url('../fonts/Distro\ True\ Type/DISTROBT.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Distro Mix';
   src: url('../fonts/Distro\ True\ Type/DISTROM_.ttf') format('truetype');
   font-weight: normal;
@@ -164,7 +171,7 @@ body.preload * {
   max-width: 60vw;
   margin: 0;
   padding: 0;
-  color: #3a302a;
+  color: #000;
   letter-spacing: 0.1em;
   flex-direction: column;
   justify-content: center;
@@ -201,7 +208,7 @@ body.preload * {
 .modal-close {
   text-align: center;
   text-decoration: none;
-  color: #3a302a;
+  color: #000;
   text-decoration: underline rgba(58,48,42, 0);
   transition: text-decoration-color 300ms;
   margin: 2rem 0 ;
@@ -216,7 +223,7 @@ body.preload * {
 .loading {
   font-size: 1.5rem;
   font-family: 'Times New Arial';
-  color: #3a302a;
+  color: #000;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -321,6 +328,10 @@ header.article:hover {
   white-space: nowrap;
 }
 
+.size-slider {
+  display: none;
+}
+
 .header-button-container {
   flex: 1;
   display: flex;
@@ -341,6 +352,12 @@ header.article:hover {
 
 .header-button-text:hover {
   font-weight: bold;
+}
+
+#issues-button::after {
+  content: ',';
+  margin-left: 0.5rem;
+  font-family: 'Distro Symbols';
 }
 
 .header-icon img {
@@ -383,6 +400,7 @@ header.article:hover {
   align-self: flex-end;
   margin-right: 1rem;
   padding-left: 4vw;
+  opacity: 1;
 }
 
 .lists-container {
@@ -468,7 +486,7 @@ main.article {
   font-family: 'Crakos', 'serif';
   font-size: 0.8rem;
   text-decoration: none;
-  color: #3a302a;
+  color: #000;
 }
 
 .metadata-entry:hover, .year-entry:hover, .month-entry:hover{
@@ -508,7 +526,7 @@ main.article {
   border: none;
   background-color: transparent;
   cursor: pointer;
-  color: #3a302a;
+  color: #000;
   text-align: right;
 }
 
@@ -1062,13 +1080,13 @@ figure:not(.cover-image) figcaption {
   word-spacing: -8px;
 }
 
-.ending-paragraph {
+.ending-paragraph > p{
   text-align: center;
   font-family: 'Crakos', 'Univers 57 Condensed', serif;
   text-transform: uppercase;
   letter-spacing: 0.7rem;
-  font-size: 1.4rem;
-  line-height: 1.2rem;
+  font-size: 2rem;
+  line-height: 1.4rem;
   font-weight: 100;
   margin: 2rem 0;
 }
@@ -1081,7 +1099,6 @@ figure:not(.cover-image) figcaption {
 
 span.tag[data-wiki] {
   font-family: 'Distro Mix Accent', serif;
-  white-space: nowrap;
   font-weight: bold;
   opacity: 1;
   background-color: none;
@@ -1405,7 +1422,7 @@ h5 {
     z-index: 98;
     padding: 0;
     margin: 0;
-    background-color: #3a302a;
+    background-color: #000;
     border-radius: 50%;
     height: 2rem;
     width: 2rem;
@@ -1887,7 +1904,7 @@ body.home h2 {
     width: auto;
     margin-top: -22px;
     padding: 16px;
-    color: #3a302a;
+    color: #000;
     font-weight: bold;
     font-size: 18px;
     transition: 0.6s ease;
@@ -1922,7 +1939,7 @@ body.home h2 {
     transform: translateX(-50%);
     text-align: center;
     transition: 0.5s;
-    color: #3a302a;
+    color: #000;
     background-color: #fae4be;
     background-image: url("../img/1500/textured-paper.png");
   }

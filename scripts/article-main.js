@@ -7,7 +7,7 @@ class Article {
     this.date = element.data("date");
     this.source = element.data("source");
     this.people = $("span.person[id]");
-    this.organizations = $("span.organization");
+    this.organizations = $("span.organization[id]");
     this.places = $("span.place");
     this.dates = $("span.date");
   }
@@ -71,6 +71,7 @@ function appendMetadataToList(container, data) {
   });
 
   sortedData.forEach((el) => {
+    console.log(el)
     const listItem = $(
       `<li class="metadata-entry" data-wiki="${el.getAttribute('data-wiki')}" onclick="goto('${el.id}')"></li>`
     ).text(el.dataset.name);
@@ -127,7 +128,7 @@ function displayMetadata(article) {
   };
 
   appendMetadataToList($("#persList"), article.people);
-  //appendMetadataToList($(".orgList"), article.organizations);
+  appendMetadataToList($("#orgList"), article.organizations);
   populateTimeline(
     article.dates
     //article.dates.sort((a, b) => a.id - b.id)
@@ -281,7 +282,9 @@ function styleBoundChanges(date, geojson) {
   mapbox(geojson, getStyleCookie());
   if (getStyleCookie() === "1500.css") {
     Css1990.revert1990();
-    Css1500.organizeList();
+    Css1500.embellish();
+    Css1500.organizeList($(".metadata-list:not(#dateList)"), $("#persList .metadata-entry"));
+    Css1500.organizeList($(".metadata-list:not(#dateList)"), $("#orgList .metadata-entry"));
     Css1500.countLines();
     Css1500.dropCaps();
     $(".article-date").text(Css1500.dateToRoman(date));
@@ -663,7 +666,7 @@ $(".article-container").click(function (e) {
 
 //1500.css-related functions//
 const Css1500 = {
-  organizeList: () => {
+  embellish: () => {
     $(".separator").append(
       `
       <div id="holy_line1">A TABLE OF THE PRINCIPAL</div>
@@ -671,11 +674,11 @@ const Css1500 = {
       <div id="holy_line3">ter the ordre of the alphabet.</div>
       `
     );
-    list = $(".metadata-list:not(#dateList)");
-    items = $("#persList .metadata-entry");
+  },
+  organizeList: (targetList, data) => {
 
     const groupedItems = {};
-    items.each(function (idx, item) {
+    data.each(function (idx, item) {
       const initial = item.textContent[0].toUpperCase();
 
       if (!groupedItems[initial]) {
@@ -684,10 +687,10 @@ const Css1500 = {
       groupedItems[initial].push(item);
     });
 
-    $.each(groupedItems, function (initial, items) {
+    $.each(groupedItems, function (initial, data) {
       const group = $("<ul></ul>");
 
-      $.each(items, function () {
+      $.each(data, function () {
         group.append($(this));
       });
 
@@ -695,7 +698,7 @@ const Css1500 = {
         `<li class='list-block'><span class="list-block-heading">${initial}</span></li>`
       );
       listItem.append(group);
-      list.append(listItem);
+      targetList.append(listItem);
     });
   },
 
@@ -757,7 +760,9 @@ const Css1500 = {
 
     //remove all list-blocks
     $("#persList").empty();
+    $("#orgList").empty();
     appendMetadataToList($("#persList"), $("span.person[id]"));
+    appendMetadataToList($("#orgList"), $("span.organization[id]"));
 
     //drop-cap
     const firstParagraph = document.querySelector(

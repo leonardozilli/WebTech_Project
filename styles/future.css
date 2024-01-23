@@ -59,7 +59,6 @@ button {
 }
 
 button:hover {
-  background: #F6F9FE;
   color: #174ea6;
 }
 
@@ -235,12 +234,25 @@ main.home p{
     width: 4rem;
     height: 4rem;
     padding: 1.5rem;
-    border-radius: 50%;
+    border-radius: 20px;
     border: none;
     cursor: pointer;
     /* non funziona:cambia immagine */
     background-size: cover;
+    transition: width 0.5s ease;
+    z-index: 10000;
+    
   }
+
+  .size-slider:hover{
+    outline: none;
+    background-color: transparent;
+    box-shadow: none!important;
+  }
+  .size-slider:focus{
+    border: none;
+  }
+
 
 
 .external> section > .plp-column {
@@ -356,20 +368,21 @@ main.home p{
   max-width: 80vh;
   position: relative;
   margin: auto;
-  outline: black solid 2pt ;
-  outline-offset: 3pt;
+  
   }
 
   .slideshow-container img{
     overflow: hidden !important;
     height: auto;
     width: 100%;
+    border-radius: 20px;
   }
 
 
   /* Hide the images by default */
   .mySlides {
     display: none;
+    border-radius: 20px;
   }
 
   /* Next & previous buttons */
@@ -380,8 +393,8 @@ main.home p{
     width: auto;
     margin-top: -22px;
     padding: 16px;
-    background-color: rgb(227, 192, 172);
-    color:black;
+    background-color: rgba(0, 0, 0, 0.6);
+    color:rgba(255, 255, 255, 0.6);
     font-weight: bold;
     font-size: 18px;
     transition: 0.6s ease;
@@ -399,13 +412,12 @@ main.home p{
 
   /* On hover, add a black background color with a little bit see-through */
   .prev:hover, .next:hover {
-    background-color: rgb(227,27,18);
-    color: rgb(227, 192, 172) !important;
+    background-color: rgb(255,255,255, 0.6);
+    color: rgba(0, 0, 0, 0.6) !important;
   }
 
   /* Caption text */
   .slideshow-text {
-    font-family: "Cooper Black Regular";;
     font-size: 16pt;
     padding: 8px 12px 16px 12px;
     top:auto;
@@ -414,14 +426,16 @@ main.home p{
     width: 100%;
     text-align: center;
     transition: 0.5s;
-    background-color: rgb(227, 192, 172);
-    color:black;
+    background-color: rgba(0, 0, 0, 0.6);
+    color:rgba(255, 255, 255, 0.6);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
   }
 
   .mySlides:hover .slideshow-text{
-    background-color: rgb(227,27,18);
-    color: rgb(227, 192, 172) !important;
-    font-size: 24pt;
+    background-color: rgb(255,255,255, 0.6);
+    color: rgba(0, 0, 0, 0.6) !important;
+    font-weight: bold;
   }
 
   /* Number text (1/3 etc) */
@@ -439,9 +453,10 @@ main.home p{
     height: 15px;
     width: 15px;
     margin: 0 2px;
-    background-color: rgb(227, 192, 172);
+    background-color: rgba(101, 101, 101, 0.6);
     display: inline-block;
     transition: background-color 0.6s ease;
+    border-radius: 50%;
   }
 
   .dots-container{
@@ -449,8 +464,8 @@ main.home p{
     height: 5%;
   }
 
-  .issues.active, .dot:hover {
-    background-color: rgb(227,27,18);
+  span.dot.active, .dot:hover {
+    background-color: rgba(0, 0, 0, 0.6) !important;
   }
 
   /* Fading animation */
@@ -610,10 +625,7 @@ footer.home{
     max-height: 87vh;
   }
 
-  .article-text > :not(.cover-page) img{
-    display: none;
-  }
-
+ 
   .loading {
     display: none;
   }
@@ -627,9 +639,11 @@ footer.home{
     align-items: center;
     max-height: 87vh;
     overflow-y: scroll;
-    padding: 8pt 16pt;
-    margin: 16pt 5pt;
+    margin: 24pt 21pt;
+    border-radius: 20px;
   }
+
+
 
 .cover-page {
     display: flex;
@@ -639,6 +653,8 @@ footer.home{
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    background-color: rgb(0,108,75);
+    border-radius: 20px;
 }
 
 .titles {
@@ -675,11 +691,39 @@ footer.home{
 }
 
 
+
+
+/* Article */
+
 h1.article-title {
   /* non funziona: decidere font */
   font-size: 36pt !important;
 }
-/* Article */
+
+.article-text img{
+  max-width: 80%;
+  height: auto;
+}
+
+figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  width: 100%;
+}
+
+.image-description {
+  order:3;
+  font-style: italic;
+  font-size: 10pt;
+  text-align: center;
+}
+.image-attribution {
+  order:2;
+ color: #3a302a;
+ font-size: 8pt;
+}
 
 .article-container p {
     line-height: 16pt;
@@ -1003,7 +1047,7 @@ header.article{
 }
 
 
-
+/* media home */
 @media only screen and (min-width:768px) and (max-width: 1024px){
     .hero-text h1{
         font-size: 48pt;   
@@ -1042,7 +1086,7 @@ header.article{
 
 }
 
-/* media home */
+
 @media screen and (max-width:480px) {
     .hero-text{
         display: flex;
@@ -1240,6 +1284,11 @@ main.home {
     
   }
 
+  .article-text img{
+    max-width: 90%;
+    height: auto;
+  }
+
   .metadata-container {
     width: 100%;
     height: 49%;
@@ -1323,6 +1372,11 @@ main.article.sized {
 main.article.sized .article-container {
   width: 100%;
   height: 50%;
+}
+
+main.article.sized .article-text img{
+  max-width: 90% !important;
+  height: auto;
 }
 
 /* non funziona: da spostare sopra */

@@ -355,7 +355,7 @@ $(document).ready(function () {
   populateLists();
 });
 
-
+// non funziona: creare il bottone al load
 function sizeMain() {
   const mainHome = document.querySelector('main.home');
   const currentWidth = mainHome.clientWidth;
@@ -406,7 +406,7 @@ function sizeMain() {
       }
 
     mainHome.classList.remove('sized');
-    button.style.backgroundImage = "url('../img/future/increas-size.png')";
+    button.style.backgroundImage = "url('../img/future/increase-size.png')";
   }
 
 }

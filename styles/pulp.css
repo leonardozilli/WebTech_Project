@@ -594,7 +594,7 @@ body, html {
     text-align:center
   }
 
-  .active, .dot:hover {
+  .issues.active.active, .dot:hover {
     background-color: rgb(227,27,18);
   }
 

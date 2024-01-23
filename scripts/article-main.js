@@ -302,7 +302,7 @@ function styleBoundChanges(date, geojson) {
     CssPulp.createArticleBody();
     CssPulp.formatDate();
   } else if (getStyleCookie() === 'future.css'){
-    CssFuture.createButton();
+    CssFuture.sizeMain();
   } else {
     Css1500.revert1500(date);
     Css1990.revert1990();
@@ -550,7 +550,7 @@ function populateLists() {
             if (issue.number !== "docs") {
                 const issueItem = $(
                   `<li class='issue-button issue${issue.number}' onclick=toggleCollapsibleList('article${issue.number}')></li>`
-                ).append("<p>Issue " + issue.title + "</p>");
+                ).append("<p>" + issue.title + "</p>");
                 const articleList = $(`<ul class='collapsible-list coll-article article${issue.number}'></ul>`);
 
                 issue.articles.forEach((article) => {
@@ -965,114 +965,6 @@ const CssPulp = {
   //   );
   // },
 };
-
-
-// const CssFuture ={
-//   createButton:() => {
-//     const button = document.createElement('button');
-//     button.className = 'size-slider';
-
-//     const backVideo = docuement.createElement('back-video')
-//     const bodyArticle = document.querySelector('body.article');
-
-//     button.onclick = CssFuture.sizeMain;
-
-//     bodyArticle.appendChild(backVideo);
-
-//     bodyArticle.appendChild(button);
-//   },
-
-
-//   sizeMain: () => {
-//     const mainArticle = document.querySelector('main.article');
-//     const bodyArticle = document.querySelector('body.article');
-//     const currentWidth = mainArticle.clientWidth;
-//     var button = document.getElementsByClassName('size-slider')[0];
-  
-//     mainArticle.style.transition = 'width 0.5s ease';
-//     // non funziona: assicurati che ci sia quando si carica la pagina
-//     // button.style.backgroundImage = "url('../img/future/decrease-size.png')";
-//     if (currentWidth > 760) {
-//       // If the width is bigger than 760px, set it to 480px
-//       mainArticle.style.width = '479px';
-
-//       bodyArticle.classList.add('sized')
-  
-//       mainArticle.classList.add('sized');
-  
-//       button.style.backgroundImage = "url('../img/future/decrease-size.png')";
-  
-  
-//       } else if (currentWidth <= 480) {
-//       // If the width is 480px, set it to 100vw
-//       mainArticle.style.width = '98vw';
-
-//       bodyArticle.classList.remove('sized')
-  
-//       mainArticle.classList.remove('sized');
-//       button.style.backgroundImage = "url('../img/future/increas-size.png')";
-//     }
-  
-//   }
-// }
-
-const CssFuture = {
-  createButton: () => {
-    const button = document.createElement('button');
-    button.className = 'size-slider';
-
-    const backVideo = document.createElement('video'); // Corrected typo in 'document'
-    backVideo.className = 'back-video'; // Added class name for back video
-    const bodyArticle = document.querySelector('body.article');
-
-    button.onclick = CssFuture.sizeMain;
-
-    bodyArticle.appendChild(backVideo);
-    bodyArticle.appendChild(button);
-  },
-
-  sizeMain: () => {
-    const mainArticle = document.querySelector('main.article');
-    const bodyArticle = document.querySelector('body.article');
-    const currentWidth = mainArticle.clientWidth;
-    const button = document.getElementsByClassName('size-slider')[0];
-    const backVideo = document.querySelector('.back-video'); // Selecting the back video element
-
-    mainArticle.style.transition = 'width 0.5s ease';
-
-    if (currentWidth > 760) {
-      // If the width is bigger than 760px, set it to 480px
-      mainArticle.style.width = '479px';
-      bodyArticle.classList.add('sized');
-      mainArticle.classList.add('sized');
-      button.style.backgroundImage = "url('../img/future/decrease-size.png')";
-      
-      // Add back video for width greater than 760
-      backVideo.src = "../img/future/room-back.mp4";
-      backVideo.style.width = '100%';
-      backVideo.style.height = '100%';
-      backVideo.loop = true;
-      backVideo.autoplay = true;
-
-    } else if (currentWidth <= 480) {
-      // If the width is 480px or less, set it to 100vw
-      mainArticle.style.width = '98vw';
-      bodyArticle.classList.remove('sized');
-      mainArticle.classList.remove('sized');
-      button.style.backgroundImage = "url('../img/future/increase-size.png')";
-      
-      // Add back video for width less than or equal to 480
-      backVideo.src = "../img/future/waliking-back.mp4";
-      backVideo.style.width = '100%';
-      backVideo.style.height = '100%';
-      backVideo.loop = true;
-      backVideo.autoplay = true;
-    }
-  },
-};
-
-// Example usage:
-CssFuture.createButton();
 
 
 

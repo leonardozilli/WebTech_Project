@@ -337,7 +337,7 @@ body.article.preload * {
   white-space: nowrap;
 }
 
-.size-slider {
+main.home .size-slider {
   display: none;
 }
 
@@ -1174,8 +1174,16 @@ figure figcaption {
     align-items: unset;
   }
 
-  .cover-image > img {
-    max-width: 80%;
+  .article-title {
+    font-size: 4rem;
+  }
+
+  .cover-image {
+    max-width: 100%;
+  }
+
+  .cover-image > figcaption {
+    max-height: 30vh;
   }
 
   .separator {
@@ -1236,14 +1244,24 @@ figure figcaption {
     min-height: unset;
   }
 
+  .metadata-bottom {
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 2rem;
+  }
+
 
   .article-map {
     border-image-outset: 18px;
     border-image-width: 30px;
   }
 
+  .wiki-thumbnail-container {
+    display: none;
+  }
+
   .wiki-container {
-    height: 40%;
+    height: 100%;
     width: 100%;
     top: 0;
     right: 0;
@@ -1253,6 +1271,7 @@ figure figcaption {
 
   .wiki-text {
     padding: 0;
+    gap: 2rem;
   }
 
   .wiki-readmore {
@@ -1264,7 +1283,9 @@ figure figcaption {
     padding: 0;
   }
 
-  .wiki-close {
+  .metadata-list {
+    max-height: unset;
+    column-count: 3;
   }
 
   .article-container.covered {
@@ -1294,6 +1315,7 @@ figure figcaption {
   }
 
   .fab-button {
+    font-family: 'Essays-1743', serif;
     position: absolute;
     bottom: 2rem;
     right: 2rem;
@@ -1308,6 +1330,18 @@ figure figcaption {
     opacity: 0;
     transition: all .4s ease-in-out;
     color: white;
+  }
+
+  #fab-metadata-button {
+    color: transparent;
+  }
+
+  #fab-metadata-button::before {
+    content: 'M';
+    position: relative;
+    left: 0.5rem;
+    color: white;
+    margin: 0;
   }
 
   .fab-wrapper.active .fab-buttons{

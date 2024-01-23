@@ -382,7 +382,7 @@ header.article:hover {
 
 }
 
-.collapsible-list li:hover {
+.collapsible-list li > p:hover, .coll-article li > a:hover {
   cursor: pointer;
   font-weight: bold;
 }
@@ -1080,7 +1080,7 @@ figure:not(.cover-image) figcaption {
   word-spacing: -8px;
 }
 
-.ending-paragraph > p{
+.ending-paragraph {
   text-align: center;
   font-family: 'Crakos', 'Univers 57 Condensed', serif;
   text-transform: uppercase;
@@ -1256,6 +1256,7 @@ h5 {
     justify-content: center;
     height: fit-content;
     margin-top: 10vh;
+    max-height: 70vh;
   }
 
   .cover-image > figcaption{
@@ -1422,14 +1423,15 @@ h5 {
     z-index: 98;
     padding: 0;
     margin: 0;
-    background-color: #000;
-    border-radius: 50%;
+    border: none;
+    background-color: transparent;
     height: 2rem;
     width: 2rem;
     opacity: 0;
     transition: all .4s ease-in-out;
-    color: white;
-    font-family: 'Free Sans Bold', serif;
+    color: #000;
+    font-family: 'Generic g20', serif;
+    font-size: 1.5rem;
   }
 
   .fab-wrapper.active .fab-buttons{
@@ -1450,12 +1452,68 @@ h5 {
   }
 
   .fab-wrapper.active #fab-metadata-button {
-    transform: translate(-70px, -20px);
+    transform: translate(-10rem, -20px) rotate(3deg);
   }
 
   .ending-paragraph {
     margin-bottom: 10rem;
   }
+
+  main.home .hero-text-container > h1 {
+    font-size: 16vw;
+    letter-spacing: 0.5rem;
+    margin: 2rem 0;
+    width: 80vw;
+    line-height: 0.8;
+    transform: rotate(0.5deg);
+  }
+
+  .hero-text-container::after {
+    transform: translateY(20vh) !important;
+  }
+
+  main.home .hero-text-container > h1::after {
+    transform: translate(5vw, 20vh) !important;
+  }
+
+  main.home .map-container {
+    display: none;
+  }
+
+  main.home .hero-button-container > button{
+    bottom: 10vh;
+    left: 50vw;
+    transform: translateX(-50%);
+  }
+
+  #project > .plp-row-external {
+  }
+
+  #themes {
+    margin-top: 0 !important;
+  }
+
+  .card {
+    max-width: unset !important;
+  }
+
+  footer.home > .container > .plp-row {
+    flex-direction: column !important;
+    align-items: center;
+  }
+
+  footer.home > .container > .plp-row > div:first-of-type{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  footer.home > .text-center {
+    margin-bottom: 3rem;
+
+  }
+
+
 }
 
 

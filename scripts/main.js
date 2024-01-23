@@ -355,7 +355,7 @@ $(document).ready(function () {
   populateLists();
 });
 
-
+// non funziona: creare il bottone al load
 function sizeMain() {
   const mainHome = document.querySelector('main.home');
   const currentWidth = mainHome.clientWidth;
@@ -363,6 +363,11 @@ function sizeMain() {
   var cardContainer = document.getElementsByClassName('card-container')[0];
   var cards = document.getElementsByClassName('card');
   var sliders = document.getElementsByClassName('slider');
+  var button = document.getElementsByClassName('size-slider')[0];
+
+  mainHome.style.transition = 'width 0.5s ease';
+  // non funziona: assicurati che ci sia quando si carica la pagina
+  button.style.backgroundImage = "url('../img/future/decrease-size.png')";
   if (currentWidth > 760) {
     // If the width is bigger than 760px, set it to 480px
     mainHome.style.width = '479px';
@@ -382,6 +387,8 @@ function sizeMain() {
 
     mainHome.classList.add('sized');
 
+    button.style.backgroundImage = "url('../img/future/decrease-size.png')";
+
 
     } else if (currentWidth <= 480) {
     // If the width is 480px, set it to 100vw
@@ -399,6 +406,7 @@ function sizeMain() {
       }
 
     mainHome.classList.remove('sized');
+    button.style.backgroundImage = "url('../img/future/increase-size.png')";
   }
 
 }

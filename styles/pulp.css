@@ -380,6 +380,7 @@ body, html {
         border: black solid 2pt !important;
         padding: 0% !important;
         position:relative;
+        
       }
 
 
@@ -387,7 +388,7 @@ body, html {
         display: none;
       }
 
-      .container {
+      .container:not(footer .container) {
         padding: 2pt;
         height: 100%;
       }
@@ -419,6 +420,8 @@ body, html {
         margin-bottom: 5px;
         display: flex !important;
         flex-flow: column !important;
+        justify-content: center;
+        align-items: center;
       }
 
       @media only screen and (max-width: 480px){
@@ -497,7 +500,7 @@ body, html {
 
   .slideshow-container {
 
-    max-width: 70vw;
+    height: 70vh;
     position: relative;
     margin: auto;
     outline: black solid 2pt ;
@@ -505,7 +508,8 @@ body, html {
   }
 
   .slideshow-container img{
-    overflow: hidden;
+    height: 100%;
+    width: auto;
   }
 
 
@@ -590,7 +594,7 @@ body, html {
     text-align:center
   }
 
-  .active, .dot:hover {
+  .issues.active.active, .dot:hover {
     background-color: rgb(227,27,18);
   }
 
@@ -1008,7 +1012,7 @@ main.article {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  background-image: url('../img/1500/close_button.png');
+  background-image: url('../img/pulp/close.png');
   background-size: cover;
 }
 
@@ -1038,7 +1042,7 @@ body.article {
 }
 /* UPPER PART */
 header.article{
-  width: 50%;
+  width: 100%;
 
 }
 
@@ -1058,10 +1062,58 @@ header.article{
   flex-flow: row;
   flex-wrap: nowrap;
   justify-content: space-around;
-  padding: 5pt;
+  padding: 12pt;
   margin: 5pt;
   outline: #000000 solid 2pt;
   outline-offset: -4pt;
+}
+
+.header-button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: auto;
+}
+
+.header-button-container button {
+  display: none;
+}
+
+.header-button-container .header-button-text {
+  top: auto;
+  left: auto;
+  font-family: 'Jost', sans-serif;
+  font-size: 12pt;
+  text-decoration: underline solid black;
+}
+
+
+
+.header-button-container .header-button-text:hover {
+  cursor: pointer;
+  color: rgb(227,27,18);
+  text-decoration: none;
+}
+
+.issues{
+  list-style-type: upper-roman;
+}
+
+.coll-article {
+  list-style-type: decimal;
+}
+
+.header-buttons li{
+  font-family: 'Jost', sans-serif;
+}
+
+.header-buttons .collapsible-list a:hover {
+  cursor: pointer;
+  color: rgb(227,27,18) !important;
+  text-decoration: none !important;
+  background-color:transparent !important;
 }
 
 .fab-wrapper{
@@ -1296,6 +1348,16 @@ article img{
   text-align: center;
   font-family: 'EB Garamond', serif;
   font-size: 10pt !important;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-top: 0px;
+  margin-bottom: 11pt;
+}
+
+.article-text h3 {
+  text-align: center;
+  font-family: 'EB Garamond', serif;
+  font-size: 12pt !important;
   text-transform: uppercase;
   font-weight: 400;
   margin-top: 0px;

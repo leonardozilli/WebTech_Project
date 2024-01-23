@@ -9,7 +9,7 @@
 body {
     width: 100vw;
     /*  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)) */
-    background-image: url("../forest.jpg");
+    /* background-image: url("../forest.jpg"); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -59,7 +59,6 @@ button {
 }
 
 button:hover {
-  background: #F6F9FE;
   color: #174ea6;
 }
 
@@ -154,7 +153,6 @@ p {
 main.home {
   order: 1;
   max-height: 87vh;
-  padding: 1vw 0px;
   width: 100vw;
   overflow-y: scroll;
   background-color: rgba(255, 255, 255, 0.9);
@@ -227,6 +225,34 @@ main.home p{
     font-family: "Pirulen RG";
     padding: 0pt;
   }
+
+  .size-slider {
+    position: absolute !important;
+    top: 1rem;
+    right: 1rem;
+    height: 1.5rem;
+    width: 4rem;
+    height: 4rem;
+    padding: 1.5rem;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    /* non funziona:cambia immagine */
+    background-size: cover;
+    transition: width 0.5s ease;
+    z-index: 10000;
+    
+  }
+
+  .size-slider:hover{
+    outline: none;
+    background-color: transparent;
+    box-shadow: none!important;
+  }
+  .size-slider:focus{
+    border: none;
+  }
+
 
 
 .external> section > .plp-column {
@@ -342,20 +368,21 @@ main.home p{
   max-width: 80vh;
   position: relative;
   margin: auto;
-  outline: black solid 2pt ;
-  outline-offset: 3pt;
+  
   }
 
   .slideshow-container img{
     overflow: hidden !important;
     height: auto;
     width: 100%;
+    border-radius: 20px;
   }
 
 
   /* Hide the images by default */
   .mySlides {
     display: none;
+    border-radius: 20px;
   }
 
   /* Next & previous buttons */
@@ -366,8 +393,8 @@ main.home p{
     width: auto;
     margin-top: -22px;
     padding: 16px;
-    background-color: rgb(227, 192, 172);
-    color:black;
+    background-color: rgba(0, 0, 0, 0.6);
+    color:rgba(255, 255, 255, 0.6);
     font-weight: bold;
     font-size: 18px;
     transition: 0.6s ease;
@@ -385,13 +412,12 @@ main.home p{
 
   /* On hover, add a black background color with a little bit see-through */
   .prev:hover, .next:hover {
-    background-color: rgb(227,27,18);
-    color: rgb(227, 192, 172) !important;
+    background-color: rgb(255,255,255, 0.6);
+    color: rgba(0, 0, 0, 0.6) !important;
   }
 
   /* Caption text */
   .slideshow-text {
-    font-family: "Cooper Black Regular";;
     font-size: 16pt;
     padding: 8px 12px 16px 12px;
     top:auto;
@@ -400,14 +426,16 @@ main.home p{
     width: 100%;
     text-align: center;
     transition: 0.5s;
-    background-color: rgb(227, 192, 172);
-    color:black;
+    background-color: rgba(0, 0, 0, 0.6);
+    color:rgba(255, 255, 255, 0.6);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
   }
 
   .mySlides:hover .slideshow-text{
-    background-color: rgb(227,27,18);
-    color: rgb(227, 192, 172) !important;
-    font-size: 24pt;
+    background-color: rgb(255,255,255, 0.6);
+    color: rgba(0, 0, 0, 0.6) !important;
+    font-weight: bold;
   }
 
   /* Number text (1/3 etc) */
@@ -425,9 +453,10 @@ main.home p{
     height: 15px;
     width: 15px;
     margin: 0 2px;
-    background-color: rgb(227, 192, 172);
+    background-color: rgba(101, 101, 101, 0.6);
     display: inline-block;
     transition: background-color 0.6s ease;
+    border-radius: 50%;
   }
 
   .dots-container{
@@ -435,8 +464,8 @@ main.home p{
     height: 5%;
   }
 
-  .issues.active, .dot:hover {
-    background-color: rgb(227,27,18);
+  span.dot.active, .dot:hover {
+    background-color: rgba(0, 0, 0, 0.6) !important;
   }
 
   /* Fading animation */
@@ -573,15 +602,18 @@ footer.home{
     flex-wrap: wrap;
     flex-wrap: nowrap;
     align-items: center;
+    margin: 0;
   }
 
   main.article{
     font-family: 'Poppins', sans-serif;
   }
 
-  .fab-wrapper {
-    order: 1;
+  .fab-wrapper{
+    display: none;
   }
+
+
 
   main.article {
     order:2;
@@ -593,10 +625,7 @@ footer.home{
     max-height: 87vh;
   }
 
-  .article-text > :not(.cover-page) img{
-    display: none;
-  }
-
+ 
   .loading {
     display: none;
   }
@@ -609,10 +638,12 @@ footer.home{
     flex-wrap: wrap;
     align-items: center;
     max-height: 87vh;
-    overflow: scroll;
-    padding: 8pt 16pt;
-    margin: 16pt 5pt;
+    overflow-y: scroll;
+    margin: 24pt 21pt;
+    border-radius: 20px;
   }
+
+
 
 .cover-page {
     display: flex;
@@ -622,6 +653,8 @@ footer.home{
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    background-color: rgb(0,108,75);
+    border-radius: 20px;
 }
 
 .titles {
@@ -657,7 +690,40 @@ footer.home{
     margin: 0px;
 }
 
+
+
+
 /* Article */
+
+h1.article-title {
+  /* non funziona: decidere font */
+  font-size: 36pt !important;
+}
+
+.article-text img{
+  max-width: 80%;
+  height: auto;
+}
+
+figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  width: 100%;
+}
+
+.image-description {
+  order:3;
+  font-style: italic;
+  font-size: 10pt;
+  text-align: center;
+}
+.image-attribution {
+  order:2;
+ color: #3a302a;
+ font-size: 8pt;
+}
 
 .article-container p {
     line-height: 16pt;
@@ -683,7 +749,7 @@ span.tag {
 /* METADATA */
 
 .metadata-container{
-    order:2;
+    order:3;
     width: 50%;
     display: flex;
     max-height: 87vh;
@@ -747,9 +813,11 @@ span.tag {
   }
   
   .metadata-list-container.active {
-    display: block;
+    display: flex;
+    align-items: center;
     animation: fadeIn 0.5s ease-in-out;
     height: 100%;
+    width: 100%;
   }
   
   .metadata-list-container {
@@ -805,19 +873,12 @@ span.tag {
       padding: 0;
       break-inside: avoid-column;
   }
-  
-  .list-block-heading {
-      text-align: center;
-      display: block;
-      font-family: 'Cock', serif;
-      font-weight: 800;
-  }
-  
+    
   
   /* dates */
   
   .dateList {
-    column-count: 4;
+    overflow: scroll;
   }
   
   .date-year {
@@ -834,7 +895,6 @@ span.tag {
   }
   
   .month-entry {
-    font-family: 'Essays-1743-italic', serif;
     text-indent: 3rem;
     font-size: 0.8rem;
     text-decoration: none;
@@ -862,6 +922,7 @@ span.tag {
     justify-content: center;
     align-items: center;
     height: 50vh;
+    width: 100%;
   }
   
   .wiki-container.active {
@@ -873,7 +934,8 @@ span.tag {
     flex: 0 0 40%;
     padding-left: 2rem;
     justify-content: center;
-    max-height: 40vh;
+    max-width: 40%;
+    height: auto;
   }
 
   .wiki-thumbnail-container.active {
@@ -881,8 +943,8 @@ span.tag {
   }
   
   .wiki-thumbnail {
-    max-height: 40vh;
-    width: auto;
+    height: auto;
+    width: 100%;
   }
   
   .wiki-text{
@@ -893,6 +955,7 @@ span.tag {
     flex: 0 0 60%;
     padding-right: 2.5rem;
     max-height: 100%;
+    max-width: 60%;
   }
   
   .wiki-extract {
@@ -924,7 +987,7 @@ span.tag {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    background-image: url('../img/1500/close_button.png');
+    background-image: url('../img/future/close.png');
     background-size: cover;
   }
   
@@ -950,6 +1013,7 @@ span.tag {
 /* HEADER ARTICLE */
 header.article{
     order:3;
+    display: none;
 }
 .header-container {
     order:-1;
@@ -983,7 +1047,7 @@ header.article{
 }
 
 
-
+/* media home */
 @media only screen and (min-width:768px) and (max-width: 1024px){
     .hero-text h1{
         font-size: 48pt;   
@@ -1022,7 +1086,7 @@ header.article{
 
 }
 
-/* media home */
+
 @media screen and (max-width:480px) {
     .hero-text{
         display: flex;
@@ -1079,6 +1143,10 @@ header.article{
     background-color: rgba(255, 255, 255, 0.9);
   }
 
+  .size-slider{
+    display: none;
+  } 
+
 }
 
 
@@ -1096,7 +1164,7 @@ header.article{
   padding-right: 0px !important;
 }
 
-main.home .hero-text.sized h2 {
+main.home.sized h2 {
   font-size: 16pt !important;
   text-align: center;
 }
@@ -1125,7 +1193,9 @@ main.home.sized p {
 }
 
 main.home.sized {
-background-color: transparent;
+background-color: rgba(0, 0, 0, 0);
+box-shadow: 0px 8px 24px rgba(0, 0, 0, 0);
+border-radius: 0px;
 }
 
 .slider.sized {
@@ -1137,4 +1207,249 @@ border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.9);
 }
 
-.fab-wrapper {display: none;}
+main.home.sized .map-container {
+  max-width: 100%;
+}
+
+main.home.sized::-webkit-scrollbar {
+  display: none;
+}
+
+main.home.plp-row.external{
+  padding: 0px !important;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+main.home {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
+/* ARTICLE RESPONSIVENESS */
+@media only screen and (min-width:768px) and (max-width: 1024px){
+  
+  .article-container {
+    width: 70%;
+  }
+
+  .media-container {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .metadata-bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .metadata-buttons-container{
+    height: 50px;
+    width: 100% !important;
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .lists-container{
+    width: 100% !important;
+    margin-top: 50px;
+    margin-left: 20px;
+  }
+
+}
+
+
+@media only screen  and (max-width: 767px){
+
+  body.article{
+    padding: 5px;
+  }
+  main.article {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .article-container {
+    width: 100%;
+    height: 50%;
+    
+  }
+
+  .article-text img{
+    max-width: 90%;
+    height: auto;
+  }
+
+  .metadata-container {
+    width: 100%;
+    height: 49%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .metadata-bottom {
+    width: 100%;
+    height: 49%;
+    display: flex;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .metadata-buttons-container{
+    height: 50px;
+    width: 100% !important;
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: space-around !important;
+  }
+
+  .metadata-list-container {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .metadata-list {
+    column-count: 2;
+  }
+
+  /* sistemare js per farlo rimanere basso */
+
+  .lists-container{
+    display: none;
+    height: 49%;
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    overflow-y: scroll;
+  }
+
+  .wiki-container {
+    display: none;
+    position: relative;
+    z-index: 1;
+    background-color: transparent;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+}
+
+@media only screen and (max-width: 480px){
+  .article h1{
+    font-size: 24pt;
+  }
+}
+
+/* .sized */ 
+body.article.sized{
+  align-items: flex-start;
+}
+main.article.sized {
+  margin-left: 5px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main.article.sized .article-container {
+  width: 100%;
+  height: 50%;
+}
+
+main.article.sized .article-text img{
+  max-width: 90% !important;
+  height: auto;
+}
+
+/* non funziona: da spostare sopra */
+.main-article-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.main.article-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+/* finqui */
+
+main.article.sized .metadata-container {
+  width: 100%;
+  height: 49%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+main.article.sized .metadata-bottom {
+  width: 100%;
+  height: 49%;
+  display: flex;
+  flex-direction: column !important;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+main.article.sized .metadata-buttons-container{
+  height: 50px;
+  width: 100% !important;
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: space-around !important;
+}
+
+main.article.sized .metadata-list-container {
+  width: 100%;
+  justify-content: center;
+}
+
+main.article.sized .metadata-list {
+  column-count: 2;
+}
+
+/* sistemare js per farlo rimanere basso */
+
+main.article.sized .lists-container{
+  display: none;
+  height: 49%;
+  width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  overflow-y: scroll;
+}
+
+main.article.sized .wiki-container {
+  display: none;
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+

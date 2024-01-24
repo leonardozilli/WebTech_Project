@@ -28,19 +28,6 @@
       ]
     },
     {
-      "number": "docs",
-      "title": "Documentation",
-      "articles": [
-        {
-          "number": 1,
-          "filename": "documentation.html",
-          "title": "Documentation",
-          "author": "The Editors",
-          "date": "01/2024"
-        }
-      ]
-    },
-    {
       "number": 2,
       "title": "The Emotion Issue",
       "articles": [
@@ -64,6 +51,19 @@
           "title": "What to Do with Climate Emotions",
           "author": "Jia Tolentino",
           "date": "07/2023"
+        }
+      ]
+    },
+    {
+      "number": "docs",
+      "title": "Documentation",
+      "articles": [
+        {
+          "number": 1,
+          "filename": "documentation.html",
+          "title": "Documentation",
+          "author": "The Editors",
+          "date": "01/2024"
         }
       ]
     }

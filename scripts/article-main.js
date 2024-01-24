@@ -423,11 +423,7 @@ function mapbox(geojsonUrl, style) {
       projection: "globe",
       zoom: 0,
       center: [90, 30],
-<<<<<<< Updated upstream
-      minZoom: 0,
-=======
       minZoom: 0.5,
->>>>>>> Stashed changes
       attributionControl: false,
     },
   };

@@ -1,0 +1,894 @@
+{
+    "geneva": {
+        "articles": [
+            {
+                "issue": "issues",
+                "article": "docs"
+            }
+        ]
+    },
+    "united_kingdom": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "2"
+            },
+            {
+                "issue": "2",
+                "article": "1"
+            }
+        ]
+    },
+    "china": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "2"
+            },
+            {
+                "issue": "2",
+                "article": "3"
+            },
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "japan": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "2"
+            },
+            {
+                "issue": "1",
+                "article": "2"
+            },
+            {
+                "issue": "1",
+                "article": "1"
+            },
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "norway": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "2"
+            }
+        ]
+    },
+    "canada": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "2"
+            },
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "indonesia": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "2"
+            },
+            {
+                "issue": "2",
+                "article": "3"
+            }
+        ]
+    },
+    "democratic_republic_of_the_congo": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "2"
+            }
+        ]
+    },
+    "peru": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "2"
+            }
+        ]
+    },
+    "colombia": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "2"
+            }
+        ]
+    },
+    "france": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "2"
+            },
+            {
+                "issue": "1",
+                "article": "2"
+            },
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "united_states": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            },
+            {
+                "issue": "2",
+                "article": "3"
+            },
+            {
+                "issue": "1",
+                "article": "2"
+            },
+            {
+                "issue": "1",
+                "article": "1"
+            },
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "malawi": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            }
+        ]
+    },
+    "iowa": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            }
+        ]
+    },
+    "detroit": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            }
+        ]
+    },
+    "oakland": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            },
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "washington": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            },
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "telluride": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            }
+        ]
+    },
+    "minnesota": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            }
+        ]
+    },
+    "seattle": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            },
+            {
+                "issue": "2",
+                "article": "3"
+            }
+        ]
+    },
+    "michigan": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            }
+        ]
+    },
+    "sunset_park": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            }
+        ]
+    },
+    "brentwood": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            }
+        ]
+    },
+    "berkeley": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            }
+        ]
+    },
+    "london": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            }
+        ]
+    },
+    "west_bank": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            }
+        ]
+    },
+    "israel": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "1"
+            }
+        ]
+    },
+    "california": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "3"
+            },
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "kuala_lumpur": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "3"
+            }
+        ]
+    },
+    "hanoi": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "3"
+            }
+        ]
+    },
+    "burundi": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "3"
+            }
+        ]
+    },
+    "washington_state": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "3"
+            }
+        ]
+    },
+    "manila": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "3"
+            }
+        ]
+    },
+    "philippines": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "3"
+            }
+        ]
+    },
+    "glasgow": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "3"
+            }
+        ]
+    },
+    "tuguegarao": {
+        "articles": [
+            {
+                "issue": "2",
+                "article": "3"
+            }
+        ]
+    },
+    "okuma": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "fukushima_daiichi": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            },
+            {
+                "issue": "1",
+                "article": "1"
+            },
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "connecticut": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "fukushima": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            },
+            {
+                "issue": "1",
+                "article": "1"
+            },
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "tokyo": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "hiroshima": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "three_mile_island": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            },
+            {
+                "issue": "1",
+                "article": "1"
+            },
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "chernobyl": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            },
+            {
+                "issue": "1",
+                "article": "1"
+            },
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "belgium": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "switzerland": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "germany": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "shimoda": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "matsumoto": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "iwaki": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "nagasaki": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "new_york": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            },
+            {
+                "issue": "1",
+                "article": "1"
+            },
+            {
+                "issue": "2",
+                "article": "1"
+            },
+            {
+                "issue": "2",
+                "article": "3"
+            }
+        ]
+    },
+    "vermont": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "namie": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "australia": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "koriyama": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "belarus": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            },
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "russia": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            },
+            {
+                "issue": "1",
+                "article": "1"
+            },
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "finland": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "2"
+            }
+        ]
+    },
+    "cheyenne": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "wyoming": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "indian_point": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "harrisburg": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "pennsylvania": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "moorpark": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "los_angeles": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "new_mexico": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            },
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "los_alamos": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "chicago": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "vogtle_plants": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "burke_county": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "georgia": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            },
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "shell_bluff": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "south_carolina": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "ohio": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "davis-besse": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "toledo": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "illinois": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "point_beach": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "west_hills": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "thousand_oaks": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "maryland": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            }
+        ]
+    },
+    "ukraine": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "1"
+            },
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "albuquerque": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "tennessee": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "arizona": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "alaska": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "phoenix": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "flamanville": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "britain": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "colorado": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "brooklyn": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "oak_ridge": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    },
+    "hawthorne": {
+        "articles": [
+            {
+                "issue": "1",
+                "article": "3"
+            }
+        ]
+    }
+}

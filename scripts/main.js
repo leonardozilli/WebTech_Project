@@ -103,61 +103,31 @@ function mapbox(style) {
               url: geojsonUrl,
               dataType: "json",
               success: (geodata) => {
+                var macrodata = $.ajax({
+                  url: 'issues/macro.geojson',
+                  async: false,
+                  dataType: "json",
+                }).responseJSON;
                 for (const feature of geodata.features) {
                   if (feature.geometry) {
                     if (feature.geometry.type === "Point") {
-                      var marker = $(".marker#" + feature.properties.id);
-                      var el;
-                      if (marker.length) {
-                        console.log(marker)
-                        prev = marker.attr("articles");
-                        marker.attr(
-                          "articles",
-                          prev + `${issue.number}.${article.number}-`
-                        );
-                      } else {
-                        el = document.createElement("div");
-                        el.className =
-                          "marker " + feature.properties.classes[2];
-                        el.id = feature.properties.id;
-                        el.setAttribute(
-                          "articles",
-                          `${issue.number}.${article.number}-`
-                        );
+                      var el = document.createElement("div");
+                      el.className = "marker " + feature.properties.classes[2];
+                      el.id = feature.properties.id;
+
+                      var popupList = '';
+                      for (const x of macrodata[el.id]['articles']){
+                        issueidx = x.issue - 1;
+                        articleidx = x.article- 1;
+                        url = x.article === 'docs' ? `read.html?issue=docs&article=documentation` : `read.html?issue=${x.issue}&article=${x.article}-${data.issues[issueidx].articles[articleidx].filename.replace(".html", "")}`;
+                        popupList += `<li><a href="${url}">${x.article === 'docs' ? 'Documentation' : data.issues[issueidx].articles[articleidx].title}</a></li>`;
                       }
-                      if (marker.attr("articles")) {
-                        //console.log(feature.properties.name);
-                        var popupContent = `<h3>${feature.properties.name}</h3><p>Appears in the following articles:</p><ul class="marker-articles-list" id="${feature.properties.id}">`;
-                        for (const markerId of marker
-                          .attr("articles")
-                          .split("-")
-                          .filter(Boolean)) {
-                          markerIds = markerId.split(".");
-                          markerIssue = markerIds[0] - 1;
-                          markerArticle = markerIds[1] - 1;
-                          popupContent +=
-                            `<li><a href="read.html?issue=${markerIds[0]}&article=${markerIds[1]}-` +
-                            data.issues[markerIssue].articles[
-                              markerArticle
-                            ].filename.replace(".html", "") +
-                            `">` +
-                            data.issues[markerIssue].articles[markerArticle]
-                              .title +
-                            "</a></li>";
-                        }
-                        popupContent += "</ul>";
-                      } else {
-                        popupContent = `<h3>${
-                          feature.properties.name
-                        }</h3><p>Appears in the following articles:</p><ul class="marker-articles-list" id="${
-                          el.id
-                        }"><li><a href="read.html?issue=${issueNumber}&article=${
-                          article.number
-                        }-${article.filename.replace(".html", "")}">${
-                          article.title
-                        }</a></li></ul>`;
-                      }
-                      //console.log(popupContent);
+
+                      popupContent = `<h3>${
+                        feature.properties.name
+                      }</h3><p>Appears in the following articles:</p><ul class="marker-articles-list" id="${
+                        el.id
+                      }">${popupList}</ul>`;
 
                       var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
                         popupContent

@@ -71,6 +71,7 @@ function appendMetadataToList(container, data) {
   });
 
   sortedData.forEach((el) => {
+    console.log(el)
     const listItem = $(
       `<li class="metadata-entry" data-wiki="${el.getAttribute('data-wiki')}" onclick="goto('${el.id}')"></li>`
     ).text(el.dataset.name);
@@ -282,8 +283,8 @@ function styleBoundChanges(date, geojson) {
   if (getStyleCookie() === "1500.css") {
     Css1990.revert1990();
     Css1500.embellish();
-    Css1500.organizeList($("#persList"), $("#persList .metadata-entry"));
-    Css1500.organizeList($("#orgList"), $("#orgList .metadata-entry"));
+    Css1500.organizeList($(".metadata-list:not(#dateList)"), $("#persList .metadata-entry"));
+    Css1500.organizeList($(".metadata-list:not(#dateList)"), $("#orgList .metadata-entry"));
     Css1500.countLines();
     Css1500.dropCaps();
     $(".article-date").text(Css1500.dateToRoman(date));
@@ -551,7 +552,7 @@ function populateLists() {
             if (issue.number !== "docs") {
                 const issueItem = $(
                   `<li class='issue-button issue${issue.number}' onclick=toggleCollapsibleList('article${issue.number}')></li>`
-                ).append("<p>" + issue.title + "</p>");
+                ).text("Issue " + issue.number);
                 const articleList = $(`<ul class='collapsible-list coll-article article${issue.number}'></ul>`);
 
                 issue.articles.forEach((article) => {
@@ -675,7 +676,6 @@ const Css1500 = {
       `
     );
   },
-
   organizeList: (targetList, data) => {
 
     const groupedItems = {};

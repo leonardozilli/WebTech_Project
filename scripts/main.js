@@ -313,7 +313,7 @@ function populateLists() {
                 const issueItem = $("<li class='nav-item dropdown'></li>");
                 const issueLink = $(
                     "<a class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'></a>"
-                ).text(issue.title);
+                ).text("Issue " + issue.number);
                 const articleList = $("<ul class='dropdown-menu dropdown-submenu article-dropdown'></ul>");
 
                 issue.articles.forEach((article) => {

@@ -355,7 +355,7 @@ $(document).ready(function () {
   populateLists();
 });
 
-// non funziona: creare il bottone al load
+// non funziona: creare il bottone al load e anche il video
 function sizeMain() {
   const mainHome = document.querySelector('main.home');
   const currentWidth = mainHome.clientWidth;

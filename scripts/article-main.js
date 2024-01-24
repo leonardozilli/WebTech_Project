@@ -304,6 +304,7 @@ function styleBoundChanges(date, geojson) {
     CssPulp.formatDate();
   } else if (getStyleCookie() === 'future.css'){
     CssFuture.createButton();
+    CssFuture.formatDate();
   } else {
     Css1500.revert1500(date);
     Css1990.revert1990();
@@ -1020,14 +1021,25 @@ const CssFuture = {
   createButton: () => {
     const button = document.createElement('button');
     button.className = 'size-slider';
+    const bodyArticle = document.querySelector('body.article');
+    const htmlArticle = document.querySelector('html');
 
     const backVideo = document.createElement('video'); // Corrected typo in 'document'
     backVideo.className = 'back-video'; // Added class name for back video
-    const bodyArticle = document.querySelector('body.article');
+    backVideo.id = 'myVideo';
+    backVideo.loop = true;
+    backVideo.autoplay = true;
+    // backVideo.style.width = '100%';
+    // backVideo.style.height = '100%';
+
+    const source = document.createElement('source');
+    source.src = '../img/future/walking-back-compact.mp4';
+    
 
     button.onclick = CssFuture.sizeMain;
 
-    bodyArticle.appendChild(backVideo);
+    backVideo.appendChild(source);
+    htmlArticle.insertBefore(backVideo, bodyArticle );
     bodyArticle.appendChild(button);
   },
 
@@ -1036,7 +1048,6 @@ const CssFuture = {
     const bodyArticle = document.querySelector('body.article');
     const currentWidth = mainArticle.clientWidth;
     const button = document.getElementsByClassName('size-slider')[0];
-    const backVideo = document.querySelector('.back-video'); // Selecting the back video element
 
     mainArticle.style.transition = 'width 0.5s ease';
 
@@ -1046,13 +1057,6 @@ const CssFuture = {
       bodyArticle.classList.add('sized');
       mainArticle.classList.add('sized');
       button.style.backgroundImage = "url('../img/future/decrease-size.png')";
-      
-      // Add back video for width greater than 760
-      backVideo.src = "../img/future/room-back.mp4";
-      backVideo.style.width = '100%';
-      backVideo.style.height = '100%';
-      backVideo.loop = true;
-      backVideo.autoplay = true;
 
     } else if (currentWidth <= 480) {
       // If the width is 480px or less, set it to 100vw
@@ -1061,20 +1065,49 @@ const CssFuture = {
       mainArticle.classList.remove('sized');
       button.style.backgroundImage = "url('../img/future/increase-size.png')";
       
-      // Add back video for width less than or equal to 480
-      backVideo.src = "../img/future/waliking-back.mp4";
-      backVideo.style.width = '100%';
-      backVideo.style.height = '100%';
-      backVideo.loop = true;
-      backVideo.autoplay = true;
     }
   },
+
+  formatDate: () => {
+    // Parse the input date string
+    const element = document.querySelector('.article-date');
+    const inputDate = element.innerHTML;
+  
+    const dateParts = inputDate.split('/');
+    if (dateParts.length === 3) {
+      var month = parseInt(dateParts[0], 10);
+      var day = parseInt(dateParts[1], 10);
+      var year = parseInt(dateParts[2], 10);
+    } else {
+      var month = parseInt(dateParts[0], 10);
+      var year = parseInt(dateParts[1], 10);
+    }
+  
+    // Check if the day component is present
+    const hasDay = !isNaN(day);
+  
+    // Create a Date object
+    const formattedDate = hasDay
+      ? new Date(year, month - 1, day)
+      : new Date(year, month - 1);
+  
+    // Get the full month name using toLocaleString
+    const monthName = formattedDate.toLocaleString('en-US', { month: 'long' });
+  
+    // Format the output string
+    let formattedOutput = '';
+  
+    if (hasDay) {
+      formattedOutput = `${monthName} ${day}, ${year}`;
+    } else {
+      formattedOutput = `${monthName}, ${year}`;
+    }
+  
+    element.textContent = formattedOutput;
+  }
+  
+  
 };
-
-// Example usage:
-CssFuture.createButton();
-
-
 
 const Css1990 = {
   extractColor: () => {

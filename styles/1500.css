@@ -457,7 +457,7 @@ body.article.preload * {
   white-space: nowrap;
 }
 
-main.home .size-slider {
+button.size-slider {
   display: none;
 }
 
@@ -2123,7 +2123,8 @@ body.home a {
   border-image-outset: 8px 12px 10px 10px; 
   border-image-repeat: round round;
   border-image-source: url('../img/1500/image-borders.png');
- 
+  width: auto;
+  justify-self: right;
 }
 
 .card > .container > .center > h3 {
@@ -2204,6 +2205,11 @@ body.home a {
 
   .slideshow-container img{
     overflow: hidden;
+    border-image-slice: 25 32 25 32 fill;
+    border-image-width: 12px 12px 12px 12px;
+    border-image-outset: 8px 12px 10px 10px; 
+    border-image-repeat: round round;
+    border-image-source: url('../img/1500/image-borders.png');
   }
 
 
@@ -2351,7 +2357,7 @@ body.home .map-container > .mapboxgl-map {
 }
 
 
-footer.home > .container > .plp-row {
+footer.home > .container > .row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2362,9 +2368,6 @@ footer.home > .container > .plp-row {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -o-border-image: url("../img/1500/upper-border.png");
      border-image: url("../img/1500/upper-border.png");
   border-image-slice: 27 31 27 22;
@@ -2377,4 +2380,8 @@ footer.home > .container > .plp-row {
 #disclaimer-button:hover {
   font-weight: 600;
   cursor: pointer;
+}
+
+footer .row p {
+  text-align-last: left;
 }

@@ -1123,6 +1123,22 @@ span.tag {
   min-height: 100%;
 }
 
+/* loading */
+.loading {
+  background-color: #fae4be;
+  background-image: url("../img/1500/textured-paper.png");
+  margin: 0;
+  padding: 0;
+  color: #3a302a;
+  font-family: 'Chapbook', 'Humane Bordeaux', serif;
+  letter-spacing: 0.1em;
+  display: flex;
+  flex: 1;
+  overflow-x: hidden;
+  box-shadow: inset 0px 0px 60px 0px #9e752ec0;
+  height: 100%;
+  width: 100%;
+}
 
 header.article{
     order:3;

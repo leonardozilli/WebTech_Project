@@ -110,6 +110,7 @@ function mapbox(style) {
                       var marker = $(".marker#" + feature.properties.id);
                       var el;
                       if (marker.length) {
+                        console.log(marker)
                         prev = marker.attr("articles");
                         marker.attr(
                           "articles",

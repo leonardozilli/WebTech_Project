@@ -1095,7 +1095,7 @@ figure:not(.cover-image) figcaption {
   word-spacing: -8px;
 }
 
-.ending-paragraph > p{
+.ending-paragraph {
   text-align: center;
   font-family: 'Crakos', 'Univers 57 Condensed', serif;
   text-transform: uppercase;
@@ -1105,6 +1105,18 @@ figure:not(.cover-image) figcaption {
   font-weight: 100;
   margin: 2rem 0;
 }
+
+.ending-paragraph > p {
+  text-align: center;
+  font-family: 'Crakos', 'Univers 57 Condensed', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.7rem;
+  font-size: 2rem;
+  line-height: 1.4rem;
+  font-weight: 100;
+  margin: 2rem 0;
+}
+
 
 .animate {
   background-color: #000;
@@ -1764,6 +1776,7 @@ nav.navbar {
   color: #000 !important;
   font-size: 1rem;
   padding: 0.5rem 1rem;
+  text-decoration: none;
 }
 
 #section-hero {
@@ -2014,6 +2027,10 @@ body.home h2 {
   transform: rotate(-2deg);
 }
 
+.card:nth-child(2) > .container > p {
+  max-width: 80%;
+}
+
 .card:nth-child(4) {
   max-width: 80%;
   background-color: transparent;
@@ -2076,8 +2093,6 @@ body.home h2 {
     width: 100%;
     object-fit: contain;
     border-radius: 50%;
-    margin-left: -10vh;
-
   }
 
 
@@ -2123,7 +2138,7 @@ body.home h2 {
     font-size: 1.5rem;
     padding: 1rem 0;
     top:auto;
-    bottom: 0;
+    bottom: -1;
     position: absolute;
     left: 50%;
     width: 99%;

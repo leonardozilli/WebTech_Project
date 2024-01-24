@@ -149,7 +149,7 @@ function displayMetadata(article) {
   $(document).on("click", ".metadata-entry", function (e) {
     if (!$(this).hasClass("active") && $(this).attr("data-wiki") !== "null") {
       wikiCall($(this).attr("data-wiki"));
-      if (getStyleCookie() === "1500.css") {
+      if (getStyleCookie() === "1500.css" || getStyleCookie() === "future.css") {
         $(".article-map-container").removeClass('active');
       }
       $(".wiki-container").addClass('active');
@@ -194,7 +194,7 @@ $(document).on("click", "span.tag:not(.date)[data-wiki]", function (e) {
     wikiCall(this.getAttribute("data-wiki"));
     $(".metadata-entry[data-wiki='" + this.getAttribute("data-wiki") + "']").addClass("active");
     $(".metadata-container").toggleClass("active");
-    if (getStyleCookie() === "1500.css") {
+    if (getStyleCookie() === "1500.css" || getStyleCookie() === "future.css") {
       $(".article-map-container").removeClass('active');
     }
     $(".wiki-container").addClass('active');
@@ -424,7 +424,7 @@ function mapbox(geojsonUrl, style) {
       projection: "globe",
       zoom: 0,
       center: [90, 30],
-      minZoom: 2,
+      minZoom: 0,
       attributionControl: false,
     },
   };

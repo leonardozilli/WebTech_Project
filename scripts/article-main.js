@@ -283,6 +283,7 @@ function styleBoundChanges(date, geojson) {
   if (getStyleCookie() === "1500.css") {
     Css1990.revert1990();
     CssPulp.revertPulp(date);
+    CssFuture.revertFuture();
     Css1500.embellish();
     Css1500.organizeList($(".metadata-list:not(#dateList)"), $("#persList .metadata-entry"));
     Css1500.organizeList($(".metadata-list:not(#dateList)"), $("#orgList .metadata-entry"));
@@ -294,12 +295,14 @@ function styleBoundChanges(date, geojson) {
     $(".metadata-bottom").appendTo('header');
     Css1500.revert1500(date);
     CssPulp.revertPulp(date);
+    CssFuture.revertFuture();
     Css1990.extractColor();
     Css1990.dataText();
   } else if (getStyleCookie() === 'pulp.css') {
     // non funziona
     Css1500.revert1500(date);
     Css1990.revert1990();
+    CssFuture.revertFuture();
     CssPulp.addSmallCapsToFirstWord();
     CssPulp.dropCaps();
     CssPulp.addChapterNumbers();
@@ -979,25 +982,8 @@ const CssPulp = {
       }
     $(".article-date").text($("article").first().data("date"));
 
-
-
-
-
   }
 
-
-  
-
-
-  
-
-
-  // applyPulp: () => {
-  //   CssPulp.dropCaps();
-  //   $(".article-date").text(
-  //     CssPulp.dateToRoman($(".article-date").text().replace(/ /g, "/"))
-  //   );
-  // },
 };
 
 
@@ -1062,43 +1048,19 @@ const CssFuture = {
     backVideo.id = 'myVideo';
     backVideo.loop = true;
     backVideo.autoplay = true;
-    // backVideo.style.width = '100%';
+    // backVideo.style.width = '100 %';
     // backVideo.style.height = '100%';
 
     const source = document.createElement('source');
     source.src = '../img/future/walking-back-compact.mp4';
     
-
-    button.onclick = CssFuture.sizeMain;
+    $(button).on("click", function (e) {
+      $('main.article').toggleClass('sized');  
+    })
 
     backVideo.appendChild(source);
     htmlArticle.insertBefore(backVideo, bodyArticle );
     bodyArticle.appendChild(button);
-  },
-
-  sizeMain: () => {
-    const mainArticle = document.querySelector('main.article');
-    const bodyArticle = document.querySelector('body.article');
-    const currentWidth = mainArticle.clientWidth;
-    const button = document.getElementsByClassName('size-slider')[0];
-
-    mainArticle.style.transition = 'width 0.5s ease';
-
-    if (currentWidth > 760) {
-      // If the width is bigger than 760px, set it to 480px
-      mainArticle.style.width = '479px';
-      bodyArticle.classList.add('sized');
-      mainArticle.classList.add('sized');
-      button.style.backgroundImage = "url('../img/future/decrease-size.png')";
-
-    } else if (currentWidth <= 480) {
-      // If the width is 480px or less, set it to 100vw
-      mainArticle.style.width = '98vw';
-      bodyArticle.classList.remove('sized');
-      mainArticle.classList.remove('sized');
-      button.style.backgroundImage = "url('../img/future/increase-size.png')";
-      
-    }
   },
 
   formatDate: () => {
@@ -1137,6 +1099,23 @@ const CssFuture = {
     }
   
     element.textContent = formattedOutput;
+  }, 
+
+  revertFuture:(date) => {
+    // revert date
+    const articleDate = $(".article-date");
+      if (articleDate.length) {
+        articleDate.text(date);
+      }
+    $(".article-date").text($("article").first().data("date"));
+
+    // revert dimensions
+    $(".size-slider").remove();
+
+    // remove video
+    $(".back-video").remove();
+
+ 
   }
 
 

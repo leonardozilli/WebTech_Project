@@ -373,6 +373,7 @@ main.home p{
     overflow: hidden;
     padding: 4px;
     border-radius: 16px;
+    object-fit: contain;
   }
 
   .card h3 {
@@ -669,7 +670,13 @@ footer.home{
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 30px;
     margin: 1vw;
+    width: 98vw;
     max-height: 85vh;
+    transition: width 0.5s ease;
+  }
+
+  main.article button {
+    background-image: url("../img/future/decrease-size.png") !important;
   }
 
  
@@ -1460,6 +1467,7 @@ main.home {
     width: 100%;
     display: flex;
     flex-direction: column;
+    transition: width 0.5s ease;
   }
 
   .article-container {
@@ -1549,10 +1557,15 @@ body.article.sized{
 }
 main.article.sized {
   margin-left: 5px;
-  width: 100%;
+  width: 479px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: width 0.5s ease;
+}
+
+main.article button {
+  background-image: url("../img/future/increase-size.png") !important;
 }
 
 main.article.sized .article-container {

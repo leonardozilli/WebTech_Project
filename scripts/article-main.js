@@ -282,6 +282,7 @@ function styleBoundChanges(date, geojson) {
   mapbox(geojson, getStyleCookie());
   if (getStyleCookie() === "1500.css") {
     Css1990.revert1990();
+    CssPulp.revertPulp(date);
     Css1500.embellish();
     Css1500.organizeList($(".metadata-list:not(#dateList)"), $("#persList .metadata-entry"));
     Css1500.organizeList($(".metadata-list:not(#dateList)"), $("#orgList .metadata-entry"));
@@ -292,17 +293,23 @@ function styleBoundChanges(date, geojson) {
     fitTitle($(".article-title"), 90);
     $(".metadata-bottom").appendTo('header');
     Css1500.revert1500(date);
+    CssPulp.revertPulp(date);
     Css1990.extractColor();
     Css1990.dataText();
   } else if (getStyleCookie() === 'pulp.css') {
     // non funziona
+    Css1500.revert1500(date);
+    Css1990.revert1990();
     CssPulp.addSmallCapsToFirstWord();
     CssPulp.dropCaps();
     CssPulp.addChapterNumbers();
-    CssPulp.wrapH5WithDateContainer();
+    CssPulp.wrapH5WithDateContainer();  
     CssPulp.createArticleBody();
     CssPulp.formatDate();
   } else if (getStyleCookie() === 'future.css'){
+    CssPulp.revertPulp(date);
+    Css1500.revert1500(date);
+    Css1990.revert1990();
     CssFuture.createButton();
     CssFuture.formatDate();
   } else {
@@ -400,7 +407,7 @@ function mapbox(geojsonUrl, style) {
     "pulp.css": {
       container: document.getElementById("article-map"),
       style: "mapbox://styles/itisdone/clrjfeik700pc01pdc9zj7zzr",
-      projection: "globe",
+      projection: "mercator",
       zoom: 0,
       center: [90, 30],
       minZoom: 2,
@@ -410,11 +417,10 @@ function mapbox(geojsonUrl, style) {
     "future.css": {
       container: document.getElementById("article-map"),
       style: "mapbox://styles/itisdone/clrorcpit007z01pn4cwvb2vc",
-      projection: "mercator",
+      projection: "globe",
       zoom: 0,
       center: [90, 30],
       minZoom: 2,
-      maxZoom: 2,
       attributionControl: false,
     },
   };
@@ -950,6 +956,33 @@ const CssPulp = {
     }
 
     element.textContent = formattedOutput;
+  }, 
+
+  revertPulp: (date) => {
+    // revert wrap
+    $(".article-date-container, .article-number, .issue-number").remove();
+    // revert chapter number
+    $(".chapter-heading").remove();
+    // revert small-calps
+    const dropCaps = $(".drop-cap");
+    dropCaps.replaceWith(dropCaps.html());
+    // revert calps-lock
+    const smallCaps = $(".small-caps");
+    smallCaps.replaceWith(smallCaps.html());
+    // revert article body
+    const articleBody = $(".article-body");
+    articleBody.replaceWith(articleBody.contents());
+    // revert date
+    const articleDate = $(".article-date");
+      if (articleDate.length) {
+        articleDate.text(date);
+      }
+    $(".article-date").text($("article").first().data("date"));
+
+
+
+
+
   }
 
 
@@ -1105,6 +1138,8 @@ const CssFuture = {
   
     element.textContent = formattedOutput;
   }
+
+
   
   
 };

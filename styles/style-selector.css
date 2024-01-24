@@ -32,12 +32,13 @@
   height: 100% !important;
   background-color: white !important;
   color: black !important;
-  z-index: 99 !important;
+  z-index: 999 !important;
 }
 
 .style-selector-content > h1 {
   font-family: 'EB Garamond', Times, serif;
   font-size: 4rem;
+  font-weight: 100;
   margin: 3rem 0;
 }
 
@@ -58,12 +59,19 @@
   gap: 3vw !important;
 }
 
-.style-button {
-}
-
-.style-button:hover {
+.style-button:hover:not(#button1990, #button1500) {
   cursor: pointer !important;
   animation: pulse 2s infinite !important;
+}
+
+#button1990:hover {
+  cursor: pointer !important;
+  animation: pulse1990 2s infinite !important;
+}
+
+#button1500:hover {
+  cursor: pointer !important;
+  animation: pulse1500 2s infinite !important;
 }
 
 @keyframes pulse {
@@ -80,6 +88,40 @@
 	100% {
 		transform: scale(1);
 		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
+}
+
+@keyframes pulse1990 {
+	0% {
+		transform: scale(1) rotate(10deg);
+    text-shadow: 0 0 0px rgba(0, 0, 0, 0.7);
+	}
+
+	50% {
+		transform: scale(1.2) rotate(10deg);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+	}
+
+	100% {
+		transform: scale(1) rotate(10deg);
+    text-shadow: 0 0 0px rgba(0, 0, 0, 0.7);
+	}
+}
+
+@keyframes pulse1500 {
+	0% {
+		transform: scale(1);
+    text-shadow: 0 0 0px rgba(0, 0, 0, 0.7);
+	}
+
+	50% {
+		transform: scale(1.2);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+	}
+
+	100% {
+		transform: scale(1);
+    text-shadow: 0 0 0px rgba(0, 0, 0, 0.7);
 	}
 }
 

@@ -78,8 +78,7 @@ function mapbox(style) {
       projection: "globe",
       zoom: 0,
       center: [90, 30],
-      minZoom: 2,
-      maxZoom: 2,
+      minZoom: 1,
       attributionControl: false,
     },
   };

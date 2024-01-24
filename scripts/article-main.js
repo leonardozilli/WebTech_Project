@@ -414,8 +414,7 @@ function mapbox(geojsonUrl, style) {
       projection: "mercator",
       zoom: 0,
       center: [90, 30],
-      minZoom: 2,
-      maxZoom: 2,
+      minZoom: 0,
       attributionControl: false,
     },
     "future.css": {
@@ -424,7 +423,11 @@ function mapbox(geojsonUrl, style) {
       projection: "globe",
       zoom: 0,
       center: [90, 30],
+<<<<<<< Updated upstream
       minZoom: 0,
+=======
+      minZoom: 0.5,
+>>>>>>> Stashed changes
       attributionControl: false,
     },
   };

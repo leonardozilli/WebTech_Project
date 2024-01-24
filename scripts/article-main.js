@@ -71,6 +71,7 @@ function appendMetadataToList(container, data) {
   });
 
   sortedData.forEach((el) => {
+    console.log(el)
     const listItem = $(
       `<li class="metadata-entry" data-wiki="${el.getAttribute('data-wiki')}" onclick="goto('${el.id}')"></li>`
     ).text(el.dataset.name);
@@ -282,8 +283,8 @@ function styleBoundChanges(date, geojson) {
   if (getStyleCookie() === "1500.css") {
     Css1990.revert1990();
     Css1500.embellish();
-    Css1500.organizeList($("#persList"), $("#persList .metadata-entry"));
-    Css1500.organizeList($("#orgList"), $("#orgList .metadata-entry"));
+    Css1500.organizeList($(".metadata-list:not(#dateList)"), $("#persList .metadata-entry"));
+    Css1500.organizeList($(".metadata-list:not(#dateList)"), $("#orgList .metadata-entry"));
     Css1500.countLines();
     Css1500.dropCaps();
     $(".article-date").text(Css1500.dateToRoman(date));
@@ -302,7 +303,8 @@ function styleBoundChanges(date, geojson) {
     CssPulp.createArticleBody();
     CssPulp.formatDate();
   } else if (getStyleCookie() === 'future.css'){
-    CssFuture.sizeMain();
+    CssFuture.createButton();
+    CssFuture.formatDate();
   } else {
     Css1500.revert1500(date);
     Css1990.revert1990();
@@ -550,7 +552,7 @@ function populateLists() {
             if (issue.number !== "docs") {
                 const issueItem = $(
                   `<li class='issue-button issue${issue.number}' onclick=toggleCollapsibleList('article${issue.number}')></li>`
-                ).append("<p>" + issue.title + "</p>");
+                ).text("Issue " + issue.number);
                 const articleList = $(`<ul class='collapsible-list coll-article article${issue.number}'></ul>`);
 
                 issue.articles.forEach((article) => {
@@ -674,7 +676,6 @@ const Css1500 = {
       `
     );
   },
-
   organizeList: (targetList, data) => {
 
     const groupedItems = {};
@@ -967,6 +968,146 @@ const CssPulp = {
 };
 
 
+// const CssFuture ={
+//   createButton:() => {
+//     const button = document.createElement('button');
+//     button.className = 'size-slider';
+
+//     const backVideo = docuement.createElement('back-video')
+//     const bodyArticle = document.querySelector('body.article');
+
+//     button.onclick = CssFuture.sizeMain;
+
+//     bodyArticle.appendChild(backVideo);
+
+//     bodyArticle.appendChild(button);
+//   },
+
+
+//   sizeMain: () => {
+//     const mainArticle = document.querySelector('main.article');
+//     const bodyArticle = document.querySelector('body.article');
+//     const currentWidth = mainArticle.clientWidth;
+//     var button = document.getElementsByClassName('size-slider')[0];
+  
+//     mainArticle.style.transition = 'width 0.5s ease';
+//     // non funziona: assicurati che ci sia quando si carica la pagina
+//     // button.style.backgroundImage = "url('../img/future/decrease-size.png')";
+//     if (currentWidth > 760) {
+//       // If the width is bigger than 760px, set it to 480px
+//       mainArticle.style.width = '479px';
+
+//       bodyArticle.classList.add('sized')
+  
+//       mainArticle.classList.add('sized');
+  
+//       button.style.backgroundImage = "url('../img/future/decrease-size.png')";
+  
+  
+//       } else if (currentWidth <= 480) {
+//       // If the width is 480px, set it to 100vw
+//       mainArticle.style.width = '98vw';
+
+//       bodyArticle.classList.remove('sized')
+  
+//       mainArticle.classList.remove('sized');
+//       button.style.backgroundImage = "url('../img/future/increas-size.png')";
+//     }
+  
+//   }
+// }
+
+const CssFuture = {
+  createButton: () => {
+    const button = document.createElement('button');
+    button.className = 'size-slider';
+    const bodyArticle = document.querySelector('body.article');
+    const htmlArticle = document.querySelector('html');
+
+    const backVideo = document.createElement('video'); // Corrected typo in 'document'
+    backVideo.className = 'back-video'; // Added class name for back video
+    backVideo.id = 'myVideo';
+    backVideo.loop = true;
+    backVideo.autoplay = true;
+    // backVideo.style.width = '100%';
+    // backVideo.style.height = '100%';
+
+    const source = document.createElement('source');
+    source.src = '../img/future/walking-back-compact.mp4';
+    
+
+    button.onclick = CssFuture.sizeMain;
+
+    backVideo.appendChild(source);
+    htmlArticle.insertBefore(backVideo, bodyArticle );
+    bodyArticle.appendChild(button);
+  },
+
+  sizeMain: () => {
+    const mainArticle = document.querySelector('main.article');
+    const bodyArticle = document.querySelector('body.article');
+    const currentWidth = mainArticle.clientWidth;
+    const button = document.getElementsByClassName('size-slider')[0];
+
+    mainArticle.style.transition = 'width 0.5s ease';
+
+    if (currentWidth > 760) {
+      // If the width is bigger than 760px, set it to 480px
+      mainArticle.style.width = '479px';
+      bodyArticle.classList.add('sized');
+      mainArticle.classList.add('sized');
+      button.style.backgroundImage = "url('../img/future/decrease-size.png')";
+
+    } else if (currentWidth <= 480) {
+      // If the width is 480px or less, set it to 100vw
+      mainArticle.style.width = '98vw';
+      bodyArticle.classList.remove('sized');
+      mainArticle.classList.remove('sized');
+      button.style.backgroundImage = "url('../img/future/increase-size.png')";
+      
+    }
+  },
+
+  formatDate: () => {
+    // Parse the input date string
+    const element = document.querySelector('.article-date');
+    const inputDate = element.innerHTML;
+  
+    const dateParts = inputDate.split('/');
+    if (dateParts.length === 3) {
+      var month = parseInt(dateParts[0], 10);
+      var day = parseInt(dateParts[1], 10);
+      var year = parseInt(dateParts[2], 10);
+    } else {
+      var month = parseInt(dateParts[0], 10);
+      var year = parseInt(dateParts[1], 10);
+    }
+  
+    // Check if the day component is present
+    const hasDay = !isNaN(day);
+  
+    // Create a Date object
+    const formattedDate = hasDay
+      ? new Date(year, month - 1, day)
+      : new Date(year, month - 1);
+  
+    // Get the full month name using toLocaleString
+    const monthName = formattedDate.toLocaleString('en-US', { month: 'long' });
+  
+    // Format the output string
+    let formattedOutput = '';
+  
+    if (hasDay) {
+      formattedOutput = `${monthName} ${day}, ${year}`;
+    } else {
+      formattedOutput = `${monthName}, ${year}`;
+    }
+  
+    element.textContent = formattedOutput;
+  }
+  
+  
+};
 
 const Css1990 = {
   extractColor: () => {

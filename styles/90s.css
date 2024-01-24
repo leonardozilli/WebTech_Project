@@ -445,6 +445,20 @@ main.article {
   padding: 1rem;
 }
 
+.issue-number {
+  position: absolute;
+  right: 0;
+  top: 40vh;
+  transform: rotate(-90deg);
+}
+
+.article-number {
+  position: absolute;
+  right: 0;
+  top: 20vh;
+  transform: rotate(-90deg);
+}
+
 
 /* tag lists */
 
@@ -480,6 +494,7 @@ main.article {
   list-style-type: none;
   margin: 1rem 0 0 0;
   padding: 0;
+  white-space: nowrap;
 }
 
 .metadata-entry, .year-entry, .month-entry {

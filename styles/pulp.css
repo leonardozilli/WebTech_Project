@@ -647,21 +647,6 @@ footer h5 {
   -webkit-text-stroke: 0.1pt black;
 }
 
-
-.style-selector-content h1 {
-  font-size: 36pt;
-  margin-bottom: 1rem;
-  text-align: center;
-  font-family: 'Gloucester Old Style W01';
-  line-height: 30pt;
-  font-weight: 700;
-  color: black;
-  -webkit-text-stroke: 0.12pt black;
-  text-transform: uppercase;
-
-}
-
-
 /* ARTICLE */
 
 .loading {
@@ -1226,7 +1211,7 @@ article img{
   padding: 16pt 27pt;
 }
 
-.article-date-container {
+.article-data-container {
   order: 1;
   display: flex;
   flex-direction: row;
@@ -1248,7 +1233,7 @@ article img{
     overflow: auto;
   }
 
-  .article-date-container {
+  .article-data-container {
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
@@ -1257,23 +1242,25 @@ article img{
 
 }
 
-.article-date-container .article-date, .issue-number, .article-number {
+.article-data-container .article-date, .issue-number, .article-number {
   font-family: "Wichita Serial Bold";
   font-size: 11pt;
   text-transform: uppercase;
 }
 
-.article-date-container .article-date {
+.article-data-container .article-date {
   text-align: center;
   margin: 0px;
 }
 
-.article-date-container .issue-number {
+.article-data-container .issue-number {
   text-align: left;
+  margin: 0px;
 }
 
-.article-date-container .article-number{
+.article-data-container .article-number{
   text-align: right;
+  margin: 0px;
 }
 
 

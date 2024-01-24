@@ -5,6 +5,8 @@ class Article {
     this.subtitle = element.data("subtitle");
     this.author = element.data("author");
     this.date = element.data("date");
+    this.issueNumber = element.data("issue");
+    this.articleNumber = element.data("order");
     this.source = element.data("source");
     this.people = $("span.person[id]");
     this.organizations = $("span.organization[id]");
@@ -16,7 +18,7 @@ class Article {
 function goto(className) {
   let elements = $(`.${className}`);
 
-  if (getStyleCookie() === "1500.css") {
+  if (getStyleCookie() === "1500.css" || getStyleCookie() === "future.css") {
     articleContainer = $(".article-container");
     let scrollPos = articleContainer.scrollTop();
     let nextElements = elements.filter(function () {
@@ -71,7 +73,6 @@ function appendMetadataToList(container, data) {
   });
 
   sortedData.forEach((el) => {
-    console.log(el)
     const listItem = $(
       `<li class="metadata-entry" data-wiki="${el.getAttribute('data-wiki')}" onclick="goto('${el.id}')"></li>`
     ).text(el.dataset.name);
@@ -86,6 +87,8 @@ function displayMetadata(article) {
   $(".article-author").text(article.author);
   $(".article-subtitle").text(article.subtitle);
   $(".article-date").text(article.date);
+  $(".issue-number").text("Issue "+article.issueNumber);
+  $(".article-number").text("Article "+article.articleNumber);
   $(".article-source").text("Source").attr("href", article.source);
 
   const populateTimeline = (dates) => {
@@ -211,7 +214,6 @@ function buildPage() {
     /*$("main").before(data);
   });*/
 
-  $("main").prepend('<div class="loading">Loading...</div>').fadeIn(200);
   $("main").prepend(
     '<div class="style-selector-container" style="display: none;"></div>'
   );
@@ -238,9 +240,7 @@ function buildPage() {
       const articleObj = new Article($("article").first());
       document.title = `${articleObj.title}, by ${articleObj.author}`;
       displayMetadata(articleObj);
-      //console.log($(".text-block p:first-of-type").css('line-height'))
       changeStyle(getStyleCookie(), issue, articleNumber, article);
-      $(".loading").fadeOut(100);
       $(".article-text, .metadata-container").animate({ opacity: 0.9 }, 700);
       $(".header-container").animate({ right: "0" }, 500);
     },
@@ -249,7 +249,6 @@ function buildPage() {
         var $errorContainer = $("<div>").addClass("error-container");
         $(".article-container, .metadata-container").remove();
         $("main").append($errorContainer.load("components/404.html"));
-        $(".loading").fadeOut(100);
       } else {
         alert("An unexpected error occurred. Check the console for details.");
       }
@@ -284,9 +283,11 @@ function styleBoundChanges(date, geojson) {
     Css1990.revert1990();
     CssPulp.revertPulp(date);
     CssFuture.revertFuture();
+    $('.issue-number').insertAfter('.header-buttons')
+    $('.article-number').insertAfter('.header-buttons')
     Css1500.embellish();
-    Css1500.organizeList($(".metadata-list:not(#dateList)"), $("#persList .metadata-entry"));
-    Css1500.organizeList($(".metadata-list:not(#dateList)"), $("#orgList .metadata-entry"));
+    Css1500.organizeList($("#persList"), $("#persList .metadata-entry"));
+    Css1500.organizeList($("#orgList"), $("#orgList .metadata-entry"));
     Css1500.countLines();
     Css1500.dropCaps();
     $(".article-date").text(Css1500.dateToRoman(date));
@@ -306,7 +307,7 @@ function styleBoundChanges(date, geojson) {
     CssPulp.addSmallCapsToFirstWord();
     CssPulp.dropCaps();
     CssPulp.addChapterNumbers();
-    CssPulp.wrapH5WithDateContainer();  
+    //CssPulp.wrapH5WithDateContainer();  
     CssPulp.createArticleBody();
     CssPulp.formatDate();
   } else if (getStyleCookie() === 'future.css'){
@@ -674,6 +675,7 @@ $(".article-container").click(function (e) {
   $(".article-container").removeClass("covered");
 });
 
+
 //1500.css-related functions//
 const Css1500 = {
   embellish: () => {
@@ -686,7 +688,6 @@ const Css1500 = {
     );
   },
   organizeList: (targetList, data) => {
-
     const groupedItems = {};
     data.each(function (idx, item) {
       const initial = item.textContent[0].toUpperCase();
@@ -766,6 +767,8 @@ const Css1500 = {
   },
 
   revert1500: (date) => {
+    $(".article-number").appendTo(".article-data-container");
+    $(".issue-number").prependTo(".article-data-container");
     $('.separator').empty()
 
     //remove all list-blocks
@@ -791,11 +794,7 @@ const Css1500 = {
     }
 
     //date
-    const articleDate = $(".article-date");
-    if (articleDate.length) {
-      articleDate.text(date);
-    }
-    $(".article-date").text($("article").first().data("date"));
+    $(".article-date").text($(".article-text").data("date"));
   },
 
   apply1500: () => {
@@ -858,39 +857,6 @@ const CssPulp = {
       // Increment chapter number for the next occurrence
       chapterNumber++;
     });
-  },
-
-  wrapH5WithDateContainer: () => {
-    const articleText = document.querySelector('.article-text');
-    const coverPageH5 = document.querySelector('.cover-page h5');
-  
-    if (coverPageH5 && articleText) {
-      // Get the data-issue attribute value from .article-text
-      const issueNumberValue = articleText.getAttribute('data-issue');
-      const articleNumberValue = articleText.getAttribute('data-order');
-
-      // Create a new div.issue-number before h5
-      const issueNumberContainer = document.createElement('div');
-      issueNumberContainer.className = 'issue-number';
-      issueNumberContainer.textContent = `issue ${issueNumberValue.toString()}`; // Set the content to data-issue value (or an empty string if not available)
-
-      // Create a new div.article-number after h5
-      const articleNumberContainer = document.createElement('div');
-      articleNumberContainer.className = 'article-number';
-      articleNumberContainer.textContent = `article ${articleNumberValue.toString()}`;
-
-
-      // Create a new div.article-date-container
-      const dateContainer = document.createElement('div');
-      dateContainer.className = 'article-date-container';
-      coverPageH5.parentNode.insertBefore(dateContainer, coverPageH5);
-  
-      
-      // Wrap the h5 element with the new div
-      dateContainer.appendChild(issueNumberContainer);
-      dateContainer.appendChild(coverPageH5);
-      dateContainer.appendChild(articleNumberContainer);
-    }
   },
 
 
@@ -962,8 +928,6 @@ const CssPulp = {
   }, 
 
   revertPulp: (date) => {
-    // revert wrap
-    $(".article-date-container, .article-number, .issue-number").remove();
     // revert chapter number
     $(".chapter-heading").remove();
     // revert small-calps
@@ -976,65 +940,11 @@ const CssPulp = {
     const articleBody = $(".article-body");
     articleBody.replaceWith(articleBody.contents());
     // revert date
-    const articleDate = $(".article-date");
-      if (articleDate.length) {
-        articleDate.text(date);
-      }
-    $(".article-date").text($("article").first().data("date"));
+    $(".article-date").text($(".article-text").data("date"));
 
   }
 
 };
-
-
-// const CssFuture ={
-//   createButton:() => {
-//     const button = document.createElement('button');
-//     button.className = 'size-slider';
-
-//     const backVideo = docuement.createElement('back-video')
-//     const bodyArticle = document.querySelector('body.article');
-
-//     button.onclick = CssFuture.sizeMain;
-
-//     bodyArticle.appendChild(backVideo);
-
-//     bodyArticle.appendChild(button);
-//   },
-
-
-//   sizeMain: () => {
-//     const mainArticle = document.querySelector('main.article');
-//     const bodyArticle = document.querySelector('body.article');
-//     const currentWidth = mainArticle.clientWidth;
-//     var button = document.getElementsByClassName('size-slider')[0];
-  
-//     mainArticle.style.transition = 'width 0.5s ease';
-//     // non funziona: assicurati che ci sia quando si carica la pagina
-//     // button.style.backgroundImage = "url('../img/future/decrease-size.png')";
-//     if (currentWidth > 760) {
-//       // If the width is bigger than 760px, set it to 480px
-//       mainArticle.style.width = '479px';
-
-//       bodyArticle.classList.add('sized')
-  
-//       mainArticle.classList.add('sized');
-  
-//       button.style.backgroundImage = "url('../img/future/decrease-size.png')";
-  
-  
-//       } else if (currentWidth <= 480) {
-//       // If the width is 480px, set it to 100vw
-//       mainArticle.style.width = '98vw';
-
-//       bodyArticle.classList.remove('sized')
-  
-//       mainArticle.classList.remove('sized');
-//       button.style.backgroundImage = "url('../img/future/increas-size.png')";
-//     }
-  
-//   }
-// }
 
 const CssFuture = {
   createButton: () => {

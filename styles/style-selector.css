@@ -1,4 +1,25 @@
 /* STYLE-SELECTOR*/
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap');
+
+@font-face {
+  font-family: 'Generic g50';
+  src: url('../fonts/generic/g50-cc-typic-demo-generic-19503/Generic-G50-CC-Typic-DEMO.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'EB Garamond';
+  src: url('../fonts/EB_Garamond/EBGaramond-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Century Modern';
+  src: url('../fonts/Century\ Modern/Century modern.ttf');
+}
 
 .style-selector-container {
   all: unset;
@@ -14,6 +35,12 @@
   z-index: 99 !important;
 }
 
+.style-selector-content > h1 {
+  font-family: 'EB Garamond', Times, serif;
+  font-size: 4rem;
+  margin: 3rem 0;
+}
+
 .style-selector-content {
   all: unset;
   display: flex !important;
@@ -22,7 +49,7 @@
   align-items: center !important;
   height: 100% !important;
   opacity: 1 !important;
-  font-family: none !important;
+  font-size: 1rem !important;
 }
 
 .style-buttons {
@@ -32,8 +59,6 @@
 }
 
 .style-button {
-  transform: scale(100%) !important;
-  transition: transform 0.9s ease-in !important;
 }
 
 .style-button:hover {
@@ -56,6 +81,93 @@
 		transform: scale(1);
 		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 	}
+}
+
+#button1500 {
+  all: unset;
+  font-family: 'Century Modern', serif;
+  font-size: 3rem;
+  color: #3a302a !important;
+
+}
+
+#button1990 {
+  all: unset;
+  color: #000 !important;
+  border: none;
+  font-family: 'Generic g50', sans-serif;
+  font-size: 2rem;
+  transform: rotate(10deg);
+}
+
+#buttonPulp {
+  all: unset;
+  position: relative;
+  display: inline-block;
+  padding: 10px 25px;
+  background-color: rgb(207, 176, 119);
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Jost', sans-serif;
+  font-size: 10pt;
+  font-weight: 400;
+  border: 3px solid black;
+  outline: 1px solid black;
+  outline-offset: -5px;
+}
+
+#buttonPulp:hover {
+  background-color: rgb(227, 27, 18);
+  border-color: rgb(227, 192, 172);
+  outline-color: rgb(227, 192, 172);
+  color: rgb(227, 192, 172) !important;
+}
+
+
+#buttonPulp:active {
+  background-color: rgb(227, 27, 18);
+  border-color: rgb(227, 192, 172);
+  outline-color: rgb(227, 192, 172);
+  color: rgb(227, 192, 172) !important;
+}
+
+
+#buttonFuture {
+    all: unset;
+    transform: scale(100%) !important;
+    transition: transform 0.9s ease-in !important;
+    align-items: center;
+    appearance: none;
+    background-color: #fff;
+    border-radius: 24px;
+    border-style: none;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px, rgba(0, 0, 0, .14) 0 6px 10px 0, rgba(0, 0, 0, .12) 0 1px 18px 0;
+    box-sizing: border-box;
+    color: #3c4043;
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 48px;
+    justify-content: center;
+    letter-spacing: .25px;
+    line-height: normal;
+    max-width: 100%;
+    overflow: visible;
+    padding: 2px 24px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: auto;
+    will-change: transform,opacity;
+    z-index: 0;
 }
 
 

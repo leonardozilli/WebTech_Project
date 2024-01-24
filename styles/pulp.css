@@ -68,7 +68,9 @@
 /* body italic */
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@1,500&display=swap');
 
-
+html {
+  scroll-behavior: smooth !important;
+}
 body, html {
   font-family: 'Theano Old Style';
   /* font-family: 'EB Garamond', serif !important; */
@@ -893,22 +895,65 @@ main.article {
   width: 100%;
 }
 
-.metadata-upper {
-  border-image: url("../img/1500/upper-border.png");
-  border-image-slice: 27 31 27 22;
-  border-image-width: 10px 10px 10px 10px;
-  border-image-outset: 10px 15px 10px 10px;
-  border-image-repeat: stretch stretch;
-}
 
 .article-map {
   height: 100%;
   width: 100%;
-  border-image: url("../img/1500/map-border.png");
-  border-image-slice: 90 90 90 90;
-  border-image-width: 35px 41px 40px 40px;
-  border-image-outset: 20px 23px 20px 20px;
-  border-image-repeat: round;
+  border: #000000 solid 1pt;
+  outline: #000000 solid 2pt;
+  outline-offset: 3pt;
+}
+
+/* mapbox markers */
+.marker {
+  background-image: url('/img/pulp/place-marker.png');
+  background-size: cover;
+  width: 0.75rem;
+  height: 0.75rem;
+  cursor: pointer;
+  transition: width 0.3s, height 0.3s;
+}
+
+.marker:hover {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.mapboxgl-popup-content {
+  font-family: "Theano Old Style";
+  padding: 0.2rem 0.3rem;
+  background-color: white;
+  border: 2px solid black;
+}
+
+body.home .mapboxgl-popup-content {
+  font-family: "Theano Old Style";
+  padding: 0.2rem 0.3rem;
+  background-color: white;
+  border: 2px solid black;
+}
+
+.mapboxgl-popup-content > h3 {
+  margin: 0;
+}
+
+.mapboxgl-popup-content > p {
+  text-align: left !important;
+  text-align-last: left !important;
+}
+
+.mapboxgl-popup-content > p::first-letter {
+  all: unset !important;
+}
+
+.mapboxgl-popup-tip {
+  color: #fae4be;
+  opacity: 0.8;
+  border: 2px solid #3a302a;
+}
+
+.mapboxgl-popup-close-button {
+  display: none;
 }
 
 

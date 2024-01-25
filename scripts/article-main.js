@@ -25,8 +25,6 @@ function goto(className) {
       return $(this).offset().top > 31;
     });
 
-    console.log(className)
-
     if (nextElements.length > 0 && !nextElements.first().hasClass("searched")) {
       nextElement = nextElements.first();
     } else {
@@ -151,7 +149,7 @@ function displayMetadata(article) {
   $(document).on("click", ".metadata-entry", function (e) {
     if (!$(this).hasClass("active") && $(this).attr("data-wiki") !== "null") {
       wikiCall($(this).attr("data-wiki"));
-      if (getStyleCookie() === "1500.css" || getStyleCookie() === "future.css") {
+      if (getStyleCookie() === "1500.css" || getStyleCookie() === "future.css" || getStyleCookie() === 'pulp.css') {
         $(".article-map-container").removeClass('active');
       }
       $(".wiki-container").addClass('active');
@@ -196,7 +194,7 @@ $(document).on("click", "span.tag:not(.date)[data-wiki]", function (e) {
     wikiCall(this.getAttribute("data-wiki"));
     $(".metadata-entry[data-wiki='" + this.getAttribute("data-wiki") + "']").addClass("active");
     $(".metadata-container").toggleClass("active");
-    if (getStyleCookie() === "1500.css" || getStyleCookie() === "future.css") {
+    if (getStyleCookie() === "1500.css" || getStyleCookie() === "future.css" || getStyleCookie() === 'pulp.css') {
       $(".article-map-container").removeClass('active');
     }
     $(".wiki-container").addClass('active');
@@ -563,7 +561,7 @@ function populateLists() {
             if (issue.number !== "docs") {
                 const issueItem = $(
                   `<li class='issue-button issue${issue.number}' onclick=toggleCollapsibleList('article${issue.number}')></li>`
-                ).text("Issue " + issue.number);
+                ).append("<p>" + issue.title + "</p>");
                 const articleList = $(`<ul class='collapsible-list coll-article article${issue.number}'></ul>`);
 
                 issue.articles.forEach((article) => {

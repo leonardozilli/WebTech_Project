@@ -107,6 +107,10 @@ body, html {
     -webkit-text-stroke: 0.1pt black;
   }
 
+  .navbar.navbar-expand-lg .navbar-brand{
+    text-stroke: 0.1pt black;
+  }
+
   .navbar.navbar-expand-lg li {
     font-family: 'Jost', sans-serif;
     font-size: 10pt;

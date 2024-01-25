@@ -5,6 +5,8 @@
     src: url('../fonts/future/pirulen/pirulen-rg.otf');
 }
 
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Oswald:wght@200;300;400;500;600;700&display=swap');
+
 html {
   scroll-behavior: smooth !important;
 }
@@ -19,6 +21,7 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
+    font-family: "Montserrat", sans-serif;
 }
 
 * {
@@ -39,7 +42,7 @@ button {
   cursor: pointer;
   display: inline-flex;
   fill: currentcolor;
-  font-family: "Google Sans",Roboto,Arial,sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 14px;
   font-weight: 500;
   height: 48px;
@@ -143,7 +146,7 @@ p {
 .navbar-brand{
     width: 30%;
     margin-right: 0px;
-    font-family: "Pirulen RG";
+    font-family: "Montserrat", sans-serif;
 }
 
 .me-auto {
@@ -187,6 +190,7 @@ p {
   }
 
 
+
 main.home {
   order: 2;
   scroll-behavior: smooth;
@@ -196,7 +200,6 @@ main.home {
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
   border-radius: 20px;
-  font-family: 'Poppins', sans-serif;
 }
 
 main.home h2 {
@@ -277,7 +280,7 @@ main.home p{
     /* non funziona:cambia immagine */
     background-size: cover;
     transition: width 0.5s ease;
-    z-index: 1;
+    z-index: 2;
     background-image: url("../img/future/decrease-size.png")
     
   }
@@ -743,7 +746,7 @@ footer.home{
   }
 
   main.article{
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
   }
 
   .fab-wrapper{
@@ -814,6 +817,11 @@ footer.home{
     height: 85vh;
     overflow-y: scroll;
     padding: 12pt;
+    color: white;
+}
+
+.text-block {
+  padding: 20pt 52pt !important;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -849,17 +857,38 @@ footer.home{
   margin-bottom: 16pt;
 }
 
+.article-title, .article-subtitle {
+  font-family: "Archivo", sans-serif;
+  text-transform: uppercase;
+}
+
 .titles .article-subtitle {
   margin-bottom: 16pt;
 }
+
+.article-subtitle {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+
+  font-size: 18pt;
+}
 .titles .article-author {
-  margin-bottom: 16pt;
+  margin-bottom: 18pt;
+  font-family: "Archivo", sans-serif;
+  font-weight: 500;
+  
 }
 
 .cover-page .article-date {
   order: 1;
   margin-top: 24pt;
   margin-bottom: 0px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+}
+
+.issue-number, .article-number {
+  display: none;
 }
 
 .cover-image {
@@ -953,8 +982,8 @@ span.tag[data-wiki] {
     text-decoration: underline;
   }
 
-span.tag {
-    font-family: 'Courier New', Courier, monospace;
+span.tag.organization, span.tag.person, span.tag.place {
+    font-family: 'Oswald', sans-serif;
 
 }
 
@@ -1054,6 +1083,7 @@ overflow-y: scroll;
     list-style-type: none;
     margin: 0;
     padding: 0;
+    font-family: 'Oswald', sans-serif;
   }
   
   .metadata-entry {
@@ -1133,7 +1163,6 @@ overflow-y: scroll;
     background-color: transparent;
     flex-direction: row;
     flex-wrap: nowrap;
-
     gap: 2rem;
     justify-content: center;
     align-items: center;
@@ -1150,8 +1179,6 @@ overflow-y: scroll;
     flex: 0 0 40%;
     padding-left: 2rem;
     justify-content: center;
-    max-width: 40%;
-    height: auto;
   }
 
   .wiki-thumbnail-container.active {
@@ -1159,8 +1186,9 @@ overflow-y: scroll;
   }
   
   .wiki-thumbnail {
-    height: auto;
-    width: 100%;
+    max-width: auto;
+    max-height: 30vh;
+    justify-content: center;
   }
   
   .wiki-text{
@@ -1316,7 +1344,7 @@ header.article{
 
 .header-container .header-button-text{
   /* non funziona: scegliere font */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Montserrat', sans-serif;
 
 }
 
@@ -1342,6 +1370,119 @@ header.article{
 .header-icon {
     display: none;
 }
+
+
+/* header.article:hover .header-button-text, header.article:hover .collapsible-list li {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+  background-color: #174ea6;
+}
+
+.header-button-text:hover {
+  font-weight: bold;
+}
+
+.collapsible-list {
+  display: none;
+  margin: 0;
+  text-align: left;
+}
+
+.collapsible-list li > a {
+  color: #3a302a;
+  text-decoration: none;
+}
+
+.collapsible-list li > a:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.collapsible-list.active {
+    display: block;
+}
+
+.collapsible-list li {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  transition: opacity 0.5s ease-out;
+  max-width: 20vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.collapsible-list .issue-button:hover {
+    cursor: pointer;
+}
+
+.coll-article {
+  padding-left: 1rem;
+} */
+
+
+header.article:hover .header-button-text,
+header.article:hover .collapsible-list li {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+  background-color: #174ea6;
+  z-index: 50;
+}
+
+.header-button-text:hover {
+  font-weight: bold;
+}
+
+.collapsible-list {
+  display: none;
+  margin: 0;
+  text-align: left;
+  position: absolute;
+  bottom: 100%; /* Change from top to bottom */
+}
+
+.collapsible-list li > a {
+  color: #3a302a;
+  text-decoration: none;
+}
+
+.collapsible-list li > a:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.collapsible-list.active {
+  display: block;
+  z-index: 50;
+}
+
+.collapsible-list li {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  transition: opacity 0.5s ease-out;
+  max-width: 20vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.collapsible-list .issue-button:hover {
+  cursor: pointer;
+}
+
+.coll-article {
+  padding-left: 1rem;
+}
+
+
 
 
 
@@ -1715,16 +1856,12 @@ main.home {
 
 @media only screen  and (max-width: 767px){
 
-  body.article{
-    padding: 0px 20px;
-  }
   main.article {
     width: 100%;
     display: flex;
     flex-direction: column;
-    transition: width 0.5s ease;
   }
-
+  
   .fab-wrapper {
     display: block;
     position: absolute !important;
@@ -1732,42 +1869,52 @@ main.home {
     right: 0.5rem;
     z-index: 3;
   }
-
-  #fab-style-button , #fab-home-button {
+  
+  #fab-style-button,
+  #fab-home-button {
     display: none;
   }
-
+  
   .article-container {
     width: 100%;
     height: 50%;
-    
   }
-
-  .article-text img{
+  
+  .article-text img {
     max-width: 90%;
     height: auto;
   }
 
+
   .metadata-container {
-    width: 100%;
-    height: 100%;
-    display: none;
-    z-index: 2;
     position: absolute;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /*background-color: ; */
+    display: inline;
+    opacity: 1 !important;
+    width: 100%;
+    height: 86vh;
+    bottom: -100vh;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
     animation: slide-down 0.5s ease-in-out forwards;
+    z-index: 2;
+  }
+
+  .article-container.covered {
+    opacity: 0.7;
+    transition: opacity 0.5s ease-in-out;
   }
 
   .metadata-container.active {
-    display: flex;
-    height: 100%;
+    bottom: 0;
     overflow-y: scroll;
+    z-index: 2;
     animation: slide-up 0.5s ease-in-out forwards;
   }
 
+
+  
   .metadata-bottom {
     width: 100%;
     display: flex;
@@ -1777,8 +1924,8 @@ main.home {
     justify-content: flex-start;
     padding: 6pt;
   }
-
-  .metadata-buttons-container{
+  
+  .metadata-buttons-container {
     width: 100% !important;
     display: flex;
     flex-direction: row !important;
@@ -1786,36 +1933,67 @@ main.home {
     align-items: center;
     justify-content: space-around !important;
   }
-
+  
   .metadata-buttons-container button {
     margin-top: 0px;
     margin-bottom: 0px;
   }
-
-  .lists-container{
+  
+  .lists-container {
     max-height: 80%;
     width: 100% !important;
-   
   }
-
+  
   .metadata-list {
     max-height: 90%;
     flex-direction: column;
   }
-
+  
   .wiki-container {
     display: none;
     position: relative;
     z-index: 1;
     background-color: transparent;
     flex-direction: column;
-    gap: 2rem;
     justify-content: flex-end;
     align-items: center;
-    height: 100%;
+    gap: 0px;
     width: 100%;
+  }
+
+  .wiki-text {
+    flex: 0 0 40%;
+    height: auto;
+  }
+
+  .wiki-thumbnail {
+    flex: 0 0 60%;
+    width: 100%;
+
+    max-height: 25vh;
+  }
+
+  @keyframes slide-up {
+    0% {
+      top: -100vh;
+      display: none;
+    }
+    100% {
+      top: 0;
+    }
+  }
+  
+    @keyframes slide-down {
+    0% {
+      top: 0;
+    }
+    100% {
+      top: -100vh;
+      display: none;
+    }
+  }
 }
-}
+  
 
 @media only screen and (max-width: 480px){
   .article h1{
@@ -1830,8 +2008,152 @@ main.home {
     margin: 0px;
     padding: 2px 12px;
   }
+  .text-block{
+    padding: 6pt 12pt !important;
+  }
 
   .header-button-container .header-button-text {
     font-size: 6pt !important;
   }
 }
+
+
+
+/* sized */
+
+/* 
+main.article {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.fab-wrapper {
+  display: block;
+  position: absolute !important;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 3;
+}
+
+#fab-style-button,
+#fab-home-button {
+  display: none;
+}
+
+.article-container {
+  width: 100%;
+  height: 50%;
+}
+
+.article-text img {
+  max-width: 90%;
+  height: auto;
+}
+
+.metadata-container {
+  width: 100%;
+  height: 86vh;
+  display: none;
+  z-index: 2;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: slide-down 0.5s ease-in-out forwards;
+}
+
+.metadata-container.active {
+  display: flex;
+  top: 0; 
+  right: 0; 
+  overflow-y: scroll;
+  opacity: 1 !important;
+  background-color: white;
+  animation: slide-up 0.5s ease-in-out forwards;
+}
+
+.metadata-bottom {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 6pt;
+}
+
+.metadata-buttons-container {
+  width: 100% !important;
+  display: flex;
+  flex-direction: row !important;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-around !important;
+}
+
+.metadata-buttons-container button {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.lists-container {
+  max-height: 80%;
+  width: 100% !important;
+}
+
+.metadata-list {
+  max-height: 90%;
+  flex-direction: column;
+}
+
+.wiki-container {
+  display: none;
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+
+@keyframes slide-up {
+  0% {
+    bottom: -75vh;
+    display: none;
+  }
+  100% {
+    bottom: 90vh;
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    bottom: 80vh;
+  }
+  100% {
+    bottom: -75vh;
+    display: none;
+  }
+}
+
+.article h1{
+  font-size: 24pt;
+}
+
+.header-container .button-container {
+  max-width: 90vw;
+}
+
+.metadata-buttons-container button {
+  margin: 0px;
+  padding: 2px 12px;
+}
+
+.header-button-container .header-button-text {
+  font-size: 6pt !important;
+} */

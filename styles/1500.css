@@ -109,7 +109,7 @@ body.article {
   padding: 0;
   color: #3a302a;
   font-family: 'Chapbook', 'Humane Bordeaux', serif;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 8% 92%;
@@ -2422,4 +2422,13 @@ th {
 
 .documentation > .cover-page > .titles > .article-title {
   font-size: 3.5rem !important;
+}
+
+.documentation .text-block:not(:first-of-type) > h3 + p::first-letter, .documentation h5 + p::first-letter {
+  font-size: 2rem;
+  line-height: 2.5rem;
+  float: left;
+  margin-right: 0.2rem;
+  margin-bottom: -1rem;
+  padding-right: 0;
 }

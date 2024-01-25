@@ -724,7 +724,7 @@ main.article {
   float: right;
   height: 50rem;
   aspect-ratio: 1 / 1;
-  shape-outside: ellipse(302px 353px at 654px 425px);
+  shape-outside: ellipse(302px 353px at 640px 425px);
 }
 
 .text-block p {
@@ -2921,7 +2921,7 @@ table {
 }
 
 th, td {
-  border: 1px solid #3a302a;
+  border: 2px solid #3a302a;
   padding: 10px;
   text-align: left;
 }

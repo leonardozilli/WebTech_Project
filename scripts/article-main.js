@@ -25,6 +25,8 @@ function goto(className) {
       return $(this).offset().top > 31;
     });
 
+    console.log(className)
+
     if (nextElements.length > 0 && !nextElements.first().hasClass("searched")) {
       nextElement = nextElements.first();
     } else {
@@ -290,7 +292,7 @@ function styleBoundChanges(date, geojson) {
     Css1500.organizeList($("#orgList"), $("#orgList .metadata-entry"));
     Css1500.countLines();
     Css1500.dropCaps();
-    $(".article-date").text(Css1500.dateToRoman(date));
+    $(".article-date").text(Css1500.dateToRoman($(".article-text").data("date")));
   } else if (getStyleCookie() === "90s.css") {
     fitTitle($(".article-title"), 90);
     $(".metadata-bottom").appendTo('header');
@@ -1012,11 +1014,7 @@ const CssFuture = {
 
   revertFuture:(date) => {
     // revert date
-    const articleDate = $(".article-date");
-      if (articleDate.length) {
-        articleDate.text(date);
-      }
-    $(".article-date").text($("article").first().data("date"));
+    $(".article-date").text($(".article-text").data("date"));
 
     // revert dimensions
     $(".size-slider").remove();

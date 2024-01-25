@@ -1661,8 +1661,11 @@ body.home a {
   border-image-outset: 8px 12px 10px 10px; 
   border-image-repeat: round round;
   border-image-source: url('../img/1500/image-borders.png');
-  width: auto;
   justify-self: right;
+}
+
+.card:nth-child(2) > img {
+  width: auto !important;
 }
 
 .card > .container > .center > h3 {

@@ -76,7 +76,7 @@ body, html {
   /* font-family: 'EB Garamond', serif !important; */
   /* font-family: "Goudy Old Style" !important; */
   font-weight: 500 !important;
-  font-size: 10pt !important;
+  font-size: 10pt;
   line-height: 11pt !important;
   text-align: justify;
 }

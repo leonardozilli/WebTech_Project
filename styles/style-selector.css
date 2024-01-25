@@ -37,7 +37,7 @@
 
 .style-selector-content > h1 {
   font-family: 'EB Garamond', Times, serif;
-  font-size: 4rem;
+  font-size: 3em !important;
   font-weight: 100;
   margin: 3rem 0;
 }

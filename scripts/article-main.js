@@ -961,7 +961,7 @@ const CssFuture = {
     // backVideo.style.height = '100%';
 
     const source = document.createElement('source');
-    source.src = '../img/future/walking-back-compact.mp4';
+    source.src = 'img/future/walking-back-compact.mp4';
     
     $(button).on("click", function (e) {
       $('main.article').toggleClass('sized');  

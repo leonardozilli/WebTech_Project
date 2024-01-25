@@ -924,7 +924,7 @@ main.article {
 
 /* mapbox markers */
 .marker {
-  background-image: url('/img/pulp/place-marker.png');
+  background-image: url('../img/pulp/place-marker.png');
   background-size: cover;
   width: 0.75rem;
   height: 0.75rem;

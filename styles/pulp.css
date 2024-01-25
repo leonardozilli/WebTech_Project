@@ -160,7 +160,7 @@ body, html {
   /* The hero image */
     .hero-image {
       /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/forest.jpg");
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/pulp/hero-image.jpg");
 
       /* Set a specific height */
       height: 100vh;
@@ -649,6 +649,21 @@ footer h5 {
   -webkit-text-stroke: 0.1pt black;
 }
 
+
+.style-selector-content h1 {
+  font-size: 36pt;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-family: 'Gloucester Old Style W01';
+  line-height: 30pt;
+  font-weight: 700;
+  color: black;
+  -webkit-text-stroke: 0.12pt black;
+  text-transform: uppercase;
+
+}
+
+
 /* ARTICLE */
 
 .loading {
@@ -684,9 +699,8 @@ main.article {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-}
-.fab-wrapper {
-  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -699,7 +713,7 @@ main.article {
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
-  height: 100vh;
+  height: 90vh;
   padding: 16pt 27pt;
 }
 @media only screen and (max-width:480px){
@@ -725,8 +739,9 @@ main.article {
   margin-bottom: 11pt;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
+  height: 49%;
 
 }
 
@@ -838,6 +853,7 @@ main.article {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 49%;
 }
 
 /* dates */
@@ -899,9 +915,7 @@ main.article {
 .article-map {
   height: 100%;
   width: 100%;
-  border: #000000 solid 1pt;
-  outline: #000000 solid 2pt;
-  outline-offset: 3pt;
+  border : black solid 2pt;
 }
 
 /* mapbox markers */
@@ -1002,9 +1016,18 @@ body.home .mapboxgl-popup-content {
 
 }
 
-
-
 .wiki-text{
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-end;
+  align-items: center;
+  flex: 0 0 60%;
+  padding-right: 2.5rem;
+  max-height: 100%;
+  max-width: 60%;
+}
+
+/* .wiki-text{
   max-height: 40vw;
   padding: 11pt 0px;
   display: flex;
@@ -1012,7 +1035,7 @@ body.home .mapboxgl-popup-content {
   justify-content: space-between;
   flex: 0 0 60%;
   max-height: 100%;
-}
+} */
 
 .wiki-extract {
   overflow-y: scroll;
@@ -1194,40 +1217,36 @@ header.article{
   background-color:transparent !important;
 }
 
-.fab-wrapper{
-  width: 50%;
-  display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
-  
+.collapsible-list.issues {
+  position: absolute;
+  left: calc(var(--header-width) - 2rem);
+  top: 2rem;
+  padding: 0 1rem;
+  border: 1px solid #000;
 }
 
-.fab-icon{
+.collapsible-list.issues li {
+  font-family: 'Generic g20', serif;
+  font-size: 1rem;
+  text-align: left;
+  list-style-type: none;
+  white-space: nowrap;
+
+}
+
+.collapsible-list li:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.collapsible-list {
   display: none;
 }
 
-.fab-buttons{
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  padding: 5pt;
-  margin: 5pt;
-  outline: #000000 solid 2pt;
-  outline-offset: -4pt;
-  justify-content: space-around;
-}
 
-.fab-buttons button{
-  background-color: white;
-}
 
-#fab-style-button{
-  display: none;
-}
 
-#fab-home-button{
-  display: none;
-}
+
 .header-icon{
   display: none;
 }
@@ -1241,7 +1260,7 @@ header.article{
   flex-wrap: wrap;
   align-items: center;
   overflow-y: scroll;
-  height: 100vh;
+  height: 90vh;
 }
 article img{
   max-width: 20vw;
@@ -1259,7 +1278,7 @@ article img{
 .article-data-container {
   order: 1;
   display: flex;
-  flex-direction: row;
+  flex-direction: row!important;
   flex-wrap: wrap;
   border: black  solid 1pt;
   outline: black  solid 1pt;
@@ -1278,34 +1297,38 @@ article img{
     overflow: auto;
   }
 
-  .article-data-container {
+  .article-date-container {
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
 
   }
 
+ 
+
 }
 
-.article-data-container .article-date, .issue-number, .article-number {
+.article-date, .issue-number, .article-number {
   font-family: "Wichita Serial Bold";
   font-size: 11pt;
-  text-transform: uppercase;
+  text-transform: uppercase !important;
 }
 
-.article-data-container .article-date {
+.article-date-container .article-date {
   text-align: center;
-  margin: 0px;
 }
 
-.article-data-container .issue-number {
+.article-date-container .issue-number {
   text-align: left;
-  margin: 0px;
 }
 
-.article-data-container .article-number{
+.article-date-container .article-number{
   text-align: right;
-  margin: 0px;
+}
+
+.article-data-container h5 {
+  margin: 0px !important;
 }
 
 
@@ -1366,7 +1389,7 @@ article img{
     order: 3;
     text-transform: uppercase;
     font-style: italic;
-    font-size: 18pt;
+    font-size: 16pt;
     margin: 0pt 0pt 18pt 0pt;
   }
 
@@ -1386,7 +1409,7 @@ article img{
 .article-body{
   max-width: 7in;
   width: 100%;
-  column-count: 2;
+  column-count: 2 !important;
   padding: 16pt 27pt;
   column-gap: 6pt;
   column-width: 186pt !important;
@@ -1448,6 +1471,7 @@ article img{
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  align-items: center;
 
 }
 
@@ -1566,4 +1590,209 @@ span.tag:hover[data-wiki] {
   display: none;
 }
 
-.fab-wrapper {display: none;}
+
+.fab-wrapper{
+  display: none;
+}
+
+
+@media only screen and (max-width: 1000px) {
+  body.article {
+    display: flex;
+  }
+
+  header.article{
+    display: none;
+  }
+
+  .article-container {
+    flex-basis: 100%;
+    padding: 2rem 3rem;
+    transition: opacity 0.5s ease-in-out;
+    align-items: ce;
+  }
+
+  .cover-image > img {
+    max-width: 80%;
+  }
+
+  .metadata-container {
+    position: absolute;
+    display: inline;
+    opacity: 1 !important;
+    width: 100%;
+    bottom: -100vh;
+    z-index: 2;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    animation: slide-down 0.5s ease-in-out forwards;
+    border-top: #000000 solid 2pt;
+  }
+
+  .metadata-container.active {
+    bottom: 0;
+    overflow-y: scroll;
+    animation: slide-up 0.5s ease-in-out forwards;
+    border-top: #000000 solid 2pt;
+  }
+
+  @keyframes slide-up {
+  0% {
+    bottom: -100vh;
+    display: none;
+  }
+  100% {
+    bottom: 0;
+  }
+}
+
+  @keyframes slide-down {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    bottom: -100vh;
+    display: none;
+  }
+}
+
+  .metadata-upper {
+    height: 40%;
+    border-image-outset: 25px;
+    padding: 0;
+    min-height: unset;
+  }
+
+
+  .article-map {
+    border-image-outset: 18px;
+    border-image-width: 30px;
+  }
+
+  .wiki-container {
+    height: 40%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    padding: 0;
+    flex-direction: column;
+  }
+
+  .wiki-text {
+    padding: 0;
+  }
+
+  .wiki-readmore {
+    margin: 0;
+  }
+
+  .wiki-thumbnail-container {
+    height: 100%;
+    padding: 0;
+  }
+
+  .article-container.covered {
+    opacity: 0.7;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .fab-wrapper {
+    display: block;
+  }
+
+  .fab-icon {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 0;
+    cursor: pointer;
+    z-index: 99;
+    filter: drop-shadow(0px 2px 2px #222);
+    background-image: url('../img/1500/fab-icon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    height: 4rem;
+    width: 2rem;
+  }
+
+  .fab-button {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    cursor: pointer;
+    z-index: 98;
+    padding: 0;
+    margin: 0;
+    background-color: #3a302a;
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    opacity: 0;
+    transition: all .4s ease-in-out;
+    color: white;
+  }
+
+  .fab-wrapper.active .fab-buttons{
+    display: block;
+  }
+
+  .fab-wrapper.active .fab-button{
+    opacity: 1;
+    transition: all .4s ease-in-out;
+  }
+
+  .fab-wrapper.active #fab-style-button {
+    transform: translate(0px, -100px);
+  }
+
+  .fab-wrapper.active #fab-home-button {
+    transform: translate(-50px, -70px);
+  }
+
+  .fab-wrapper.active #fab-metadata-button {
+    transform: translate(-70px, -20px);
+  }
+
+}
+
+/* documentation */
+
+.documentation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.table-container{
+  width: 100%;
+  overflow-x: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

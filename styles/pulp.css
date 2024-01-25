@@ -1219,14 +1219,16 @@ header.article{
 
 .collapsible-list.issues {
   position: absolute;
-  left: calc(var(--header-width) - 2rem);
+  left: 28vw;
   top: 2rem;
-  padding: 0 1rem;
-  border: 1px solid #000;
+  padding: 1pt 1rem;
+  border: 1pt solid #000;
+  background-color: white;
+  z-index: 3;
 }
 
 .collapsible-list.issues li {
-  font-family: 'Generic g20', serif;
+  font-family: 'Jost', sans-serif;
   font-size: 1rem;
   text-align: left;
   list-style-type: none;
@@ -1708,14 +1710,13 @@ span.tag:hover[data-wiki] {
     padding: 0;
     cursor: pointer;
     z-index: 99;
-    filter: drop-shadow(0px 2px 2px #222);
-    background-image: url('../img/1500/fab-icon.png');
+    background-image: url('../img/pulp/detective-icon.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-color: transparent;
-    border: none;
+    border: 1pt solid black;
     height: 4rem;
-    width: 2rem;
+    width: 4rem;
   }
 
   .fab-button {
@@ -1724,15 +1725,18 @@ span.tag:hover[data-wiki] {
     right: 2rem;
     cursor: pointer;
     z-index: 98;
-    padding: 0;
+    padding: 2pt;
     margin: 0;
-    background-color: #3a302a;
-    border-radius: 50%;
-    height: 2rem;
-    width: 2rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: white;
+    border: 1pt solid black;
+    outline: none;
+    height: 4rem;
+    width: 4rem;
     opacity: 0;
     transition: all .4s ease-in-out;
-    color: white;
+    color: transparent;
   }
 
   .fab-wrapper.active .fab-buttons{
@@ -1745,15 +1749,18 @@ span.tag:hover[data-wiki] {
   }
 
   .fab-wrapper.active #fab-style-button {
-    transform: translate(0px, -100px);
+    transform: translate(0px, -80px);
+    background-image: url("../img/pulp/theme.png");
   }
 
   .fab-wrapper.active #fab-home-button {
-    transform: translate(-50px, -70px);
+    transform: translate(-70px, -70px);
+    background-image: url("../img/pulp/home.png");
   }
 
   .fab-wrapper.active #fab-metadata-button {
-    transform: translate(-70px, -20px);
+    transform: translate(-80px, 0px);
+    background-image: url("../img/pulp/search-location.png");
   }
 
 }
